@@ -15,7 +15,19 @@ import {
   Leaf,
   HandHeart,
   GraduationCap,
-  TreeDeciduous
+  TreeDeciduous,
+  Play,
+  FileText,
+  Newspaper,
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Linkedin,
+  Clock,
+  CheckCircle2,
+  Calendar,
+  MapPin
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -38,9 +50,59 @@ export default function Home() {
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
+    { name: "Team", href: "#team" },
     { name: "Programmes", href: "#programmes" },
-    { name: "Get Involved", href: "#involved" },
+    { name: "Projects", href: "#projects" },
+    { name: "Archive", href: "#archive" },
     { name: "Contact", href: "#contact" },
+  ];
+
+  const teamMembers = [
+    { name: "Catherine Namirembe", role: "Founder & Executive Director", image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=300&h=300&fit=crop" },
+    { name: "Samuel Okello", role: "Programs Manager", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" },
+    { name: "Grace Achieng", role: "Education Coordinator", image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop" },
+    { name: "David Mwangi", role: "Environmental Officer", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop" },
+    { name: "Faith Wanjiku", role: "Community Liaison", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop" },
+    { name: "Joseph Kamau", role: "Finance & Admin", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop" },
+  ];
+
+  const upcomingProjects = [
+    { title: "Tree Planting Drive 2026", description: "Planting 10,000 trees across 5 communities", date: "March 2026", location: "Mbarara District" },
+    { title: "Girls Education Summit", description: "Empowering 500 girls with life skills and menstrual health education", date: "April 2026", location: "Kampala" },
+    { title: "Youth Skills Training", description: "Livelihood training for 200 youth in sustainable agriculture", date: "June 2026", location: "Rural Uganda" },
+  ];
+
+  const completedProjects = [
+    { title: "School Fees Program 2025", description: "Provided scholarships to 150 underprivileged students", impact: "150 students supported" },
+    { title: "Forest Restoration Initiative", description: "Restored 5 hectares of degraded forest land", impact: "2,000 trees planted" },
+    { title: "Anti-FGM Campaign", description: "Community awareness reaching 20 villages", impact: "500+ families educated" },
+    { title: "Clean Water Project", description: "Installed water points in 3 schools", impact: "1,200 students benefited" },
+  ];
+
+  const archiveItems = {
+    videos: [
+      { title: "Our Impact Story 2024", thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&h=225&fit=crop", duration: "5:32" },
+      { title: "Tree Planting Documentary", thumbnail: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&h=225&fit=crop", duration: "12:45" },
+      { title: "Education Matters", thumbnail: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=225&fit=crop", duration: "8:20" },
+    ],
+    research: [
+      { title: "Impact Assessment Report 2024", type: "PDF", date: "Dec 2024" },
+      { title: "Environmental Conservation Study", type: "PDF", date: "Oct 2024" },
+      { title: "Girls Education Barriers Analysis", type: "PDF", date: "Aug 2024" },
+    ],
+    blog: [
+      { title: "Why Education is the Key to Breaking the Cycle of Poverty", excerpt: "Education transforms lives and communities...", date: "Jan 2026" },
+      { title: "Protecting Our Forests: A Community Approach", excerpt: "Sustainable conservation starts with people...", date: "Dec 2025" },
+      { title: "Empowering Girls: Stories of Hope", excerpt: "Meet the young women changing their communities...", date: "Nov 2025" },
+    ],
+  };
+
+  const socialLinks = [
+    { name: "Facebook", icon: Facebook, url: "https://facebook.com/beaseedling", color: "hover:text-blue-600" },
+    { name: "Instagram", icon: Instagram, url: "https://instagram.com/beaseedling", color: "hover:text-pink-600" },
+    { name: "Twitter", icon: Twitter, url: "https://twitter.com/beaseedling", color: "hover:text-sky-500" },
+    { name: "YouTube", icon: Youtube, url: "https://youtube.com/beaseedling", color: "hover:text-red-600" },
+    { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/company/beaseedling", color: "hover:text-blue-700" },
   ];
 
   const programmes = [
@@ -463,6 +525,289 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section className="py-20 md:py-32 bg-card grain" id="team">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="text-center mb-16"
+          >
+            <motion.span 
+              variants={fadeUp}
+              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+            >
+              Our People
+            </motion.span>
+            <motion.h2 
+              variants={fadeUp}
+              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+            >
+              Meet Our Team
+            </motion.h2>
+            <motion.p 
+              variants={fadeUp}
+              className="text-muted-foreground max-w-2xl mx-auto"
+            >
+              Dedicated individuals working tirelessly to plant seeds of hope and change.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {teamMembers.map((member) => (
+              <motion.div key={member.name} variants={fadeUp}>
+                <Card className="overflow-hidden bg-background hover:shadow-xl transition-all duration-300 group">
+                  <div className="aspect-square overflow-hidden">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <CardContent className="p-6 text-center">
+                    <h3 className="font-serif text-xl font-semibold mb-1">{member.name}</h3>
+                    <p className="text-muted-foreground text-sm">{member.role}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section className="py-20 md:py-32 bg-background" id="projects">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="text-center mb-16"
+          >
+            <motion.span 
+              variants={fadeUp}
+              className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-6"
+            >
+              Our Work
+            </motion.span>
+            <motion.h2 
+              variants={fadeUp}
+              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+            >
+              Projects
+            </motion.h2>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Upcoming Projects */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={stagger}
+            >
+              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+                <Clock className="h-6 w-6 text-secondary" />
+                <h3 className="font-serif text-2xl font-bold">Upcoming Projects</h3>
+              </motion.div>
+              <div className="space-y-4">
+                {upcomingProjects.map((project) => (
+                  <motion.div key={project.title} variants={fadeUp}>
+                    <Card className="bg-card hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <h4 className="font-semibold text-lg mb-2">{project.title}</h4>
+                        <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
+                        <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Calendar className="h-3.5 w-3.5" />
+                            {project.date}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <MapPin className="h-3.5 w-3.5" />
+                            {project.location}
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Completed Projects */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={stagger}
+            >
+              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+                <CheckCircle2 className="h-6 w-6 text-primary" />
+                <h3 className="font-serif text-2xl font-bold">Completed Projects</h3>
+              </motion.div>
+              <div className="space-y-4">
+                {completedProjects.map((project) => (
+                  <motion.div key={project.title} variants={fadeUp}>
+                    <Card className="bg-card hover:shadow-lg transition-shadow border-l-4 border-l-primary">
+                      <CardContent className="p-6">
+                        <h4 className="font-semibold text-lg mb-2">{project.title}</h4>
+                        <p className="text-muted-foreground text-sm mb-3">{project.description}</p>
+                        <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                          {project.impact}
+                        </span>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Archive Section */}
+      <section className="py-20 md:py-32 bg-card grain" id="archive">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="text-center mb-16"
+          >
+            <motion.span 
+              variants={fadeUp}
+              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+            >
+              Resources
+            </motion.span>
+            <motion.h2 
+              variants={fadeUp}
+              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+            >
+              Archive
+            </motion.h2>
+            <motion.p 
+              variants={fadeUp}
+              className="text-muted-foreground max-w-2xl mx-auto"
+            >
+              Explore our videos, research, and stories from the field.
+            </motion.p>
+          </motion.div>
+
+          {/* Videos */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="mb-16"
+          >
+            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+              <Play className="h-6 w-6 text-primary" />
+              <h3 className="font-serif text-2xl font-bold">Videos</h3>
+            </motion.div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {archiveItems.videos.map((video) => (
+                <motion.div key={video.title} variants={fadeUp}>
+                  <Card className="overflow-hidden bg-background hover:shadow-xl transition-all cursor-pointer group">
+                    <div className="relative aspect-video overflow-hidden">
+                      <img
+                        src={video.thumbnail}
+                        alt={video.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center">
+                          <Play className="h-6 w-6 text-primary fill-primary ml-1" />
+                        </div>
+                      </div>
+                      <span className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">
+                        {video.duration}
+                      </span>
+                    </div>
+                    <CardContent className="p-4">
+                      <h4 className="font-semibold">{video.title}</h4>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Research & Blog */}
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Research */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={stagger}
+            >
+              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+                <FileText className="h-6 w-6 text-secondary" />
+                <h3 className="font-serif text-2xl font-bold">Research & Reports</h3>
+              </motion.div>
+              <div className="space-y-3">
+                {archiveItems.research.map((item) => (
+                  <motion.div key={item.title} variants={fadeUp}>
+                    <Card className="bg-background hover:shadow-md transition-shadow cursor-pointer">
+                      <CardContent className="p-4 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded bg-secondary/10 flex items-center justify-center">
+                            <FileText className="h-5 w-5 text-secondary" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-sm">{item.title}</h4>
+                            <p className="text-xs text-muted-foreground">{item.type} • {item.date}</p>
+                          </div>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Blog */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={stagger}
+            >
+              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
+                <Newspaper className="h-6 w-6 text-primary" />
+                <h3 className="font-serif text-2xl font-bold">Blog</h3>
+              </motion.div>
+              <div className="space-y-3">
+                {archiveItems.blog.map((post) => (
+                  <motion.div key={post.title} variants={fadeUp}>
+                    <Card className="bg-background hover:shadow-md transition-shadow cursor-pointer">
+                      <CardContent className="p-4">
+                        <p className="text-xs text-muted-foreground mb-1">{post.date}</p>
+                        <h4 className="font-medium mb-1">{post.title}</h4>
+                        <p className="text-sm text-muted-foreground">{post.excerpt}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonial Section */}
       <section className="py-20 md:py-32 bg-primary text-primary-foreground">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -520,7 +865,7 @@ export default function Home() {
               Reach out to us today.
             </motion.p>
             
-            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
               <a 
                 href="mailto:beaseedling.mbt@gmail.com"
                 className="flex items-center gap-3 text-lg text-foreground hover:text-primary transition-colors"
@@ -529,6 +874,25 @@ export default function Home() {
                 <Mail className="h-6 w-6" />
                 beaseedling.mbt@gmail.com
               </a>
+            </motion.div>
+
+            {/* Social Media Links */}
+            <motion.div variants={fadeUp} className="mb-12">
+              <p className="text-sm text-muted-foreground mb-4">Follow us on social media</p>
+              <div className="flex justify-center gap-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-muted-foreground ${social.color} transition-colors`}
+                    data-testid={`link-social-${social.name.toLowerCase()}`}
+                  >
+                    <social.icon className="h-5 w-5" />
+                  </a>
+                ))}
+              </div>
             </motion.div>
             
             <motion.div variants={fadeUp} className="mt-12 flex flex-wrap justify-center gap-4">
@@ -559,9 +923,21 @@ export default function Home() {
             <p className="text-sm text-center md:text-left">
               ©2025 by Be a Seedling. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm">
-              <a href="#" className="hover:text-background transition-colors" data-testid="link-privacy">Privacy</a>
-              <a href="#" className="hover:text-background transition-colors" data-testid="link-terms">Terms</a>
+            <div className="flex items-center gap-4">
+              <div className="flex gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-background/60 hover:text-background transition-colors"
+                    data-testid={`link-footer-${social.name.toLowerCase()}`}
+                  >
+                    <social.icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
