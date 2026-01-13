@@ -34,6 +34,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.png";
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
+import founderImage from "@assets/20260109_073202_1768269100356.jpg";
+import logoImage from "@assets/generated_images/seedling_nonprofit_logo_design.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -58,7 +60,14 @@ export default function Home() {
   ];
 
   const teamMembers = [
-    { name: "Catherine Namirembe", role: "Founder & Executive Director", image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=300&h=300&fit=crop" },
+    { 
+      name: "Jeremiah Lengure", 
+      role: "Founder", 
+      image: founderImage,
+      bio: "Non-profit leader with over 12 years of experience in the development sector in Kenya. He worked for The BOMA Project, implementing USAID-funded Kenya Livestock Marketing Activities. Holds a master's degree in M&E from Maseno University.",
+      email: "sarunye@gmail.com",
+      featured: true
+    },
     { name: "Samuel Okello", role: "Programs Manager", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" },
     { name: "Grace Achieng", role: "Education Coordinator", image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop" },
     { name: "David Mwangi", role: "Environmental Officer", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop" },
@@ -175,7 +184,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             <a href="#home" className="flex items-center gap-2" data-testid="link-logo">
-              <Sprout className="h-8 w-8 text-primary" strokeWidth={1.5} />
+              <img src={logoImage} alt="Be a Seedling" className="h-10 w-10 object-contain" />
               <span className="font-serif text-xl md:text-2xl font-semibold text-foreground">
                 Be a Seedling
               </span>
@@ -562,19 +571,27 @@ export default function Home() {
             variants={stagger}
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {teamMembers.map((member) => (
-              <motion.div key={member.name} variants={fadeUp}>
-                <Card className="overflow-hidden bg-background hover:shadow-xl transition-all duration-300 group">
-                  <div className="aspect-square overflow-hidden">
+            {teamMembers.map((member: any) => (
+              <motion.div key={member.name} variants={fadeUp} className={member.featured ? "sm:col-span-2 lg:col-span-1" : ""}>
+                <Card className={`overflow-hidden bg-background hover:shadow-xl transition-all duration-300 group ${member.featured ? "lg:row-span-1" : ""}`}>
+                  <div className={`${member.featured ? "aspect-[4/3]" : "aspect-square"} overflow-hidden`}>
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <CardContent className="p-6 text-center">
-                    <h3 className="font-serif text-xl font-semibold mb-1">{member.name}</h3>
-                    <p className="text-muted-foreground text-sm">{member.role}</p>
+                  <CardContent className={`${member.featured ? "p-8" : "p-6"} text-center`}>
+                    <h3 className={`font-serif ${member.featured ? "text-2xl" : "text-xl"} font-semibold mb-1`}>{member.name}</h3>
+                    <p className="text-primary font-medium text-sm mb-2">{member.role}</p>
+                    {member.bio && (
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-3">{member.bio}</p>
+                    )}
+                    {member.email && (
+                      <a href={`mailto:${member.email}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        {member.email}
+                      </a>
+                    )}
                   </CardContent>
                 </Card>
               </motion.div>
@@ -915,7 +932,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Sprout className="h-6 w-6 text-primary" strokeWidth={1.5} />
+              <img src={logoImage} alt="Be a Seedling" className="h-8 w-8 object-contain" />
               <span className="font-serif text-lg font-semibold text-background">
                 Be a Seedling
               </span>
