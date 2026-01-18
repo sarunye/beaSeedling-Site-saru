@@ -76,9 +76,14 @@ export default function Home() {
   ];
 
   const upcomingProjects = [
+    { 
+      title: "Rendille Indigenous Knowledge Initiative", 
+      description: "A community-led preservation initiative in Ngurunit to document oral histories, ecological knowledge, and cultural practices of the Rendille community through digital archiving and intergenerational teaching.", 
+      date: "Sept 2026 - May 2027", 
+      location: "Ngurunit, Marsabit County" 
+    },
     { title: "Tree Planting Drive 2026", description: "Planting 10,000 trees across 5 communities", date: "March 2026", location: "Mbarara District" },
     { title: "Girls Education Summit", description: "Empowering 500 girls with life skills and menstrual health education", date: "April 2026", location: "Kampala" },
-    { title: "Youth Skills Training", description: "Livelihood training for 200 youth in sustainable agriculture", date: "June 2026", location: "Rural Uganda" },
   ];
 
   const completedProjects = [
