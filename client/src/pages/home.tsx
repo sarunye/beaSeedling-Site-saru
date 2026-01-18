@@ -83,10 +83,30 @@ export default function Home() {
       bio: "Caroline leads our community-based programming with a focus on women's empowerment and education advocacy. She has extensive experience in community mobilization and indigenous knowledge preservation within Marsabit County.",
       email: "caroline@beaseedling.org"
     },
-    { name: "Grace Achieng", role: "Education Coordinator", image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop" },
-    { name: "David Mwangi", role: "Environmental Officer", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop" },
-    { name: "Faith Wanjiku", role: "Community Liaison", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop" },
-    { name: "Joseph Kamau", role: "Finance & Admin", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop" },
+    { 
+      name: "Grace Achieng", 
+      role: "Education Coordinator", 
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
+      bio: "Grace is a dedicated educator with a passion for supporting underprivileged students. She oversees our scholarship programs and academic excellence initiatives, ensuring that every child has the resources they need to succeed in school."
+    },
+    { 
+      name: "David Mwangi", 
+      role: "Environmental Officer", 
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
+      bio: "David leads our environmental conservation efforts, including forest rehabilitation and community training. With a background in natural resource management, he works to build local capacity for sustainable environmental protection."
+    },
+    { 
+      name: "Faith Wanjiku", 
+      role: "Community Liaison", 
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop",
+      bio: "Faith serves as the vital link between Be a Seedling and the communities we serve. She facilitates community mobilization, advocacy programs, and ensures that our initiatives are deeply rooted in local needs and traditions."
+    },
+    { 
+      name: "Joseph Kamau", 
+      role: "Finance & Admin", 
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
+      bio: "Joseph manages the organization's financial health and administrative operations. He ensures transparency and efficiency in our resource allocation, allowing us to maximize the impact of every donation we receive."
+    },
   ];
 
   const upcomingProjects = [
