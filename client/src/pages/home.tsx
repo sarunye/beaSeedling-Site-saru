@@ -27,10 +27,18 @@ import {
   Clock,
   CheckCircle2,
   Calendar,
-  MapPin
+  MapPin,
+  ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.png";
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
@@ -578,27 +586,61 @@ export default function Home() {
           >
             {teamMembers.map((member: any) => (
               <motion.div key={member.name} variants={fadeUp} className={member.featured ? "sm:col-span-2 lg:col-span-1" : ""}>
-                <Card className={`overflow-hidden bg-background hover:shadow-xl transition-all duration-300 group ${member.featured ? "lg:row-span-1" : ""}`}>
-                  <div className={`${member.featured ? "aspect-[4/3]" : "aspect-square"} overflow-hidden`}>
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <CardContent className={`${member.featured ? "p-8" : "p-6"} text-center`}>
-                    <h3 className={`font-serif ${member.featured ? "text-2xl" : "text-xl"} font-semibold mb-1`}>{member.name}</h3>
-                    <p className="text-primary font-medium text-sm mb-2">{member.role}</p>
-                    {member.bio && (
-                      <p className="text-muted-foreground text-sm leading-relaxed mb-3">{member.bio}</p>
-                    )}
-                    {member.email && (
-                      <a href={`mailto:${member.email}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                        {member.email}
-                      </a>
-                    )}
-                  </CardContent>
-                </Card>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Card className="overflow-hidden bg-background hover:shadow-xl transition-all duration-300 group cursor-pointer border-none shadow-sm">
+                      <div className="aspect-square overflow-hidden relative">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <span className="text-white text-sm font-medium flex items-center gap-2">
+                            View Profile <ArrowRight className="h-4 w-4" />
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-4 bg-background">
+                        <h3 className="font-serif text-lg font-semibold text-foreground group-hover:text-primary transition-colors">{member.name}</h3>
+                        <p className="text-muted-foreground text-xs">{member.role}</p>
+                      </div>
+                    </Card>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-2xl overflow-hidden p-0 border-none bg-background">
+                    <div className="grid md:grid-cols-2 gap-0">
+                      <div className="aspect-square md:aspect-auto h-full overflow-hidden">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      </div>
+                      <div className="p-8 flex flex-col justify-center">
+                        <DialogHeader>
+                          <DialogTitle className="font-serif text-3xl font-bold mb-1">{member.name}</DialogTitle>
+                          <p className="text-primary font-medium text-lg mb-6">{member.role}</p>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          {member.bio && (
+                            <p className="text-muted-foreground text-sm leading-relaxed italic border-l-4 border-primary/20 pl-4">
+                              "{member.bio}"
+                            </p>
+                          )}
+                          {member.email && (
+                            <div className="pt-4 border-t border-border">
+                              <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider font-semibold">Contact</p>
+                              <a href={`mailto:${member.email}`} className="text-primary hover:underline flex items-center gap-2 text-sm">
+                                <Mail className="h-4 w-4" />
+                                {member.email}
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </motion.div>
             ))}
           </motion.div>
