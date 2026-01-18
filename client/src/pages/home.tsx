@@ -72,11 +72,17 @@ export default function Home() {
       name: "Jeremiah Lengure", 
       role: "Founder", 
       image: founderImage,
-      bio: "Non-profit leader with over 12 years of experience in the development sector in Kenya. He worked for The BOMA Project, implementing USAID-funded Kenya Livestock Marketing Activities. Holds a master's degree in M&E from Maseno University.",
+      bio: "Non-profit leader with over 12 years of experience in the development sector in Kenya. Jeremiah holds a master's degree in monitoring and evaluation from Maseno University and possesses skills in project management, research methods, and community-based natural resources management. He is currently serving as a project manager at the Global Development Incubator.",
       email: "sarunye@gmail.com",
       featured: true
     },
-    { name: "Samuel Okello", role: "Programs Manager", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" },
+    { 
+      name: "Caroline Sarunye", 
+      role: "Programs Director", 
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
+      bio: "Caroline leads our community-based programming with a focus on women's empowerment and education advocacy. She has extensive experience in community mobilization and indigenous knowledge preservation within Marsabit County.",
+      email: "caroline@beaseedling.org"
+    },
     { name: "Grace Achieng", role: "Education Coordinator", image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop" },
     { name: "David Mwangi", role: "Environmental Officer", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop" },
     { name: "Faith Wanjiku", role: "Community Liaison", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop" },
