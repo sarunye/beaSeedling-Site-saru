@@ -82,15 +82,15 @@ export default function Home() {
       date: "Sept 2026 - May 2027", 
       location: "Ngurunit, Marsabit County" 
     },
-    { title: "Tree Planting Drive 2026", description: "Planting 10,000 trees across 5 communities", date: "March 2026", location: "Mbarara District" },
-    { title: "Girls Education Summit", description: "Empowering 500 girls with life skills and menstrual health education", date: "April 2026", location: "Kampala" },
+    { title: "Tree Planting Drive 2026", description: "Planting 10,000 trees across 5 communities in Marsabit", date: "March 2026", location: "Laisamis Constituency" },
+    { title: "Girls Education Summit", description: "Empowering 500 girls with life skills and menstrual health education", date: "April 2026", location: "Marsabit Central" },
   ];
 
   const completedProjects = [
-    { title: "School Fees Program 2025", description: "Provided scholarships to 150 underprivileged students", impact: "150 students supported" },
-    { title: "Forest Restoration Initiative", description: "Restored 5 hectares of degraded forest land", impact: "2,000 trees planted" },
-    { title: "Anti-FGM Campaign", description: "Community awareness reaching 20 villages", impact: "500+ families educated" },
-    { title: "Clean Water Project", description: "Installed water points in 3 schools", impact: "1,200 students benefited" },
+    { title: "School Fees Program 2025", description: "Provided scholarships to 150 underprivileged students in Ngurunit", impact: "150 students supported" },
+    { title: "Forest Restoration Initiative", description: "Restored 5 hectares of degraded forest land in Laisamis", impact: "2,000 trees planted" },
+    { title: "Anti-FGM Campaign", description: "Community awareness reaching 20 villages across Marsabit County", impact: "500+ families educated" },
+    { title: "Clean Water Project", description: "Installed water points in 3 schools in Marsabit Central", impact: "1,200 students benefited" },
   ];
 
   const archiveItems = {
