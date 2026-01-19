@@ -43,6 +43,7 @@ import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.p
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
 import founderImage from "@assets/20260109_073202_1768269100356.jpg";
+import carolineImage from "@assets/20260117_160940_1768830964832.jpg";
 import eleonoraImage from "@assets/IMG-20260119-WA0029_1768830769372.jpg";
 import logoImage from "@assets/generated_images/seedling_nonprofit_logo_design.png";
 
@@ -80,7 +81,7 @@ export default function Home() {
     { 
       name: "Caroline Sarunye", 
       role: "Programs Director", 
-      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
+      image: carolineImage,
       bio: "Caroline leads our community-based programming with a focus on women's empowerment and education advocacy. She has extensive experience in community mobilization and indigenous knowledge preservation within Marsabit County.",
       email: "caroline@beaseedling.org"
     },
