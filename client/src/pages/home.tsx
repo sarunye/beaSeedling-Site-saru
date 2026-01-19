@@ -43,6 +43,7 @@ import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.p
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
 import founderImage from "@assets/20260109_073202_1768269100356.jpg";
+import eleonoraImage from "@assets/IMG-20260119-WA0029_1768830769372.jpg";
 import logoImage from "@assets/generated_images/seedling_nonprofit_logo_design.png";
 
 const fadeUp = {
@@ -84,28 +85,10 @@ export default function Home() {
       email: "caroline@beaseedling.org"
     },
     { 
-      name: "Grace Achieng", 
-      role: "Education Coordinator", 
-      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop",
-      bio: "Grace is a dedicated educator with a passion for supporting underprivileged students. She oversees our scholarship programs and academic excellence initiatives, ensuring that every child has the resources they need to succeed in school."
-    },
-    { 
-      name: "David Mwangi", 
-      role: "Environmental Officer", 
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
-      bio: "David leads our environmental conservation efforts, including forest rehabilitation and community training. With a background in natural resource management, he works to build local capacity for sustainable environmental protection."
-    },
-    { 
-      name: "Faith Wanjiku", 
-      role: "Community Liaison", 
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop",
-      bio: "Faith serves as the vital link between Be a Seedling and the communities we serve. She facilitates community mobilization, advocacy programs, and ensures that our initiatives are deeply rooted in local needs and traditions."
-    },
-    { 
-      name: "Joseph Kamau", 
-      role: "Finance & Admin", 
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
-      bio: "Joseph manages the organization's financial health and administrative operations. He ensures transparency and efficiency in our resource allocation, allowing us to maximize the impact of every donation we receive."
+      name: "Eleonora", 
+      role: "Research Partner", 
+      image: eleonoraImage,
+      bio: "Eleonora is a PhD candidate at Washington State University studying how pastoralist communities navigate uncertainty, knowledge transmission, and social cohesion under climate change and conflict. She integrates Indigenous knowledge systems with ethnography and computational modeling to examine mobility, trust, and resource management, with a focus on equity and social learning under environmental stress. Her interdisciplinary background spans psychology, women’s studies, and anthropology, with expertise in participatory research, ethnographic fieldwork, and integrating grounded behavioral data into agent-based and epidemiological modeling. She is a fellow at the Zeit Stiftung Bucerius Institute, exploring creative approaches to uncertainty across disciplines."
     },
   ];
 
