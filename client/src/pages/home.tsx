@@ -250,6 +250,12 @@ export default function Home() {
       { title: "Education Matters", thumbnail: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=225&fit=crop", duration: "8:20" },
     ],
     research: [
+      {
+        title: "Community Education Initiative",
+        type: "Video",
+        date: "Oct 2025",
+        link: "https://youtu.be/fj8qOyys65c?si=crs1FCZs0bbSC5bL"
+      },
       { title: "Impact Assessment Report 2024", type: "PDF", date: "Dec 2024" },
       { title: "Environmental Conservation Study", type: "PDF", date: "Oct 2024" },
       { title: "Girls Education Barriers Analysis", type: "PDF", date: "Aug 2024" },
@@ -449,19 +455,85 @@ export default function Home() {
               and environmental conservation, fostering equity and advocating for a better world.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-              <Button 
-                size="lg" 
-                className="bg-primary hover:bg-primary/90 text-lg px-8"
-                data-testid="button-get-involved"
-              >
-                Get Involved
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button 
+                    size="lg" 
+                    className="bg-primary hover:bg-primary/90 text-lg px-8"
+                    data-testid="button-get-involved"
+                  >
+                    Get Involved
+                    <ChevronRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle className="font-serif text-2xl text-center">Join Our Mission</DialogTitle>
+                    <DialogDescription className="text-center">
+                      Choose how you would like to contribute to the Be a Seedling community in Marsabit.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Card className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2">
+                          <CardContent className="pt-6 text-center space-y-2">
+                            <Heart className="h-8 w-8 mx-auto text-primary" />
+                            <h3 className="font-bold">Donate</h3>
+                            <p className="text-xs text-muted-foreground">Support our projects with a financial contribution</p>
+                          </CardContent>
+                        </Card>
+                      </DialogTrigger>
+                      <DonateModal />
+                    </Dialog>
+
+                    <Card 
+                      className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
+                      onClick={() => {
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
+                      <CardContent className="pt-6 text-center space-y-2">
+                        <Users className="h-8 w-8 mx-auto text-primary" />
+                        <h3 className="font-bold">Volunteer</h3>
+                        <p className="text-xs text-muted-foreground">Join our team on the ground in Marsabit</p>
+                      </CardContent>
+                    </Card>
+
+                    <Card 
+                      className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
+                      onClick={() => {
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
+                      <CardContent className="pt-6 text-center space-y-2">
+                        <Mail className="h-8 w-8 mx-auto text-primary" />
+                        <h3 className="font-bold">Collaborate</h3>
+                        <p className="text-xs text-muted-foreground">Share suggestions or explore partnerships</p>
+                      </CardContent>
+                    </Card>
+
+                    <Card 
+                      className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
+                      onClick={() => {
+                        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
+                      <CardContent className="pt-6 text-center space-y-2">
+                        <Globe className="h-8 w-8 mx-auto text-primary" />
+                        <h3 className="font-bold">Advocate</h3>
+                        <p className="text-xs text-muted-foreground">Help us spread the word about our cause</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </DialogContent>
+              </Dialog>
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="border-white text-white hover:bg-white/10 text-lg px-8"
                 data-testid="button-learn-more"
+                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Learn More
               </Button>
