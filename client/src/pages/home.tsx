@@ -31,7 +31,8 @@ import {
   ArrowRight,
   CreditCard,
   Smartphone,
-  Banknote
+  Banknote,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -49,6 +50,9 @@ import {
   TabsList, 
   TabsTrigger 
 } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.png";
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
@@ -67,62 +71,119 @@ const stagger = {
 };
 
 function DonateModal() {
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState<'details' | 'processing' | 'success'>('details');
+  const [paymentMethod, setPaymentMethod] = useState('mpesa');
+
+  const handleDonate = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setStep('processing');
+    
+    // Simulate payment prompt/processing
+    setTimeout(() => {
+      setLoading(false);
+      setStep('success');
+      toast({
+        title: "Payment Prompt Sent",
+        description: paymentMethod === 'mpesa' 
+          ? "Please check your phone for the M-Pesa PIN prompt." 
+          : "Processing your donation securely.",
+      });
+    }, 2000);
+  };
+
+  if (step === 'success') {
+    return (
+      <DialogContent className="sm:max-w-[425px]">
+        <div className="py-12 flex flex-col items-center text-center">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <CheckCircle2 className="h-10 w-10 text-primary" />
+          </div>
+          <h2 className="font-serif text-2xl font-bold mb-2">Thank You!</h2>
+          <p className="text-muted-foreground mb-6">
+            Your support helps Be a Seedling grow opportunities in Marsabit. 
+            We've sent a confirmation message to your device.
+          </p>
+          <Button onClick={() => setStep('details')} className="w-full">Done</Button>
+        </div>
+      </DialogContent>
+    );
+  }
+
   return (
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle className="font-serif text-2xl">Make a Donation</DialogTitle>
+        <DialogTitle className="font-serif text-2xl">Support Our Mission</DialogTitle>
         <DialogDescription>
-          Choose your preferred payment method to support our mission in Marsabit.
+          Enter your details and the system will prompt you for payment.
         </DialogDescription>
       </DialogHeader>
-      <Tabs defaultValue="mpesa" className="w-full mt-4">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="mpesa">M-Pesa</TabsTrigger>
-          <TabsTrigger value="card">Card</TabsTrigger>
-          <TabsTrigger value="bank">Bank</TabsTrigger>
-        </TabsList>
-        <TabsContent value="mpesa" className="space-y-4 pt-4">
-          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-            <div className="flex items-center gap-3 mb-2">
-              <Smartphone className="h-5 w-5 text-primary" />
-              <p className="font-semibold">M-Pesa Paybill</p>
+      
+      <form onSubmit={handleDonate} className="space-y-6 pt-4">
+        <div className="space-y-4">
+          <Tabs defaultValue="mpesa" onValueChange={setPaymentMethod} className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="mpesa">M-Pesa</TabsTrigger>
+              <TabsTrigger value="card">Card</TabsTrigger>
+              <TabsTrigger value="bank">Bank</TabsTrigger>
+            </TabsList>
+            
+            <div className="space-y-4 pt-4">
+              <div className="grid gap-2">
+                <Label htmlFor="amount">Amount (KES)</Label>
+                <Input id="amount" type="number" placeholder="Enter amount" required />
+              </div>
+
+              <TabsContent value="mpesa" className="m-0 space-y-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="phone">Phone Number (M-Pesa)</Label>
+                  <Input id="phone" type="tel" placeholder="e.g. 0712345678" required />
+                </div>
+                <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    You will receive an STK Push prompt on your phone to enter your M-Pesa PIN.
+                  </p>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="card" className="m-0 space-y-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input id="email" type="email" placeholder="your@email.com" required />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="card-name">Name on Card</Label>
+                  <Input id="card-name" placeholder="John Doe" required />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="bank" className="m-0 space-y-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="bank-email">Email Address</Label>
+                  <Input id="bank-email" type="email" placeholder="your@email.com" required />
+                </div>
+                <div className="bg-muted p-4 rounded-lg text-xs space-y-2">
+                  <p className="font-semibold">Bank Details:</p>
+                  <p>Equity Bank Marsabit | A/C: 1234567890</p>
+                </div>
+              </TabsContent>
             </div>
-            <p className="text-sm text-muted-foreground mb-1">Business No: <span className="font-mono font-bold text-foreground">247247</span></p>
-            <p className="text-sm text-muted-foreground">Account: <span className="font-mono font-bold text-foreground">0722000000</span></p>
-          </div>
-          <p className="text-xs text-center text-muted-foreground italic">
-            "Your contribution directly supports our community projects."
-          </p>
-        </TabsContent>
-        <TabsContent value="card" className="space-y-4 pt-4">
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 border rounded-lg hover:border-primary cursor-pointer transition-colors">
-              <CreditCard className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium">Credit or Debit Card</span>
-            </div>
-            <div className="flex items-center gap-3 p-3 border rounded-lg hover:border-primary cursor-pointer transition-colors">
-              <span className="text-sm font-medium">PayPal</span>
-            </div>
-          </div>
-        </TabsContent>
-        <TabsContent value="bank" className="space-y-4 pt-4">
-          <div className="bg-muted p-4 rounded-lg">
-            <div className="flex items-center gap-3 mb-2">
-              <Banknote className="h-5 w-5 text-muted-foreground" />
-              <p className="font-semibold text-sm">Bank Transfer Details</p>
-            </div>
-            <div className="space-y-1 text-xs">
-              <p><span className="text-muted-foreground">Bank:</span> Equity Bank Kenya</p>
-              <p><span className="text-muted-foreground">Branch:</span> Marsabit</p>
-              <p><span className="text-muted-foreground">Account Name:</span> Be a Seedling CBO</p>
-              <p><span className="text-muted-foreground">Account No:</span> 1234567890123</p>
-            </div>
-          </div>
-        </TabsContent>
-      </Tabs>
-      <div className="mt-4">
-        <Button className="w-full bg-primary">Confirm Donation</Button>
-      </div>
+          </Tabs>
+        </div>
+
+        <Button type="submit" className="w-full bg-primary" disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Sending Prompt...
+            </>
+          ) : (
+            `Donate via ${paymentMethod === 'mpesa' ? 'M-Pesa' : paymentMethod === 'card' ? 'Card' : 'Bank'}`
+          )}
+        </Button>
+      </form>
     </DialogContent>
   );
 }
