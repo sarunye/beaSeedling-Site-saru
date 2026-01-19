@@ -28,7 +28,10 @@ import {
   CheckCircle2,
   Calendar,
   MapPin,
-  ArrowRight
+  ArrowRight,
+  CreditCard,
+  Smartphone,
+  Banknote
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -38,7 +41,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "@/components/ui/dialog";
+import { 
+  Tabs, 
+  TabsContent, 
+  TabsList, 
+  TabsTrigger 
+} from "@/components/ui/tabs";
 import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.png";
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
@@ -55,6 +65,67 @@ const fadeUp = {
 const stagger = {
   visible: { transition: { staggerChildren: 0.15 } }
 };
+
+function DonateModal() {
+  return (
+    <DialogContent className="sm:max-w-[425px]">
+      <DialogHeader>
+        <DialogTitle className="font-serif text-2xl">Make a Donation</DialogTitle>
+        <DialogDescription>
+          Choose your preferred payment method to support our mission in Marsabit.
+        </DialogDescription>
+      </DialogHeader>
+      <Tabs defaultValue="mpesa" className="w-full mt-4">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="mpesa">M-Pesa</TabsTrigger>
+          <TabsTrigger value="card">Card</TabsTrigger>
+          <TabsTrigger value="bank">Bank</TabsTrigger>
+        </TabsList>
+        <TabsContent value="mpesa" className="space-y-4 pt-4">
+          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
+            <div className="flex items-center gap-3 mb-2">
+              <Smartphone className="h-5 w-5 text-primary" />
+              <p className="font-semibold">M-Pesa Paybill</p>
+            </div>
+            <p className="text-sm text-muted-foreground mb-1">Business No: <span className="font-mono font-bold text-foreground">247247</span></p>
+            <p className="text-sm text-muted-foreground">Account: <span className="font-mono font-bold text-foreground">0722000000</span></p>
+          </div>
+          <p className="text-xs text-center text-muted-foreground italic">
+            "Your contribution directly supports our community projects."
+          </p>
+        </TabsContent>
+        <TabsContent value="card" className="space-y-4 pt-4">
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 p-3 border rounded-lg hover:border-primary cursor-pointer transition-colors">
+              <CreditCard className="h-5 w-5 text-muted-foreground" />
+              <span className="text-sm font-medium">Credit or Debit Card</span>
+            </div>
+            <div className="flex items-center gap-3 p-3 border rounded-lg hover:border-primary cursor-pointer transition-colors">
+              <span className="text-sm font-medium">PayPal</span>
+            </div>
+          </div>
+        </TabsContent>
+        <TabsContent value="bank" className="space-y-4 pt-4">
+          <div className="bg-muted p-4 rounded-lg">
+            <div className="flex items-center gap-3 mb-2">
+              <Banknote className="h-5 w-5 text-muted-foreground" />
+              <p className="font-semibold text-sm">Bank Transfer Details</p>
+            </div>
+            <div className="space-y-1 text-xs">
+              <p><span className="text-muted-foreground">Bank:</span> Equity Bank Kenya</p>
+              <p><span className="text-muted-foreground">Branch:</span> Marsabit</p>
+              <p><span className="text-muted-foreground">Account Name:</span> Be a Seedling CBO</p>
+              <p><span className="text-muted-foreground">Account No:</span> 1234567890123</p>
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
+      <div className="mt-4">
+        <Button className="w-full bg-primary">Confirm Donation</Button>
+      </div>
+    </DialogContent>
+  );
+}
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -225,9 +296,14 @@ export default function Home() {
                   {link.name}
                 </a>
               ))}
-              <Button className="bg-primary hover:bg-primary/90" data-testid="button-donate-nav">
-                Donate
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="bg-primary hover:bg-primary/90" data-testid="button-donate-nav">
+                    Donate
+                  </Button>
+                </DialogTrigger>
+                <DonateModal />
+              </Dialog>
             </div>
 
             {/* Mobile Menu Button */}
@@ -260,9 +336,14 @@ export default function Home() {
                   {link.name}
                 </a>
               ))}
-              <Button className="w-full bg-primary" data-testid="button-donate-mobile">
-                Donate
-              </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="w-full bg-primary" data-testid="button-donate-mobile">
+                  Donate
+                </Button>
+              </DialogTrigger>
+              <DonateModal />
+            </Dialog>
             </div>
           </motion.div>
         )}
@@ -970,9 +1051,14 @@ export default function Home() {
             </motion.div>
             
             <motion.div variants={fadeUp} className="mt-12 flex flex-wrap justify-center gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-donate-footer">
-                Donate Now
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-donate-footer">
+                    Donate Now
+                  </Button>
+                </DialogTrigger>
+                <DonateModal />
+              </Dialog>
               <Button size="lg" variant="outline" data-testid="button-volunteer">
                 Volunteer Application
               </Button>
