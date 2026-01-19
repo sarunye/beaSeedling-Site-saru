@@ -59,6 +59,7 @@ import treePlantingImage from "@assets/generated_images/community_tree_planting_
 import founderImage from "@assets/20260109_073202_1768269100356.jpg";
 import carolineImage from "@assets/20260117_160940_1768830964832.jpg";
 import eleonoraImage from "@assets/IMG-20260119-WA0029_1768830769372.jpg";
+import davidImage from "@assets/Image-empty-state_1768832269234.jpg";
 import logoImage from "@assets/generated_images/seedling_nonprofit_logo_design.png";
 
 const fadeUp = {
@@ -222,6 +223,13 @@ export default function Home() {
       role: "Research Partner", 
       image: eleonoraImage,
       bio: "Eleonora is a PhD candidate at Washington State University studying how pastoralist communities navigate uncertainty, knowledge transmission, and social cohesion under climate change and conflict. She integrates Indigenous knowledge systems with ethnography and computational modeling to examine mobility, trust, and resource management, with a focus on equity and social learning under environmental stress. Her interdisciplinary background spans psychology, women’s studies, and anthropology, with expertise in participatory research, ethnographic fieldwork, and integrating grounded behavioral data into agent-based and epidemiological modeling. She is a fellow at the Zeit Stiftung Bucerius Institute, exploring creative approaches to uncertainty across disciplines."
+    },
+    { 
+      name: "David Leparporori", 
+      role: "Project Officer", 
+      image: davidImage,
+      bio: "David is a highly passionate individual with extensive experience in mentoring and poverty alleviation. He spent over seven years as a mentor with The BOMA Project and has implemented poverty graduation programs for over a decade. With a diverse background in farming, pastoralism, and tourism guiding, he is committed to making a positive impact in the lives of underprivileged communities.",
+      email: "david@beaseedling.org"
     },
   ];
 
