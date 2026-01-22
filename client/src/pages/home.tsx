@@ -32,7 +32,9 @@ import {
   CreditCard,
   Smartphone,
   Banknote,
-  Loader2
+  Loader2,
+  Repeat,
+  CalendarDays
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -53,6 +55,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.png";
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
@@ -76,6 +79,15 @@ function DonateModal() {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<'details' | 'processing' | 'success'>('details');
   const [paymentMethod, setPaymentMethod] = useState('mpesa');
+  const [amount, setAmount] = useState('');
+  const [frequency, setFrequency] = useState('one-time');
+
+  const presetAmounts = [
+    { value: '500', label: 'KES 500' },
+    { value: '1000', label: 'KES 1,000' },
+    { value: '2500', label: 'KES 2,500' },
+    { value: '5000', label: 'KES 5,000' },
+  ];
 
   const handleDonate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,43 +99,101 @@ function DonateModal() {
       setLoading(false);
       setStep('success');
       toast({
-        title: "Payment Prompt Sent",
+        title: "Payment Initiated",
         description: paymentMethod === 'mpesa' 
-          ? "Please check your phone for the M-Pesa PIN prompt." 
-          : "Processing your donation securely.",
+          ? `Please check your phone for the M-Pesa PIN prompt for KES ${amount || 'your donation'}.` 
+          : "Processing your secure donation.",
       });
-    }, 2000);
+    }, 2500);
   };
 
   if (step === 'success') {
     return (
       <DialogContent className="sm:max-w-[425px]">
-        <div className="py-12 flex flex-col items-center text-center">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-            <CheckCircle2 className="h-10 w-10 text-primary" />
+        <div className="py-8 flex flex-col items-center text-center">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 animate-in zoom-in duration-300">
+            <CheckCircle2 className="h-10 w-10 text-green-600" />
           </div>
-          <h2 className="font-serif text-2xl font-bold mb-2">Thank You!</h2>
-          <p className="text-muted-foreground mb-6">
-            Your support helps Be a Seedling grow opportunities in Marsabit. 
-            We've sent a confirmation message to your device.
+          <h2 className="font-serif text-3xl font-bold mb-2 text-foreground">Thank You!</h2>
+          <p className="text-lg font-medium text-primary mb-4">
+            Your donation of KES {amount} has been initiated.
           </p>
-          <Button onClick={() => setStep('details')} className="w-full">Done</Button>
+          <p className="text-muted-foreground mb-8 text-sm max-w-[80%]">
+            Your support helps Be a Seedling grow opportunities in Marsabit. 
+            A receipt has been sent to your contact details.
+          </p>
+          <div className="w-full space-y-3">
+            <Button onClick={() => { setStep('details'); setAmount(''); }} variant="outline" className="w-full">
+              Make Another Donation
+            </Button>
+            <DialogTrigger asChild>
+              <Button className="w-full bg-primary hover:bg-primary/90">Done</Button>
+            </DialogTrigger>
+          </div>
         </div>
       </DialogContent>
     );
   }
 
   return (
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
       <DialogHeader>
         <DialogTitle className="font-serif text-2xl">Support Our Mission</DialogTitle>
         <DialogDescription>
-          Enter your details and the system will prompt you for payment.
+          Your contribution directly impacts lives in Marsabit County.
         </DialogDescription>
       </DialogHeader>
       
-      <form onSubmit={handleDonate} className="space-y-6 pt-4">
+      <form onSubmit={handleDonate} className="space-y-6 pt-2">
+        {/* Frequency Toggle */}
+        <div className="flex bg-muted p-1 rounded-lg">
+          <button
+            type="button"
+            className={`flex-1 py-2 text-sm font-medium rounded-md transition-all ${frequency === 'one-time' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            onClick={() => setFrequency('one-time')}
+          >
+            One-Time
+          </button>
+          <button
+            type="button"
+            className={`flex-1 py-2 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 ${frequency === 'monthly' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            onClick={() => setFrequency('monthly')}
+          >
+            <Repeat className="w-3 h-3" /> Monthly
+          </button>
+        </div>
+
+        {/* Amount Selection */}
+        <div className="space-y-3">
+          <Label>Select Amount</Label>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {presetAmounts.map((preset) => (
+              <button
+                key={preset.value}
+                type="button"
+                className={`py-2 px-3 text-sm font-medium rounded-lg border transition-all ${amount === preset.value ? 'border-primary bg-primary/5 text-primary ring-1 ring-primary' : 'border-input hover:border-primary/50 hover:bg-accent'}`}
+                onClick={() => setAmount(preset.value)}
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
+          <div className="relative">
+            <span className="absolute left-3 top-2.5 text-muted-foreground">KES</span>
+            <Input 
+              type="number" 
+              placeholder="Other Amount" 
+              className="pl-12" 
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              required
+              min="10"
+            />
+          </div>
+        </div>
+
         <div className="space-y-4">
+          <Label>Payment Method</Label>
           <Tabs defaultValue="mpesa" onValueChange={setPaymentMethod} className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="mpesa">M-Pesa</TabsTrigger>
@@ -131,21 +201,18 @@ function DonateModal() {
               <TabsTrigger value="bank">Bank</TabsTrigger>
             </TabsList>
             
-            <div className="space-y-4 pt-4">
-              <div className="grid gap-2">
-                <Label htmlFor="amount">Amount (KES)</Label>
-                <Input id="amount" type="number" placeholder="Enter amount" required />
-              </div>
-
+            <div className="pt-4">
               <TabsContent value="mpesa" className="m-0 space-y-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="phone">Phone Number (M-Pesa)</Label>
-                  <Input id="phone" type="tel" placeholder="e.g. 0712345678" required />
+                  <Label htmlFor="phone">M-Pesa Phone Number</Label>
+                  <Input id="phone" type="tel" placeholder="0712 345 678" required pattern="^07\d{8}$|^01\d{8}$|^\+254\d{9}$" />
                 </div>
-                <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    You will receive an STK Push prompt on your phone to enter your M-Pesa PIN.
-                  </p>
+                <div className="bg-green-50/50 p-4 rounded-lg border border-green-100 flex items-start gap-3">
+                  <Smartphone className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                  <div className="text-sm">
+                    <p className="font-medium text-green-900">How it works:</p>
+                    <p className="text-green-800/80 mt-1">We'll send a prompt to your phone. Enter your M-Pesa PIN to complete the donation.</p>
+                  </div>
                 </div>
               </TabsContent>
 
@@ -155,35 +222,60 @@ function DonateModal() {
                   <Input id="email" type="email" placeholder="your@email.com" required />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="card-name">Name on Card</Label>
+                  <Label htmlFor="card-name">Cardholder Name</Label>
                   <Input id="card-name" placeholder="John Doe" required />
+                </div>
+                <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100 flex items-start gap-3">
+                  <Shield className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
+                  <div className="text-sm">
+                    <p className="font-medium text-blue-900">Secure Payment</p>
+                    <p className="text-blue-800/80 mt-1">Your transaction is encrypted and processed securely. We do not store your card details.</p>
+                  </div>
                 </div>
               </TabsContent>
 
               <TabsContent value="bank" className="m-0 space-y-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="bank-email">Email Address</Label>
+                  <Label htmlFor="bank-email">Email for Receipt</Label>
                   <Input id="bank-email" type="email" placeholder="your@email.com" required />
                 </div>
-                <div className="bg-muted p-4 rounded-lg text-xs space-y-2">
-                  <p className="font-semibold">Bank Details:</p>
-                  <p>Equity Bank Marsabit | A/C: 1234567890</p>
+                <div className="bg-muted p-4 rounded-lg text-sm space-y-3 border">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Banknote className="h-4 w-4" />
+                    <span>Bank Transfer Details</span>
+                  </div>
+                  <div className="grid grid-cols-[100px_1fr] gap-1 text-muted-foreground">
+                    <span>Bank:</span> <span className="text-foreground font-medium">Equity Bank Kenya</span>
+                    <span>Branch:</span> <span className="text-foreground font-medium">Marsabit</span>
+                    <span>Account:</span> <span className="text-foreground font-medium">Be a Seedling CBO</span>
+                    <span>Acc No:</span> <span className="text-foreground font-mono bg-muted-foreground/10 px-1 rounded">1234567890123</span>
+                  </div>
                 </div>
+                <p className="text-xs text-muted-foreground">
+                  Please include your name or email in the transaction reference.
+                </p>
               </TabsContent>
             </div>
           </Tabs>
         </div>
 
-        <Button type="submit" className="w-full bg-primary" disabled={loading}>
+        <Button type="submit" className="w-full bg-primary h-12 text-lg font-medium shadow-lg hover:shadow-xl transition-all" disabled={loading}>
           {loading ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Sending Prompt...
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              Processing...
             </>
           ) : (
-            `Donate via ${paymentMethod === 'mpesa' ? 'M-Pesa' : paymentMethod === 'card' ? 'Card' : 'Bank'}`
+            <span className="flex items-center gap-2">
+              <Heart className="w-5 h-5 fill-current" />
+              Donate {amount ? `KES ${amount}` : ''} {frequency === 'monthly' ? 'Monthly' : ''}
+            </span>
           )}
         </Button>
+        
+        <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-1">
+          <Shield className="w-3 h-3" /> Secure SSL Encrypted Transaction
+        </p>
       </form>
     </DialogContent>
   );
