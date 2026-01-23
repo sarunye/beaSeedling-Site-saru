@@ -283,6 +283,7 @@ function DonateModal() {
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [getInvolvedOpen, setGetInvolvedOpen] = useState(false);
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -555,7 +556,7 @@ export default function Home() {
               and environmental conservation, fostering equity and advocating for a better world.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-              <Dialog>
+              <Dialog open={getInvolvedOpen} onOpenChange={setGetInvolvedOpen}>
                 <DialogTrigger asChild>
                   <Button 
                     size="lg" 
@@ -590,7 +591,10 @@ export default function Home() {
                     <Card 
                       className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
                       onClick={() => {
-                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                        setGetInvolvedOpen(false);
+                        setTimeout(() => {
+                          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
                       }}
                     >
                       <CardContent className="pt-6 text-center space-y-2">
@@ -603,7 +607,10 @@ export default function Home() {
                     <Card 
                       className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
                       onClick={() => {
-                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                        setGetInvolvedOpen(false);
+                        setTimeout(() => {
+                          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
                       }}
                     >
                       <CardContent className="pt-6 text-center space-y-2">
@@ -616,7 +623,10 @@ export default function Home() {
                     <Card 
                       className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
                       onClick={() => {
-                        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                        setGetInvolvedOpen(false);
+                        setTimeout(() => {
+                          document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
                       }}
                     >
                       <CardContent className="pt-6 text-center space-y-2">
