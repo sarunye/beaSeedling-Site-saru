@@ -7,6 +7,40 @@ import eleonoraImage from "@assets/IMG-20260119-WA0029_1768830769372.jpg";
 import davidImage from "@assets/Image-empty-state_1768832269234.jpg";
 import logoImage from "@assets/generated_images/seedling_nonprofit_logo_design.png";
 
+// ==============================================================================
+// SITE CONFIGURATION & CONTENT
+// Edit this file to update the website content.
+// ==============================================================================
+
+// 1. CONTACT INFORMATION
+export const contactInfo = {
+  email: "beaseedling.mbt@gmail.com",
+  phone: "0712 345 678", // Add phone number if available
+  address: "Marsabit County, Kenya",
+  socials: {
+    facebook: "https://facebook.com/beaseedling",
+    instagram: "https://instagram.com/beaseedling",
+    twitter: "https://twitter.com/beaseedling",
+    youtube: "https://youtube.com/beaseedling",
+    linkedin: "https://linkedin.com/company/beaseedling",
+  }
+};
+
+// 2. PAYMENT & DONATION ACCOUNTS
+export const paymentInfo = {
+  mpesa: {
+    paybill: "123456", // Replace with actual Paybill
+    account: "Donation"
+  },
+  bank: {
+    bankName: "Equity Bank Kenya",
+    branch: "Marsabit",
+    accountName: "Be a Seedling CBO",
+    accountNumber: "1234567890123", // Replace with actual account number
+  }
+};
+
+// 3. IMAGES (Map your imported images here)
 export const images = {
   hero: heroImage,
   children: childrenImage,
@@ -18,6 +52,7 @@ export const images = {
   logo: logoImage,
 };
 
+// 4. TEAM MEMBERS
 export const teamMembers = [
   { 
     name: "Jeremiah Lengure", 

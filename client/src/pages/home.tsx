@@ -62,7 +62,9 @@ import {
   upcomingProjects, 
   completedProjects, 
   researchItems, 
-  images 
+  images,
+  contactInfo,
+  paymentInfo
 } from "@/data/content";
 
 const fadeUp = {
@@ -212,6 +214,9 @@ function DonateModal() {
                   <div className="text-sm">
                     <p className="font-medium text-green-900">How it works:</p>
                     <p className="text-green-800/80 mt-1">We'll send a prompt to your phone. Enter your M-Pesa PIN to complete the donation.</p>
+                    {paymentInfo.mpesa.paybill && (
+                       <p className="text-xs text-green-700 mt-2 font-mono">Paybill: {paymentInfo.mpesa.paybill}</p>
+                    )}
                   </div>
                 </div>
               </TabsContent>
@@ -245,10 +250,10 @@ function DonateModal() {
                     <span>Bank Transfer Details</span>
                   </div>
                   <div className="grid grid-cols-[100px_1fr] gap-1 text-muted-foreground">
-                    <span>Bank:</span> <span className="text-foreground font-medium">Equity Bank Kenya</span>
-                    <span>Branch:</span> <span className="text-foreground font-medium">Marsabit</span>
-                    <span>Account:</span> <span className="text-foreground font-medium">Be a Seedling CBO</span>
-                    <span>Acc No:</span> <span className="text-foreground font-mono bg-muted-foreground/10 px-1 rounded">1234567890123</span>
+                    <span>Bank:</span> <span className="text-foreground font-medium">{paymentInfo.bank.bankName}</span>
+                    <span>Branch:</span> <span className="text-foreground font-medium">{paymentInfo.bank.branch}</span>
+                    <span>Account:</span> <span className="text-foreground font-medium">{paymentInfo.bank.accountName}</span>
+                    <span>Acc No:</span> <span className="text-foreground font-mono bg-muted-foreground/10 px-1 rounded">{paymentInfo.bank.accountNumber}</span>
                   </div>
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -314,11 +319,11 @@ export default function Home() {
   };
 
   const socialLinks = [
-    { name: "Facebook", icon: Facebook, url: "https://facebook.com/beaseedling", color: "hover:text-blue-600" },
-    { name: "Instagram", icon: Instagram, url: "https://instagram.com/beaseedling", color: "hover:text-pink-600" },
-    { name: "Twitter", icon: Twitter, url: "https://twitter.com/beaseedling", color: "hover:text-sky-500" },
-    { name: "YouTube", icon: Youtube, url: "https://youtube.com/beaseedling", color: "hover:text-red-600" },
-    { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/company/beaseedling", color: "hover:text-blue-700" },
+    { name: "Facebook", icon: Facebook, url: contactInfo.socials.facebook, color: "hover:text-blue-600" },
+    { name: "Instagram", icon: Instagram, url: contactInfo.socials.instagram, color: "hover:text-pink-600" },
+    { name: "Twitter", icon: Twitter, url: contactInfo.socials.twitter, color: "hover:text-sky-500" },
+    { name: "YouTube", icon: Youtube, url: contactInfo.socials.youtube, color: "hover:text-red-600" },
+    { name: "LinkedIn", icon: Linkedin, url: contactInfo.socials.linkedin, color: "hover:text-blue-700" },
   ];
 
   const programmes = [
@@ -851,21 +856,21 @@ export default function Home() {
               <DonateModal />
             </Dialog>
 
-            <Card 
-              className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
-              onClick={() => {
-                setSponsorModalOpen(false);
-                setTimeout(() => {
-                  window.location.href = `mailto:beaseedling.mbt@gmail.com?subject=Inquiry regarding ${selectedSponsorship}`;
-                }, 100);
-              }}
-            >
-              <CardContent className="pt-6 text-center space-y-2">
-                <Mail className="h-8 w-8 mx-auto text-primary" />
-                <h3 className="font-bold">Contact Us</h3>
-                <p className="text-xs text-muted-foreground">Send us an email to request more details about sponsorship</p>
-              </CardContent>
-            </Card>
+                      <Card 
+                      className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
+                      onClick={() => {
+                        setSponsorModalOpen(false);
+                        setTimeout(() => {
+                          window.location.href = `mailto:${contactInfo.email}?subject=Inquiry regarding ${selectedSponsorship}`;
+                        }, 100);
+                      }}
+                    >
+                      <CardContent className="pt-6 text-center space-y-2">
+                        <Mail className="h-8 w-8 mx-auto text-primary" />
+                        <h3 className="font-bold">Contact Us</h3>
+                        <p className="text-xs text-muted-foreground">Send us an email to request more details about sponsorship</p>
+                      </CardContent>
+                    </Card>
           </div>
         </DialogContent>
       </Dialog>
@@ -1254,12 +1259,12 @@ export default function Home() {
             
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
               <a 
-                href="mailto:beaseedling.mbt@gmail.com"
+                href={`mailto:${contactInfo.email}`}
                 className="flex items-center gap-3 text-lg text-foreground hover:text-primary transition-colors"
                 data-testid="link-email"
               >
                 <Mail className="h-6 w-6" />
-                beaseedling.mbt@gmail.com
+                {contactInfo.email}
               </a>
             </motion.div>
 
