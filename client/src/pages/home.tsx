@@ -284,6 +284,17 @@ function DonateModal() {
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [getInvolvedOpen, setGetInvolvedOpen] = useState(false);
+  const [sponsorModalOpen, setSponsorModalOpen] = useState(false);
+  const [selectedSponsorship, setSelectedSponsorship] = useState("");
+
+  const handleInvolvementClick = (option: any) => {
+    if (option.title.includes("Sponsor")) {
+      setSelectedSponsorship(option.title);
+      setSponsorModalOpen(true);
+    } else {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -857,7 +868,11 @@ export default function Home() {
               
               <div className="space-y-4">
                 {involvementOptions.map((option, index) => (
-                  <Card key={option.title} className="bg-card hover:shadow-md transition-shadow">
+                  <Card 
+                    key={option.title} 
+                    className="bg-card hover:shadow-md transition-shadow cursor-pointer hover:border-primary/50"
+                    onClick={() => handleInvolvementClick(option)}
+                  >
                     <CardContent className="p-5 flex items-center justify-between">
                       <div>
                         <h4 className="font-semibold text-foreground">{option.title}</h4>
@@ -867,7 +882,6 @@ export default function Home() {
                         variant="ghost" 
                         size="sm" 
                         className="shrink-0 text-primary hover:text-primary hover:bg-primary/10"
-                        data-testid={`button-${option.action.toLowerCase().replace(' ', '-')}`}
                       >
                         {option.action}
                         <ChevronRight className="ml-1 h-4 w-4" />
@@ -880,6 +894,47 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      <Dialog open={sponsorModalOpen} onOpenChange={setSponsorModalOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="font-serif text-2xl text-center">{selectedSponsorship}</DialogTitle>
+            <DialogDescription className="text-center">
+              Choose how you would like to proceed with your sponsorship.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Card className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2">
+                  <CardContent className="pt-6 text-center space-y-2">
+                    <Heart className="h-8 w-8 mx-auto text-primary" />
+                    <h3 className="font-bold">Donate Now</h3>
+                    <p className="text-xs text-muted-foreground">Make a direct financial contribution via M-Pesa, Card or Bank</p>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+              <DonateModal />
+            </Dialog>
+
+            <Card 
+              className="hover:border-primary cursor-pointer transition-all hover:bg-primary/5 border-2"
+              onClick={() => {
+                setSponsorModalOpen(false);
+                setTimeout(() => {
+                  window.location.href = `mailto:beaseedling.mbt@gmail.com?subject=Inquiry regarding ${selectedSponsorship}`;
+                }, 100);
+              }}
+            >
+              <CardContent className="pt-6 text-center space-y-2">
+                <Mail className="h-8 w-8 mx-auto text-primary" />
+                <h3 className="font-bold">Contact Us</h3>
+                <p className="text-xs text-muted-foreground">Send us an email to request more details about sponsorship</p>
+              </CardContent>
+            </Card>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Team Section */}
       <section className="py-20 md:py-32 bg-card grain" id="team">
