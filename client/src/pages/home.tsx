@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useContent } from "@/context/ContentContext";
 import { 
   Sprout, 
   Heart, 
@@ -282,6 +283,7 @@ function DonateModal() {
 }
 
 export default function Home() {
+  const { videos, blogs } = useContent();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [getInvolvedOpen, setGetInvolvedOpen] = useState(false);
   const [sponsorModalOpen, setSponsorModalOpen] = useState(false);
