@@ -1,31 +1,41 @@
-# Be a Seedling
+# Be a Seedling - Official Website
 
-Be a Seedling is a non-profit Community-Based Organization (CBO) based in Marsabit County, Kenya. We focus on empowering underprivileged communities through education, environmental conservation, and social advocacy.
+This is the official website for Be a Seedling, a Community-Based Organization (CBO) in Marsabit County, Kenya.
 
 ## Features
+- **Modern UI:** Built with React, Vite, and Tailwind CSS.
+- **CMS:** Built-in Admin Portal (`/login`) for managing blogs and videos.
+- **Donations:** Interactive donation flow with M-Pesa, Card, and Bank options.
+- **Responsive:** Fully optimized for mobile, tablet, and desktop.
 
-- **Education Support**: Scholarships and material support for underprivileged students.
-- **Environmental Conservation**: Tree planting drives and forest restoration initiatives.
-- **Advocacy**: Protecting girls' rights and promoting academic excellence.
-- **Interactive Donations**: Support our cause via M-Pesa, Card, or Bank transfer.
+## Admin Access
+To access the admin panel:
+1. Go to the footer and click "Admin" (or navigate to `/login`).
+2. Login with demo credentials:
+   - Email: `admin@beaseedling.org`
+   - Password: `admin123`
+
+## Deployment
+
+### Vercel (Recommended)
+This project is pre-configured for Vercel.
+1. Push this code to a GitHub repository.
+2. Import the project in Vercel.
+3. Vercel will automatically detect the settings from `vercel.json`.
+   - **Framework Preset:** Vite
+   - **Build Command:** `vite build` (or `npm run build`)
+   - **Output Directory:** `dist/public`
+
+### GitHub Pages
+To deploy to GitHub Pages, you can use a GitHub Action or a manual deploy script.
+Note: Client-side routing requires a SPA redirect hack (copy `index.html` to `404.html`) if not using HashRouter.
+
+### Local Development
+1. Install dependencies: `npm install`
+2. Run dev server: `npm run dev`
+3. Build for production: `npm run build`
 
 ## Tech Stack
-
-- **Frontend**: React, Tailwind CSS, Framer Motion
-- **Icons**: Lucide React
-- **Routing**: Wouter
-
-## Local Development
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **Frontend:** React, TypeScript, Wouter (Routing), Framer Motion (Animations)
+- **Styling:** Tailwind CSS, Shadcn UI
+- **Build Tool:** Vite
