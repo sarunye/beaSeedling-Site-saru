@@ -1398,6 +1398,13 @@ export default function Home() {
                   </a>
                 ))}
               </div>
+              <div className="h-4 w-px bg-background/20" />
+              <a 
+                href="/login" 
+                className="text-xs text-background/40 hover:text-background transition-colors"
+              >
+                Admin
+              </a>
             </div>
           </div>
         </div>
