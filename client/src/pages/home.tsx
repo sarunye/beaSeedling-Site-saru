@@ -309,70 +309,126 @@ function DonateModal() {
         </div>
 
         <div className="space-y-4">
-          <Label>Payment Method</Label>
+          <Label className="text-base font-semibold">Select Payment Method</Label>
           <Tabs defaultValue="mpesa" onValueChange={setPaymentMethod} className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="mpesa">M-Pesa</TabsTrigger>
-              <TabsTrigger value="card">Card</TabsTrigger>
-              <TabsTrigger value="bank">Bank</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-muted/50 gap-1">
+              <TabsTrigger value="mpesa" className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                <Smartphone className="h-5 w-5" />
+                <span className="text-xs font-medium">M-Pesa</span>
+              </TabsTrigger>
+              <TabsTrigger value="card" className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                <CreditCard className="h-5 w-5" />
+                <span className="text-xs font-medium">Card</span>
+              </TabsTrigger>
+              <TabsTrigger value="bank" className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                <Banknote className="h-5 w-5" />
+                <span className="text-xs font-medium">Bank</span>
+              </TabsTrigger>
+              <TabsTrigger value="paypal" className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                <Globe className="h-5 w-5" />
+                <span className="text-xs font-medium">PayPal</span>
+              </TabsTrigger>
             </TabsList>
             
-            <div className="pt-4">
-              <TabsContent value="mpesa" className="m-0 space-y-4">
+            <div className="pt-6 px-1">
+              {/* M-Pesa Content */}
+              <TabsContent value="mpesa" className="m-0 space-y-4 animate-in fade-in duration-300">
                 <div className="grid gap-2">
                   <Label htmlFor="phone">M-Pesa Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="0712 345 678" required pattern="^07\d{8}$|^01\d{8}$|^\+254\d{9}$" />
+                  <Input id="phone" type="tel" placeholder="0712 345 678" required pattern="^07\d{8}$|^01\d{8}$|^\+254\d{9}$" className="h-11" />
                 </div>
                 <div className="bg-green-50/50 p-4 rounded-lg border border-green-100 flex items-start gap-3">
                   <Smartphone className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
                   <div className="text-sm">
-                    <p className="font-medium text-green-900">How it works:</p>
+                    <p className="font-medium text-green-900">Push Notification Payment</p>
                     <p className="text-green-800/80 mt-1">We'll send a prompt to your phone. Enter your M-Pesa PIN to complete the donation.</p>
                     {paymentInfo.mpesa.paybill && (
-                       <p className="text-xs text-green-700 mt-2 font-mono">Paybill: {paymentInfo.mpesa.paybill}</p>
+                       <p className="text-xs text-green-700 mt-2 font-mono bg-green-100/50 inline-block px-2 py-1 rounded">Paybill: {paymentInfo.mpesa.paybill}</p>
                     )}
                   </div>
                 </div>
               </TabsContent>
 
-              <TabsContent value="card" className="m-0 space-y-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" required />
+              {/* Card Content */}
+              <TabsContent value="card" className="m-0 space-y-5 animate-in fade-in duration-300">
+                <div className="flex items-center gap-2 mb-2 opacity-75 grayscale hover:grayscale-0 transition-all">
+                   {/* Visual placeholders for card icons */}
+                   <div className="h-6 px-2 bg-slate-100 border rounded text-[10px] font-bold flex items-center text-slate-600">VISA</div>
+                   <div className="h-6 px-2 bg-slate-100 border rounded text-[10px] font-bold flex items-center text-slate-600">Mastercard</div>
+                   <div className="h-6 px-2 bg-slate-100 border rounded text-[10px] font-bold flex items-center text-slate-600">ATM</div>
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="card-name">Cardholder Name</Label>
-                  <Input id="card-name" placeholder="John Doe" required />
-                </div>
-                <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100 flex items-start gap-3">
-                  <Shield className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
-                  <div className="text-sm">
-                    <p className="font-medium text-blue-900">Secure Payment</p>
-                    <p className="text-blue-800/80 mt-1">Your transaction is encrypted and processed securely. We do not store your card details.</p>
+
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="card-number">Card Number</Label>
+                    <div className="relative">
+                      <CreditCard className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                      <Input id="card-number" placeholder="0000 0000 0000 0000" className="pl-10 h-11 font-mono" required />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="expiry">Expiry Date</Label>
+                      <Input id="expiry" placeholder="MM/YY" className="h-11 font-mono" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="cvc">CVV/CVC2</Label>
+                      <Input id="cvc" placeholder="123" maxLength={4} className="h-11 font-mono" required />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="card-name">Cardholder Name</Label>
+                    <Input id="card-name" placeholder="Name as it appears on card" className="h-11" required />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="card-alias" className="flex items-center gap-2">
+                      Card Alias <span className="text-xs font-normal text-muted-foreground">(Optional)</span>
+                    </Label>
+                    <Input id="card-alias" placeholder="e.g. My Personal Card" className="h-11" />
                   </div>
                 </div>
               </TabsContent>
 
-              <TabsContent value="bank" className="m-0 space-y-4">
+              {/* Bank Content */}
+              <TabsContent value="bank" className="m-0 space-y-4 animate-in fade-in duration-300">
                 <div className="grid gap-2">
                   <Label htmlFor="bank-email">Email for Receipt</Label>
-                  <Input id="bank-email" type="email" placeholder="your@email.com" required />
+                  <Input id="bank-email" type="email" placeholder="your@email.com" required className="h-11" />
                 </div>
-                <div className="bg-muted p-4 rounded-lg text-sm space-y-3 border">
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Banknote className="h-4 w-4" />
+                <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm space-y-4 shadow-sm">
+                  <div className="flex items-center gap-2 font-semibold text-slate-900 border-b border-slate-200 pb-3">
+                    <Banknote className="h-5 w-5" />
                     <span>Bank Transfer Details</span>
                   </div>
-                  <div className="grid grid-cols-[100px_1fr] gap-1 text-muted-foreground">
-                    <span>Bank:</span> <span className="text-foreground font-medium">{paymentInfo.bank.bankName}</span>
-                    <span>Branch:</span> <span className="text-foreground font-medium">{paymentInfo.bank.branch}</span>
-                    <span>Account:</span> <span className="text-foreground font-medium">{paymentInfo.bank.accountName}</span>
-                    <span>Acc No:</span> <span className="text-foreground font-mono bg-muted-foreground/10 px-1 rounded">{paymentInfo.bank.accountNumber}</span>
+                  <div className="grid grid-cols-[100px_1fr] gap-y-3 gap-x-2 text-slate-600">
+                    <span className="font-medium">Bank:</span> <span className="text-slate-900">{paymentInfo.bank.bankName}</span>
+                    <span className="font-medium">Branch:</span> <span className="text-slate-900">{paymentInfo.bank.branch}</span>
+                    <span className="font-medium">Account:</span> <span className="text-slate-900">{paymentInfo.bank.accountName}</span>
+                    <span className="font-medium">Acc No:</span> <span className="text-slate-900 font-mono bg-white px-2 py-0.5 rounded border">{paymentInfo.bank.accountNumber}</span>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Please include your name or email in the transaction reference.
+                <p className="text-xs text-muted-foreground text-center">
+                  Use your name or email as the transaction reference.
                 </p>
+              </TabsContent>
+
+              {/* PayPal Content */}
+              <TabsContent value="paypal" className="m-0 space-y-6 animate-in fade-in duration-300 text-center py-4">
+                <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <Globe className="h-8 w-8 text-blue-600" />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-foreground">Pay with PayPal</h4>
+                  <p className="text-sm text-muted-foreground max-w-[80%] mx-auto">
+                    You will be redirected to PayPal to complete your secure donation.
+                  </p>
+                </div>
+                <Button variant="outline" type="button" className="w-full h-11 border-blue-200 hover:bg-blue-50 text-blue-700" onClick={() => window.open('https://paypal.com', '_blank')}>
+                  Proceed to PayPal
+                </Button>
               </TabsContent>
             </div>
           </Tabs>
