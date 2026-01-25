@@ -14,12 +14,15 @@ import {
   Video, 
   FileText, 
   LayoutDashboard,
-  ExternalLink 
+  ExternalLink,
+  MessageSquare,
+  CheckCircle2,
+  XCircle
 } from "lucide-react";
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
-  const { videos, blogs, addVideo, addBlog, deleteVideo, deleteBlog } = useContent();
+  const { videos, blogs, stories, addVideo, addBlog, deleteVideo, deleteBlog, approveStory, rejectStory, deleteStory } = useContent();
   const [activeTab, setActiveTab] = useState("overview");
 
   // Auth check
@@ -84,6 +87,7 @@ export default function AdminDashboard() {
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="blogs">Blogs</TabsTrigger>
             <TabsTrigger value="videos">Videos</TabsTrigger>
+            <TabsTrigger value="stories">Stories & Reviews</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -105,6 +109,17 @@ export default function AdminDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{videos.length}</div>
+                </CardContent>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Stories</CardTitle>
+                  <MessageSquare className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stories.length}</div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {stories.filter(s => s.status === 'pending').length} pending review
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -237,6 +252,66 @@ export default function AdminDashboard() {
               ))}
             </div>
           </TabsContent>
+
+          {/* Stories Tab */}
+          <TabsContent value="stories" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-xl">Community Stories Review</h3>
+            </div>
+
+            {/* Pending Stories */}
+            <div className="space-y-4">
+              <h4 className="font-medium text-muted-foreground uppercase tracking-wider text-xs">Pending Approval</h4>
+              {stories.filter(s => s.status === 'pending').length === 0 && (
+                <p className="text-sm text-muted-foreground italic">No pending stories to review.</p>
+              )}
+              {stories.filter(s => s.status === 'pending').map((story) => (
+                <Card key={story.id} className="border-l-4 border-l-yellow-400">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col md:flex-row justify-between gap-4">
+                      <div className="space-y-2 flex-1">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-bold text-lg">{story.author}</h4>
+                          <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full uppercase font-bold tracking-wider">Pending</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{story.role} • {story.date}</p>
+                        <p className="text-base italic border-l-2 pl-4 py-1">{story.content}</p>
+                        {story.image && <div className="text-xs text-blue-600 truncate">Image: {story.image}</div>}
+                        {story.videoLink && <div className="text-xs text-blue-600 truncate">Video: {story.videoLink}</div>}
+                      </div>
+                      <div className="flex md:flex-col gap-2 shrink-0 justify-center">
+                        <Button size="sm" className="bg-green-600 hover:bg-green-700" onClick={() => approveStory(story.id)}>
+                          <CheckCircle2 className="w-4 h-4 mr-2" /> Approve
+                        </Button>
+                        <Button size="sm" variant="destructive" onClick={() => rejectStory(story.id)}>
+                          <XCircle className="w-4 h-4 mr-2" /> Reject
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Approved Stories */}
+            <div className="space-y-4 pt-8 border-t">
+              <h4 className="font-medium text-muted-foreground uppercase tracking-wider text-xs">Published Stories</h4>
+              {stories.filter(s => s.status === 'approved').map((story) => (
+                <Card key={story.id} className="opacity-75 hover:opacity-100 transition-opacity">
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <div>
+                      <h4 className="font-medium">{story.author}</h4>
+                      <p className="text-sm text-muted-foreground truncate max-w-md">{story.content}</p>
+                    </div>
+                    <Button variant="ghost" size="icon" onClick={() => deleteStory(story.id)}>
+                      <Trash2 className="w-4 h-4 text-red-500" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
         </Tabs>
       </main>
     </div>

@@ -1,4 +1,5 @@
 
+// ... existing imports ...
 import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.png";
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
@@ -191,4 +192,34 @@ export const researchItems = [
     date: "Aug 2024",
     description: "An in-depth look at the socio-economic factors preventing girls from accessing secondary education."
   },
+];
+
+export const initialStories = [
+  {
+    id: "1",
+    author: "Fatuma Ali",
+    role: "Community Member",
+    content: "Be a Seedling has transformed our village. The water project means my daughters can go to school instead of walking miles for water. We are forever grateful.",
+    status: "approved",
+    date: "Jan 15, 2026",
+    rating: 5
+  },
+  {
+    id: "2",
+    author: "John Kamau",
+    role: "Volunteer",
+    content: "Volunteering with this team was a life-changing experience. The dedication of the staff and the resilience of the community is inspiring.",
+    status: "approved",
+    date: "Dec 20, 2025",
+    rating: 5
+  },
+  {
+    id: "3",
+    author: "Sarah O.",
+    role: "Donor",
+    content: "I love seeing the regular updates and transparency. Knowing exactly where my donation goes makes me confident in supporting this cause.",
+    status: "pending",
+    date: "Jan 24, 2026",
+    rating: 4
+  }
 ];

@@ -64,6 +64,7 @@ import { DonateModal } from "@/components/DonateModal";
 import { VolunteerModal } from "@/components/VolunteerModal";
 import { ArchiveModal } from "@/components/ArchiveModal";
 import { AdvocateModal } from "@/components/AdvocateModal";
+import { StoriesModal } from "@/components/StoriesModal";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -94,6 +95,8 @@ export default function Home() {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
     } else if (option.title === "Advocate") {
       document.getElementById("trigger-advocate-modal")?.click();
+    } else if (option.title === "Community Voices") {
+      document.getElementById("trigger-stories-modal")?.click();
     }
   };
 
@@ -192,6 +195,11 @@ export default function Home() {
       title: "Advocate",
       description: "Spread awareness or share your story to help us reach more people and create change.",
       action: "Advocate"
+    },
+    {
+      title: "Community Voices",
+      description: "Read stories from our community or share your own experience and feedback.",
+      action: "Read Stories"
     }
   ];
 
@@ -210,6 +218,13 @@ export default function Home() {
           <button id="trigger-advocate-modal" className="hidden">Open Advocate</button>
         </DialogTrigger>
         <AdvocateModal />
+      </Dialog>
+
+      <Dialog>
+        <DialogTrigger asChild>
+          <button id="trigger-stories-modal" className="hidden">Open Stories</button>
+        </DialogTrigger>
+        <StoriesModal />
       </Dialog>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
