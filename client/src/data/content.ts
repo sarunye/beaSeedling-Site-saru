@@ -1,3 +1,4 @@
+
 import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.png";
 import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
 import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
@@ -103,26 +104,91 @@ export const completedProjects = [
 ];
 
 export const initialVideos = [
-  { id: "1", title: "Our Impact Story 2024", thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&h=225&fit=crop", duration: "5:32" },
-  { id: "2", title: "Tree Planting Documentary", thumbnail: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&h=225&fit=crop", duration: "12:45" },
-  { id: "3", title: "Education Matters", thumbnail: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=225&fit=crop", duration: "8:20" },
-  { id: "4", title: "Community Education Initiative", thumbnail: "https://images.unsplash.com/photo-1577896335412-124745b4986d?w=400&h=225&fit=crop", duration: "10:15", link: "https://youtu.be/fj8qOyys65c?si=crs1FCZs0bbSC5bL" },
+  { id: "1", title: "Our Impact Story 2024", thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&h=225&fit=crop", duration: "5:32", link: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+  { id: "2", title: "Tree Planting Documentary", thumbnail: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&h=225&fit=crop", duration: "12:45", link: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+  { id: "3", title: "Education Matters", thumbnail: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=225&fit=crop", duration: "8:20", link: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+  { id: "4", title: "Community Education Initiative", thumbnail: "https://images.unsplash.com/photo-1577896335412-124745b4986d?w=400&h=225&fit=crop", duration: "10:15", link: "https://www.youtube.com/embed/fj8qOyys65c" },
 ];
 
 export const initialBlogs = [
-  { id: "1", title: "Why Education is the Key to Breaking the Cycle of Poverty", excerpt: "Education transforms lives and communities...", date: "Jan 2026" },
-  { id: "2", title: "Protecting Our Forests: A Community Approach", excerpt: "Sustainable conservation starts with people...", date: "Dec 2025" },
-  { id: "3", title: "Empowering Girls: Stories of Hope", excerpt: "Meet the young women changing their communities...", date: "Nov 2025" },
+  { 
+    id: "1", 
+    title: "Why Education is the Key to Breaking the Cycle of Poverty", 
+    excerpt: "Education transforms lives and communities...", 
+    date: "Jan 2026",
+    author: "Jeremiah Lengure",
+    content: `
+      <p>Education is more than just reading and writing; it is a fundamental human right and a powerful tool for social and economic transformation. In Marsabit County, where poverty rates are high, access to quality education remains a significant challenge.</p>
+      
+      <h3>The Current Challenge</h3>
+      <p>Many children in our region face barriers such as lack of school fees, long distances to schools, and cultural practices that prioritize early marriage over education for girls. These challenges perpetuate a cycle of poverty that is difficult to break without intervention.</p>
+      
+      <h3>Our Approach</h3>
+      <p>Be a Seedling is committed to removing these barriers through our scholarship programs and community advocacy. By providing school fees, uniforms, and learning materials, we ensure that vulnerable children can stay in school and focus on their studies.</p>
+      
+      <h3>The Impact</h3>
+      <p>Educated children are more likely to secure better jobs, support their families, and contribute positively to their communities. They become agents of change, advocating for environmental conservation, health, and social justice.</p>
+      
+      <blockquote>"Education is the most powerful weapon which you can use to change the world." - Nelson Mandela</blockquote>
+      
+      <p>Join us in this mission. Your support can change a life forever.</p>
+    `
+  },
+  { 
+    id: "2", 
+    title: "Protecting Our Forests: A Community Approach", 
+    excerpt: "Sustainable conservation starts with people...", 
+    date: "Dec 2025",
+    author: "Caroline Sarunye",
+    content: `
+      <p>Marsabit's unique ecosystem is under threat from deforestation and climate change. Protecting our forests is not just about saving trees; it's about preserving our heritage and securing our future.</p>
+      
+      <h3>Community-Led Conservation</h3>
+      <p>We believe that true conservation happens when the community is involved. Our programs educate local residents on the importance of trees for water retention, soil health, and biodiversity.</p>
+      
+      <p>Through our "Sponsor a Tree" initiative, we have planted over 10,000 indigenous trees in the last year alone. Each tree is cared for by a community member, ensuring its survival and growth.</p>
+    `
+  },
+  { 
+    id: "3", 
+    title: "Empowering Girls: Stories of Hope", 
+    excerpt: "Meet the young women changing their communities...", 
+    date: "Nov 2025",
+    author: "David Leparporori",
+    content: `
+      <p>Meet Amina, a 16-year-old girl from Laisamis who dreams of becoming a doctor. Just two years ago, she was at risk of dropping out of school due to lack of funds. Today, thanks to our supporters, she is top of her class.</p>
+      
+      <p>Amina's story is one of many. Across Marsabit, girls are defying odds and pursuing their dreams. But they need our help.</p>
+      
+      <p>Investing in a girl's education has a ripple effect. She is more likely to reinvest her income into her family, ensuring better health and education for the next generation.</p>
+    `
+  },
 ];
 
 export const researchItems = [
   {
-    title: "Community Education Initiative",
+    title: "Community Education Initiative Video",
     type: "Video",
     date: "Oct 2025",
-    link: "https://youtu.be/fj8qOyys65c?si=crs1FCZs0bbSC5bL"
+    link: "https://www.youtube.com/embed/fj8qOyys65c",
+    description: "A documentary showcasing our recent education initiative in Marsabit Central."
   },
-  { title: "Impact Assessment Report 2024", type: "PDF", date: "Dec 2024" },
-  { title: "Environmental Conservation Study", type: "PDF", date: "Oct 2024" },
-  { title: "Girls Education Barriers Analysis", type: "PDF", date: "Aug 2024" },
+  { 
+    title: "Impact Assessment Report 2024", 
+    type: "PDF", 
+    date: "Dec 2024",
+    description: "A comprehensive analysis of our programs' effectiveness and reach in the past year. Download the full PDF to learn more about our metrics and success stories."
+  },
+  { 
+    title: "Environmental Conservation Study", 
+    type: "PDF", 
+    date: "Oct 2024",
+    description: "Research findings on the impact of our reforestation efforts on local microclimates."
+  },
+  { 
+    title: "Girls Education Barriers Analysis", 
+    type: "PDF", 
+    date: "Aug 2024",
+    description: "An in-depth look at the socio-economic factors preventing girls from accessing secondary education."
+  },
 ];

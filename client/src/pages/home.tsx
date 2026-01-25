@@ -62,6 +62,8 @@ import {
 } from "@/data/content";
 import { DonateModal } from "@/components/DonateModal";
 import { VolunteerModal } from "@/components/VolunteerModal";
+import { ArchiveModal } from "@/components/ArchiveModal";
+import { AdvocateModal } from "@/components/AdvocateModal";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -78,14 +80,27 @@ export default function Home() {
   const [getInvolvedOpen, setGetInvolvedOpen] = useState(false);
   const [sponsorModalOpen, setSponsorModalOpen] = useState(false);
   const [selectedSponsorship, setSelectedSponsorship] = useState("");
+  const [selectedArchiveItem, setSelectedArchiveItem] = useState<any>(null);
+  const [archiveType, setArchiveType] = useState<'blog' | 'video' | 'research'>('blog');
 
   const handleInvolvementClick = (option: any) => {
     if (option.title.includes("Sponsor")) {
       setSelectedSponsorship(option.title);
       setSponsorModalOpen(true);
-    } else {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    } else if (option.title === "Volunteer") {
+      (document.querySelector('[data-testid="button-volunteer"]') as HTMLElement)?.click();
+    } else if (option.title === "Partner With Us") {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    } else if (option.title === "Advocate") {
+      document.getElementById("trigger-advocate-modal")?.click();
     }
+  };
+
+  const handleArchiveClick = (item: any, type: 'blog' | 'video' | 'research') => {
+    setSelectedArchiveItem(item);
+    setArchiveType(type);
+    document.getElementById("trigger-archive-modal")?.click();
   };
 
   const navLinks = [
@@ -172,11 +187,30 @@ export default function Home() {
       title: "Partner With Us",
       description: "Organizations and institutions can collaborate on projects or share resources.",
       action: "Partner"
+    },
+    {
+      title: "Advocate",
+      description: "Spread awareness or share your story to help us reach more people and create change.",
+      action: "Advocate"
     }
   ];
 
   return (
     <div className="min-h-screen bg-background" id="home">
+      {/* Hidden Triggers for Modals */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <button id="trigger-archive-modal" className="hidden">Open Archive</button>
+        </DialogTrigger>
+        <ArchiveModal item={selectedArchiveItem} type={archiveType} />
+      </Dialog>
+
+      <Dialog>
+        <DialogTrigger asChild>
+          <button id="trigger-advocate-modal" className="hidden">Open Advocate</button>
+        </DialogTrigger>
+        <AdvocateModal />
+      </Dialog>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -894,7 +928,10 @@ export default function Home() {
             <div className="grid md:grid-cols-3 gap-6">
               {archiveItems.videos.map((video) => (
                 <motion.div key={video.title} variants={fadeUp}>
-                  <Card className="overflow-hidden bg-background hover:shadow-xl transition-all cursor-pointer group">
+                  <Card 
+                    className="overflow-hidden bg-background hover:shadow-xl transition-all cursor-pointer group"
+                    onClick={() => handleArchiveClick(video, 'video')}
+                  >
                     <div className="relative aspect-video overflow-hidden">
                       <img
                         src={video.thumbnail}
@@ -935,7 +972,10 @@ export default function Home() {
               <div className="space-y-3">
                 {archiveItems.research.map((item) => (
                   <motion.div key={item.title} variants={fadeUp}>
-                    <Card className="bg-background hover:shadow-md transition-shadow cursor-pointer">
+                    <Card 
+                      className="bg-background hover:shadow-md transition-shadow cursor-pointer"
+                      onClick={() => handleArchiveClick(item, 'research')}
+                    >
                       <CardContent className="p-4 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded bg-secondary/10 flex items-center justify-center">
@@ -968,7 +1008,10 @@ export default function Home() {
               <div className="space-y-3">
                 {archiveItems.blog.map((post) => (
                   <motion.div key={post.title} variants={fadeUp}>
-                    <Card className="bg-background hover:shadow-md transition-shadow cursor-pointer">
+                    <Card 
+                      className="bg-background hover:shadow-md transition-shadow cursor-pointer"
+                      onClick={() => handleArchiveClick(post, 'blog')}
+                    >
                       <CardContent className="p-4">
                         <p className="text-xs text-muted-foreground mb-1">{post.date}</p>
                         <h4 className="font-medium mb-1">{post.title}</h4>
