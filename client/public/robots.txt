@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://beaseedling.or.ke/sitemap.xml
