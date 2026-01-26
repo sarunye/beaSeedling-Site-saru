@@ -337,8 +337,9 @@ export default function Home() {
               variants={fadeUp}
               className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed"
             >
-              Be a Seedling empowers underprivileged communities through education 
-              and environmental conservation, fostering equity and advocating for a better world.
+              Be a Seedling is a community-based organization (CBO) in Marsabit County, Kenya,
+              supporting underprivileged children and families through education support,
+              environmental conservation, and grassroots advocacy.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
               <Dialog open={getInvolvedOpen} onOpenChange={setGetInvolvedOpen}>
@@ -449,21 +450,21 @@ export default function Home() {
                 Welcome
               </span>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-                Growing Opportunities for Underprivileged Individuals
+                Who We Are — A Community-Based Organization in Marsabit
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Be a Seedling is a non-profit organization that provides community-based 
-                  programming, education, capacity building, environmental conservation and 
-                  advocacy for underprivileged individuals and communities.
+                  Be a Seedling is a registered Community-Based Organization (CBO) based in Marsabit County,
+                  Northern Kenya. We partner with schools, local leaders, and pastoralist communities to help
+                  vulnerable learners stay in school through scholarships, mentorship, and essential learning materials.
                 </p>
                 <p>
-                  We believe that everyone deserves the opportunity to reach their full 
-                  potential, regardless of their circumstances. We are committed to making 
-                  a difference in the lives of those who are most in need.
+                  Alongside education support, we lead community tree planting, land restoration, and environmental
+                  conservation initiatives that protect forests and water sources. We also advocate for child protection
+                  and community wellbeing—challenging gender-based violence, early marriage, and harmful practices.
                 </p>
                 <p className="font-medium text-foreground">
-                  Together, we can make a difference.
+                  From Ngurunit to the wider Marsabit region, we plant small seeds of hope that grow into long-term change.
                 </p>
               </div>
             </motion.div>
@@ -575,8 +576,8 @@ export default function Home() {
               variants={fadeUp}
               className="text-muted-foreground max-w-2xl mx-auto"
             >
-              Changing lives one child at a time through comprehensive support, 
-              education, and environmental stewardship.
+              Education support, environmental conservation, and community advocacy programmes across Marsabit County,
+              Kenya—designed with communities and delivered for lasting impact.
             </motion.p>
           </motion.div>
 
@@ -632,9 +633,8 @@ export default function Home() {
                 Get Involved
               </h2>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                Join us in our mission to create a more just and equitable world. 
-                There are many ways to contribute, whether through volunteering, 
-                donating, or simply spreading the word about our work.
+                Support community-led development in Marsabit County. You can donate, volunteer, partner with us,
+                advocate for girls’ education and child protection, or share your experience in Community Voices.
               </p>
               
               <div className="space-y-4">
@@ -827,7 +827,7 @@ export default function Home() {
               variants={fadeUp}
               className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
             >
-              Projects
+              Projects in Marsabit County
             </motion.h2>
           </motion.div>
 
