@@ -37,8 +37,8 @@ export const paymentInfo = {
   bank: {
     bankName: "Equity Bank Kenya",
     branch: "Marsabit",
-    accountName: "Be a Seedling CBO",
-    accountNumber: "1234567890123", // Replace with actual account number
+    accountName: "beaseedling",
+    accountNumber: "1010183178568", 
   }
 };
 
