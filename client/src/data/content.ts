@@ -1,8 +1,9 @@
 
 // ... existing imports ...
-import heroImage from "@assets/generated_images/seedling_sprouting_in_sunlight.png";
-import childrenImage from "@assets/generated_images/children_learning_under_tree.png";
-import treePlantingImage from "@assets/generated_images/community_tree_planting_event.png";
+import heroImage from "@assets/seedlings_merille.avif";
+import childrenImage from "@assets/mentorship.avif";
+import treePlantingImage from "@assets/fight_prosopis.avif";
+import communityImage from "@assets/community_gift.avif";
 import founderImage from "@assets/20260109_073202_1768269100356.jpg";
 import carolineImage from "@assets/20260117_160940_1768830964832.jpg";
 import eleonoraImage from "@assets/IMG-20260119-WA0029_1768830769372.jpg";
@@ -48,6 +49,7 @@ export const images = {
   hero: heroImage,
   children: childrenImage,
   treePlanting: treePlantingImage,
+  community: communityImage,
   founder: founderImage,
   caroline: carolineImage,
   eleonora: eleonoraImage,
