@@ -114,10 +114,9 @@ export const completedProjects = [
 ];
 
 export const initialVideos = [
-  { id: "1", title: "Our Impact Story 2024", thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&h=225&fit=crop", duration: "5:32", link: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-  { id: "2", title: "Tree Planting Documentary", thumbnail: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&h=225&fit=crop", duration: "12:45", link: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-  { id: "3", title: "Education Matters", thumbnail: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=225&fit=crop", duration: "8:20", link: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-  { id: "4", title: "Community Education Initiative", thumbnail: "https://images.unsplash.com/photo-1577896335412-124745b4986d?w=400&h=225&fit=crop", duration: "10:15", link: "https://www.youtube.com/embed/fj8qOyys65c" },
+  { id: "1", title: "Education Space: Transforming Lives", thumbnail: "https://images.unsplash.com/photo-1577896335412-124745b4986d?w=400&h=225&fit=crop", duration: "10:15", link: "https://www.youtube.com/embed/sHNUDyqdI2c?si=V-VnVkiI0Q5ue4Mw" },
+  { id: "2", title: "Planting Trees for the Future", thumbnail: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&h=225&fit=crop", duration: "12:45", link: "https://www.youtube.com/embed/8dmzZMVP_yY?si=ms3dPYaWM-eDPVxL" },
+  { id: "3", title: "Our Impact Story 2024", thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&h=225&fit=crop", duration: "5:32", link: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
 ];
 
 export const initialBlogs = [
