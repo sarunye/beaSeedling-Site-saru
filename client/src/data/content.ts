@@ -8,6 +8,7 @@ import carolineImage from "@assets/20260117_160940_1768830964832.jpg";
 import eleonoraImage from "@assets/IMG-20260119-WA0029_1768830769372.jpg";
 import davidImage from "@assets/Image-empty-state_1768832269234.jpg";
 import logoImage from "@assets/generated_images/seedling_nonprofit_logo_design.png";
+import martinImage from "@assets/martin_korleyte.jpeg";
 
 // ==============================================================================
 // SITE CONFIGURATION & CONTENT
@@ -83,6 +84,12 @@ export const teamMembers = [
     image: davidImage,
     bio: "David is a highly passionate individual with extensive experience in mentoring and poverty alleviation. He spent over seven years as a mentor with The BOMA Project and has implemented poverty graduation programs for over a decade. With a diverse background in farming, pastoralism, and tourism guiding, he is committed to making a positive impact in the lives of underprivileged communities.",
     email: "david@beaseedling.org"
+  },
+  { 
+    name: "Martin Hirkena Korleyte", 
+    role: "Education & Development Lead", 
+    image: martinImage,
+    bio: "A dedicated educator with over 15 years of experience in Northern Kenya, Martin has served as both a teacher and administrator. He brings deep expertise in overcoming educational barriers for marginalized learners and is a passionate advocate for community empowerment and sustainable development."
   },
 ];
 
