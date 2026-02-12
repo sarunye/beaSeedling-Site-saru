@@ -69,7 +69,7 @@ export const teamMembers = [
     featured: true
   },
   { 
-    name: "Caroline Sarunye", 
+    name: "Caroline Kaldale", 
     role: "Programs Director", 
     image: carolineImage,
     bio: "Caroline leads our community-based programming with a focus on women's empowerment and education advocacy. She has extensive experience in community mobilization and indigenous knowledge preservation within Marsabit County.",
