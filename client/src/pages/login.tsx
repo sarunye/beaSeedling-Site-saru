@@ -15,12 +15,12 @@ export default function Login() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === "admin@beaseedling.org" && password === "admin123") {
+    if (email === "admin@beaseedling.org" && password === "beaseedling") {
       // Set a mock auth token
       localStorage.setItem("authToken", "mock-token");
       setLocation("/admin");
     } else {
-      setError("Invalid credentials. Try admin@beaseedling.org / admin123");
+      setError("Invalid credentials. Try admin@beaseedling.org / beaseedling");
     }
   };
 
@@ -66,7 +66,7 @@ export default function Login() {
               <p className="text-xs text-muted-foreground">
                 Demo Credentials:<br />
                 User: admin@beaseedling.org<br />
-                Pass: admin123
+                Pass: beaseedling
               </p>
             </div>
           </form>

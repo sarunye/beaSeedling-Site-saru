@@ -73,26 +73,28 @@ export const teamMembers = [
     role: "Programs Director", 
     image: carolineImage,
     bio: "Caroline leads our community-based programming with a focus on women's empowerment and education advocacy. She has extensive experience in community mobilization and indigenous knowledge preservation within Marsabit County.",
-    email: "caroline@beaseedling.org"
+    email: "kaldalecarol@gmail.com"
   },
   { 
     name: "Eleonora", 
     role: "Research Partner", 
     image: eleonoraImage,
-    bio: "Eleonora is a PhD candidate at Washington State University studying how pastoralist communities navigate uncertainty, knowledge transmission, and social cohesion under climate change and conflict. She integrates Indigenous knowledge systems with ethnography and computational modeling to examine mobility, trust, and resource management, with a focus on equity and social learning under environmental stress. Her interdisciplinary background spans psychology, women's studies, and anthropology, with expertise in participatory research, ethnographic fieldwork, and integrating grounded behavioral data into agent-based and epidemiological modeling. She is a fellow at the Zeit Stiftung Bucerius Institute, exploring creative approaches to uncertainty across disciplines."
+    bio: "Eleonora is a PhD candidate at Washington State University studying how pastoralist communities navigate uncertainty, knowledge transmission, and social cohesion under climate change and conflict. She integrates Indigenous knowledge systems with ethnography and computational modeling to examine mobility, trust, and resource management, with a focus on equity and social learning under environmental stress. Her interdisciplinary background spans psychology, women's studies, and anthropology, with expertise in participatory research, ethnographic fieldwork, and integrating grounded behavioral data into agent-based and epidemiological modeling. She is a fellow at the Zeit Stiftung Bucerius Institute, exploring creative approaches to uncertainty across disciplines.",
+    email: "Eleonora.zanetti@wsu.edu"
   },
   { 
     name: "David Leparporori", 
     role: "Director of Field Operations", 
     image: davidNewImage,
     bio: "David is a highly passionate leader with extensive experience in mentoring and poverty alleviation. He spent over seven years as a mentor with The BOMA Project and has implemented poverty graduation programs for over a decade. With a diverse background in farming, pastoralism, and tourism guiding, he leads our on-the-ground impact strategies.",
-    email: "david@beaseedling.org"
+    email: "david.leparporori@gmail.com"
   },
   { 
     name: "Martin Hirkena Korleyte", 
     role: "Education & Development Lead", 
     image: martinImage,
-    bio: "A dedicated educator with over 15 years of experience in Northern Kenya, Martin has served as both a teacher and administrator. He brings deep expertise in overcoming educational barriers for marginalized learners and is a passionate advocate for community empowerment and sustainable development."
+    bio: "A dedicated educator with over 15 years of experience in Northern Kenya, Martin has served as both a teacher and administrator. He brings deep expertise in overcoming educational barriers for marginalized learners and is a passionate advocate for community empowerment and sustainable development.",
+    email: "kentonee@gmail.com"
   },
 ];
 
