@@ -17,12 +17,27 @@ import {
   ExternalLink,
   MessageSquare,
   CheckCircle2,
-  XCircle
+  XCircle,
+  Users,
+  CalendarDays
 } from "lucide-react";
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
-  const { videos, blogs, stories, addVideo, addBlog, deleteVideo, deleteBlog, approveStory, rejectStory, deleteStory } = useContent();
+  const { 
+    videos, 
+    blogs, 
+    stories, 
+    teamMembers,
+    upcomingProjects,
+    addVideo, 
+    addBlog, 
+    deleteVideo, 
+    deleteBlog, 
+    approveStory, 
+    rejectStory, 
+    deleteStory 
+  } = useContent();
   const [activeTab, setActiveTab] = useState("overview");
 
   // Auth check
@@ -41,6 +56,11 @@ export default function AdminDashboard() {
   // Form states
   const [newVideo, setNewVideo] = useState({ title: "", duration: "", link: "" });
   const [newBlog, setNewBlog] = useState({ title: "", excerpt: "", date: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) });
+  
+  // Note: These state handlers for new team members and projects are placeholders 
+  // as the full CRUD for these isn't implemented in context yet, but the UI is prepared.
+  const [newTeamMember, setNewTeamMember] = useState({ name: "", role: "", bio: "", email: "" });
+  const [newProject, setNewProject] = useState({ title: "", description: "", date: "", location: "" });
 
   const handleAddVideo = (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,6 +83,18 @@ export default function AdminDashboard() {
     setNewBlog({ ...newBlog, title: "", excerpt: "" });
   };
 
+  const handleAddTeamMember = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Functionality to add team member is in development.");
+    // setTeamMembers([...teamMembers, newTeamMember])
+  };
+  
+  const handleAddProject = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Functionality to add project is in development.");
+     // setUpcomingProjects([...upcomingProjects, newProject])
+  };
+
   return (
     <div className="min-h-screen bg-muted/20">
       {/* Top Bar */}
@@ -81,17 +113,32 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="container mx-auto p-6 max-w-5xl">
-        <Tabs defaultValue="overview" onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="blogs">Blogs</TabsTrigger>
-            <TabsTrigger value="videos">Videos</TabsTrigger>
-            <TabsTrigger value="stories">Stories & Reviews</TabsTrigger>
+      <main className="container mx-auto p-6 max-w-6xl">
+        <Tabs defaultValue="overview" onValueChange={setActiveTab} className="space-y-6 flex flex-col md:flex-row gap-6">
+          <TabsList className="flex flex-col w-full md:w-64 h-auto space-y-2 bg-transparent justify-start items-start p-0">
+            <TabsTrigger value="overview" className="w-full justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+               <LayoutDashboard className="w-4 h-4 mr-2" /> Overview
+            </TabsTrigger>
+            <TabsTrigger value="blogs" className="w-full justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <FileText className="w-4 h-4 mr-2" /> Blogs
+            </TabsTrigger>
+            <TabsTrigger value="videos" className="w-full justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <Video className="w-4 h-4 mr-2" /> Videos
+            </TabsTrigger>
+            <TabsTrigger value="stories" className="w-full justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <MessageSquare className="w-4 h-4 mr-2" /> Stories & Reviews
+            </TabsTrigger>
+            <TabsTrigger value="team" className="w-full justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <Users className="w-4 h-4 mr-2" /> Team Members
+            </TabsTrigger>
+             <TabsTrigger value="projects" className="w-full justify-start data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <CalendarDays className="w-4 h-4 mr-2" /> Projects
+            </TabsTrigger>
           </TabsList>
-
+          
+          <div className="flex-1 overflow-auto">
           {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-6">
+          <TabsContent value="overview" className="space-y-6 m-0">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -128,15 +175,15 @@ export default function AdminDashboard() {
               <CardHeader>
                 <CardTitle>Quick Start Guide</CardTitle>
                 <CardDescription>
-                  Welcome to your Content Management System. Here you can add new blog posts
-                  or videos to your website. Changes made here will update the live site instantly.
+                  Welcome to your Content Management System. Here you can add new blog posts,
+                  videos, team members and projects to your website.
                 </CardDescription>
               </CardHeader>
             </Card>
           </TabsContent>
 
           {/* Blogs Tab */}
-          <TabsContent value="blogs" className="space-y-6">
+          <TabsContent value="blogs" className="space-y-6 m-0">
             <Card>
               <CardHeader>
                 <CardTitle>Add New Blog Post</CardTitle>
@@ -188,7 +235,7 @@ export default function AdminDashboard() {
           </TabsContent>
 
           {/* Videos Tab */}
-          <TabsContent value="videos" className="space-y-6">
+          <TabsContent value="videos" className="space-y-6 m-0">
             <Card>
               <CardHeader>
                 <CardTitle>Add New Video</CardTitle>
@@ -255,7 +302,7 @@ export default function AdminDashboard() {
           </TabsContent>
 
           {/* Stories Tab */}
-          <TabsContent value="stories" className="space-y-6">
+          <TabsContent value="stories" className="space-y-6 m-0">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-xl">Community Stories Review</h3>
             </div>
@@ -312,7 +359,151 @@ export default function AdminDashboard() {
               ))}
             </div>
           </TabsContent>
+          
+          {/* Team Tab */}
+           <TabsContent value="team" className="space-y-6 m-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Add Team Member</CardTitle>
+                <CardDescription>Add a new member to your team roster</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleAddTeamMember} className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Name</Label>
+                      <Input 
+                        value={newTeamMember.name}
+                        onChange={(e) => setNewTeamMember({...newTeamMember, name: e.target.value})}
+                        placeholder="e.g. Jane Doe"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Role</Label>
+                      <Input 
+                        value={newTeamMember.role}
+                        onChange={(e) => setNewTeamMember({...newTeamMember, role: e.target.value})}
+                        placeholder="e.g. Coordinator"
+                        required
+                      />
+                    </div>
+                  </div>
+                   <div className="space-y-2">
+                      <Label>Email</Label>
+                      <Input 
+                        type="email"
+                        value={newTeamMember.email}
+                        onChange={(e) => setNewTeamMember({...newTeamMember, email: e.target.value})}
+                        placeholder="e.g. jane@example.com"
+                      />
+                    </div>
+                  <div className="space-y-2">
+                    <Label>Bio</Label>
+                    <Textarea 
+                      value={newTeamMember.bio}
+                      onChange={(e) => setNewTeamMember({...newTeamMember, bio: e.target.value})}
+                      placeholder="Short biography..."
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full sm:w-auto">
+                    <Plus className="w-4 h-4 mr-2" /> Add Member
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
 
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg">Current Team</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {teamMembers && teamMembers.map((member, index) => (
+                <Card key={index}>
+                  <CardContent className="p-4 flex items-start gap-4">
+                     <div className="w-12 h-12 rounded-full overflow-hidden shrink-0">
+                         {member.image ? <img src={member.image} alt={member.name} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-muted flex items-center justify-center text-xl font-bold">{member.name[0]}</div>}
+                      </div>
+                    <div className="flex-1">
+                      <h4 className="font-medium">{member.name}</h4>
+                      <p className="text-sm text-primary font-medium">{member.role}</p>
+                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{member.bio}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Projects Tab */}
+           <TabsContent value="projects" className="space-y-6 m-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Add New Project</CardTitle>
+                <CardDescription>List an upcoming project or initiative</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleAddProject} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Project Title</Label>
+                    <Input 
+                      value={newProject.title}
+                      onChange={(e) => setNewProject({...newProject, title: e.target.value})}
+                      placeholder="e.g. Clean Water Initiative"
+                      required
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Date/Timeline</Label>
+                      <Input 
+                        value={newProject.date}
+                        onChange={(e) => setNewProject({...newProject, date: e.target.value})}
+                        placeholder="e.g. Summer 2026"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Location</Label>
+                      <Input 
+                        value={newProject.location}
+                        onChange={(e) => setNewProject({...newProject, location: e.target.value})}
+                        placeholder="e.g. Marsabit County"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Description</Label>
+                    <Textarea 
+                      value={newProject.description}
+                      onChange={(e) => setNewProject({...newProject, description: e.target.value})}
+                      placeholder="Project details..."
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full sm:w-auto">
+                    <Plus className="w-4 h-4 mr-2" /> Add Project
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg">Upcoming Projects</h3>
+              {upcomingProjects && upcomingProjects.map((project, index) => (
+                <Card key={index}>
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <div>
+                      <h4 className="font-medium">{project.title}</h4>
+                      <p className="text-sm text-muted-foreground">{project.date} • {project.location}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+          </div>
         </Tabs>
       </main>
     </div>
