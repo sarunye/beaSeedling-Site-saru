@@ -1,8 +1,8 @@
 
 // ... existing imports ...
 import heroImage from "@assets/seedlings_merille.avif";
-import childrenImage from "@assets/mentorship.avif";
-import treePlantingImage from "@assets/fight_prosopis.avif";
+import childrenImage from "@assets/girls_education.jpg";
+import treePlantingImage from "@assets/tree_planting_event.jpg";
 import communityImage from "@assets/community_gift.avif";
 import founderImage from "@assets/20260109_073202_1768269100356.jpg";
 import carolineImage from "@assets/20260117_160940_1768830964832.jpg";

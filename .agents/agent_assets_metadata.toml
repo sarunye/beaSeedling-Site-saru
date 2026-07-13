@@ -1,0 +1,14 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "I8Gtw_RXK4H9WYPnUPwyJ"
+uri = "file://attached_assets/tree_planting_event.jpg"
+type = "image"
+title = "community tree planting event in Africa or Kenya, people planting trees, high quality"
+
+[[outputs]]
+id = "NUf38-mZwxpCceBU8D9Hr"
+uri = "file://attached_assets/girls_education.jpg"
+type = "image"
+title = "african girls in school uniform, education, high quality"
