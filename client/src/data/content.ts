@@ -100,13 +100,19 @@ export const teamMembers = [
 
 export const upcomingProjects = [
   { 
+    title: "Programme Schedule for Mid-October", 
+    description: "Combining our efforts for a massive community impact: We are organizing a comprehensive program that includes a Tree Planting Drive and a Girls Education Summit. We are actively requesting donations for sanitary pads, trees, and general support from well-wishers. Volunteers are highly welcome to join us in these events.", 
+    date: "Mid October 2026", 
+    location: "Marsabit County (Laisamis & Central)" 
+  },
+  { 
     title: "Rendille Indigenous Knowledge Initiative", 
     description: "A community-led preservation initiative in Ngurunit to document oral histories, ecological knowledge, and cultural practices of the Rendille community through digital archiving and intergenerational teaching.", 
     date: "Sept 2026 - May 2027", 
     location: "Ngurunit, Marsabit County" 
   },
-  { title: "Tree Planting Drive 2026", description: "Planting 10,000 trees across 5 communities in Marsabit", date: "March 2026", location: "Laisamis Constituency" },
-  { title: "Girls Education Summit", description: "Empowering 500 girls with life skills and menstrual health education", date: "April 2026", location: "Marsabit Central" },
+  { title: "Tree Planting Drive 2026", description: "Planting 10,000 trees across 5 communities in Marsabit. We need tree seedlings and volunteers.", date: "March 2026", location: "Laisamis Constituency" },
+  { title: "Girls Education Summit", description: "Empowering 500 girls with life skills and menstrual health education. Donations of sanitary pads are highly requested.", date: "April 2026", location: "Marsabit Central" },
 ];
 
 export const completedProjects = [
