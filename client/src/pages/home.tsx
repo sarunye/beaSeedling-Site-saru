@@ -76,7 +76,7 @@ const stagger = {
 };
 
 export default function Home() {
-  const { videos, blogs } = useContent();
+  const { videos, blogs, teamMembers, upcomingProjects, completedProjects } = useContent();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [getInvolvedOpen, setGetInvolvedOpen] = useState(false);
   const [sponsorModalOpen, setSponsorModalOpen] = useState(false);
