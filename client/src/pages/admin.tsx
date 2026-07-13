@@ -32,11 +32,15 @@ export default function AdminDashboard() {
     upcomingProjects,
     addVideo, 
     addBlog, 
-    deleteVideo, 
-    deleteBlog, 
+    addTeamMember,
+    addUpcomingProject,
     approveStory, 
     rejectStory, 
-    deleteStory 
+    deleteVideo, 
+    deleteBlog, 
+    deleteStory,
+    deleteTeamMember,
+    deleteUpcomingProject
   } = useContent();
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -85,14 +89,26 @@ export default function AdminDashboard() {
 
   const handleAddTeamMember = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Functionality to add team member is in development.");
-    // setTeamMembers([...teamMembers, newTeamMember])
+    addTeamMember({
+      name: newTeamMember.name,
+      role: newTeamMember.role,
+      bio: newTeamMember.bio,
+      email: newTeamMember.email,
+      image: "", // Placeholder
+      featured: false
+    });
+    setNewTeamMember({ name: "", role: "", bio: "", email: "" });
   };
   
   const handleAddProject = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Functionality to add project is in development.");
-     // setUpcomingProjects([...upcomingProjects, newProject])
+    addUpcomingProject({
+      title: newProject.title,
+      description: newProject.description,
+      date: newProject.date,
+      location: newProject.location
+    });
+    setNewProject({ title: "", description: "", date: "", location: "" });
   };
 
   return (
@@ -417,17 +433,22 @@ export default function AdminDashboard() {
             <div className="space-y-4">
               <h3 className="font-semibold text-lg">Current Team</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {teamMembers && teamMembers.map((member, index) => (
-                <Card key={index}>
-                  <CardContent className="p-4 flex items-start gap-4">
-                     <div className="w-12 h-12 rounded-full overflow-hidden shrink-0">
-                         {member.image ? <img src={member.image} alt={member.name} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-muted flex items-center justify-center text-xl font-bold">{member.name[0]}</div>}
+              {teamMembers && teamMembers.map((member) => (
+                <Card key={member.id}>
+                  <CardContent className="p-4 flex items-start justify-between gap-4">
+                     <div className="flex items-start gap-4 flex-1">
+                       <div className="w-12 h-12 rounded-full overflow-hidden shrink-0">
+                           {member.image ? <img src={member.image} alt={member.name} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-muted flex items-center justify-center text-xl font-bold">{member.name[0]}</div>}
+                        </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium">{member.name}</h4>
+                        <p className="text-sm text-primary font-medium">{member.role}</p>
+                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{member.bio}</p>
                       </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium">{member.name}</h4>
-                      <p className="text-sm text-primary font-medium">{member.role}</p>
-                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{member.bio}</p>
                     </div>
+                    <Button variant="ghost" size="icon" onClick={() => deleteTeamMember(member.id)}>
+                      <Trash2 className="w-4 h-4 text-red-500" />
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
@@ -491,13 +512,16 @@ export default function AdminDashboard() {
 
             <div className="space-y-4">
               <h3 className="font-semibold text-lg">Upcoming Projects</h3>
-              {upcomingProjects && upcomingProjects.map((project, index) => (
-                <Card key={index}>
+              {upcomingProjects && upcomingProjects.map((project) => (
+                <Card key={project.id}>
                   <CardContent className="p-4 flex items-center justify-between">
                     <div>
                       <h4 className="font-medium">{project.title}</h4>
                       <p className="text-sm text-muted-foreground">{project.date} • {project.location}</p>
                     </div>
+                    <Button variant="ghost" size="icon" onClick={() => deleteUpcomingProject(project.id)}>
+                      <Trash2 className="w-4 h-4 text-red-500" />
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
