@@ -303,57 +303,55 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20">
+      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={images.hero}
             alt="A seedling sprouting in warm sunlight"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/20" />
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 w-full">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={stagger}
-            className="max-w-2xl"
+            className="max-w-3xl"
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-primary-foreground/80 text-sm md:text-base font-medium tracking-wide uppercase mb-4"
-            >
-              Non-Profit Organization
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex items-center gap-2 mb-6">
+              <span className="h-px w-8 bg-primary"></span>
+              <span className="text-primary font-bold tracking-widest uppercase text-sm">
+                Marsabit County, Kenya
+              </span>
+            </motion.div>
             <motion.h1
               variants={fadeUp}
-              className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
+              className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] mb-6"
             >
-              Planting Hope,{" "}
-              <span className="text-green-400">Growing Dreams</span>
+              Planting Hope,<br />
+              <span className="text-primary italic font-normal">Growing Dreams.</span>
             </motion.h1>
             <motion.p
               variants={fadeUp}
-              className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed"
+              className="text-lg md:text-2xl text-white/90 mb-10 leading-relaxed max-w-2xl font-light"
             >
-              Be a Seedling is a community-based organization (CBO) in Marsabit County, Kenya,
-              supporting underprivileged children and families through education support,
-              environmental conservation, and grassroots advocacy.
+              We are a community-based organization empowering vulnerable children and preserving our environment for a sustainable future.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
               <Dialog open={getInvolvedOpen} onOpenChange={setGetInvolvedOpen}>
                 <DialogTrigger asChild>
                   <Button 
                     size="lg" 
-                    className="bg-primary hover:bg-primary/90 text-lg px-8"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 h-14 rounded-full shadow-lg shadow-primary/20 transition-all hover:scale-105"
                     data-testid="button-get-involved"
                   >
-                    Get Involved
+                    Make an Impact
                     <ChevronRight className="ml-2 h-5 w-5" />
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px]">
+                <DialogContent className="sm:max-w-[500px] border-none shadow-2xl rounded-3xl">
                   <DialogHeader>
                     <DialogTitle className="font-serif text-2xl text-center">Join Our Mission</DialogTitle>
                     <DialogDescription className="text-center">
@@ -424,7 +422,7 @@ export default function Home() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white/10 text-lg px-8"
+                className="border-white/30 text-white hover:bg-white/10 text-lg px-8 h-14 rounded-full backdrop-blur-sm"
                 data-testid="button-learn-more"
                 onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
               >
@@ -435,24 +433,64 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Impact Stats (New) */}
+      <section className="relative -mt-16 z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="bg-card rounded-2xl shadow-xl border border-border/50 p-8 flex flex-wrap justify-around items-center gap-8 text-center"
+        >
+          <div>
+            <p className="font-serif text-4xl font-bold text-primary mb-1">1,000+</p>
+            <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">Lives Impacted</p>
+          </div>
+          <div className="hidden md:block w-px h-12 bg-border"></div>
+          <div>
+            <p className="font-serif text-4xl font-bold text-primary mb-1">10,000+</p>
+            <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">Trees Planted</p>
+          </div>
+          <div className="hidden md:block w-px h-12 bg-border"></div>
+          <div>
+            <p className="font-serif text-4xl font-bold text-primary mb-1">5+</p>
+            <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">Communities</p>
+          </div>
+        </motion.div>
+      </section>
+
       {/* Welcome Section */}
-      <section className="py-20 md:py-32 bg-card grain" id="about">
+      <section className="py-24 md:py-40 bg-background" id="about">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+            className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center"
           >
-            <motion.div variants={fadeUp}>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                Welcome
-              </span>
-              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-                Who We Are — A Community-Based Organization in Marsabit
+            <motion.div variants={fadeUp} className="relative order-2 lg:order-1">
+              <div className="absolute inset-0 bg-primary/10 translate-x-4 translate-y-4 rounded-3xl -z-10"></div>
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5]">
+                <img
+                  src={images.children}
+                  alt="Children learning together"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="order-1 lg:order-2">
+              <div className="flex items-center gap-2 mb-6">
+                <span className="h-px w-8 bg-secondary"></span>
+                <span className="text-secondary font-bold tracking-widest uppercase text-sm">
+                  Our Story
+                </span>
+              </div>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-8 leading-[1.1]">
+                Empowering the future of Marsabit.
               </h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <div className="space-y-6 text-muted-foreground text-lg leading-relaxed font-light">
                 <p>
                   Be a Seedling is a registered Community-Based Organization (CBO) based in Marsabit County,
                   Northern Kenya. We partner with schools, local leaders, and pastoralist communities to help
@@ -461,64 +499,44 @@ export default function Home() {
                 <p>
                   Alongside education support, we lead community tree planting, land restoration, and environmental
                   conservation initiatives that protect forests and water sources. We also advocate for child protection
-                  and community wellbeing—challenging gender-based violence, early marriage, and harmful practices.
+                  and community wellbeing.
                 </p>
-                <p className="font-medium text-foreground">
-                  From Ngurunit to the wider Marsabit region, we plant small seeds of hope that grow into long-term change.
-                </p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={fadeUp} className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src={images.children}
-                  alt="Children learning together"
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground p-6 rounded-xl shadow-lg">
-                <p className="font-serif text-3xl font-bold">1000+</p>
-                <p className="text-sm opacity-90">Lives Impacted</p>
               </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Mission, Vision, Values */}
-      <section className="py-20 md:py-32 bg-background">
+      {/* Mission & Values */}
+      <section className="py-24 md:py-32 bg-card border-y border-border/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="grid md:grid-cols-2 gap-8 mb-16"
+            className="grid md:grid-cols-2 gap-8 mb-20"
           >
             <motion.div variants={fadeUp}>
-              <Card className="h-full bg-primary text-primary-foreground border-0 overflow-hidden">
-                <CardContent className="p-8">
-                  <h3 className="font-serif text-2xl font-bold mb-4">Our Mission</h3>
-                  <p className="opacity-90 leading-relaxed">
-                    Be a Seedling empowers underprivileged communities through education 
-                    and environmental conservation, fostering equity and advocating for a better world.
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="h-full bg-primary text-primary-foreground p-10 md:p-14 rounded-3xl shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+                <h3 className="font-serif text-3xl font-bold mb-4 relative z-10">Our Mission</h3>
+                <p className="text-lg opacity-90 leading-relaxed font-light relative z-10">
+                  Be a Seedling empowers underprivileged communities through education 
+                  and environmental conservation, fostering equity and advocating for a better world.
+                </p>
+              </div>
             </motion.div>
             
             <motion.div variants={fadeUp}>
-              <Card className="h-full bg-secondary text-secondary-foreground border-0 overflow-hidden">
-                <CardContent className="p-8">
-                  <h3 className="font-serif text-2xl font-bold mb-4">Our Vision</h3>
-                  <p className="opacity-90 leading-relaxed">
-                    We envision a future where all individuals have equal access to education, 
-                    resources, and a healthy environment, enabling them to thrive and contribute 
-                    positively to society.
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="h-full bg-secondary text-secondary-foreground p-10 md:p-14 rounded-3xl shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+                <h3 className="font-serif text-3xl font-bold mb-4 relative z-10">Our Vision</h3>
+                <p className="text-lg opacity-90 leading-relaxed font-light relative z-10">
+                  We envision a future where all individuals have equal access to education, 
+                  resources, and a healthy environment, enabling them to thrive.
+                </p>
+              </div>
             </motion.div>
           </motion.div>
 
@@ -528,21 +546,23 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
           >
-            <motion.h3 variants={fadeUp} className="font-serif text-2xl md:text-3xl font-bold text-center mb-12">
-              Our Values
-            </motion.h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="flex flex-col items-center mb-12">
+              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4">Core Principles</span>
+              <motion.h3 variants={fadeUp} className="font-serif text-4xl font-bold text-center">
+                What drives us forward
+              </motion.h3>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((value, index) => (
                 <motion.div key={value.title} variants={fadeUp}>
-                  <Card className="h-full text-center bg-card hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                        <value.icon className="h-7 w-7 text-primary" strokeWidth={1.5} />
-                      </div>
-                      <h4 className="font-serif text-xl font-semibold mb-2">{value.title}</h4>
-                      <p className="text-sm text-muted-foreground">{value.description}</p>
-                    </CardContent>
-                  </Card>
+                  <div className="h-full p-8 rounded-3xl bg-background border border-border/50 hover:shadow-xl hover:border-primary/20 transition-all duration-300 group">
+                    <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                      <value.icon className="h-8 w-8 text-primary group-hover:text-white transition-colors" strokeWidth={1.5} />
+                    </div>
+                    <h4 className="font-serif text-xl font-bold mb-3">{value.title}</h4>
+                    <p className="text-muted-foreground leading-relaxed font-light">{value.description}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -551,33 +571,34 @@ export default function Home() {
       </section>
 
       {/* Programmes Section */}
-      <section className="py-20 md:py-32 bg-card grain" id="programmes">
+      <section className="py-24 md:py-32 bg-background" id="programmes">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
           >
-            <motion.span 
-              variants={fadeUp}
-              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
-            >
-              What We Do
-            </motion.span>
-            <motion.h2 
-              variants={fadeUp}
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
-            >
-              Our Programmes
-            </motion.h2>
+            <div className="max-w-2xl">
+              <motion.span 
+                variants={fadeUp}
+                className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block"
+              >
+                Our Focus Areas
+              </motion.span>
+              <motion.h2 
+                variants={fadeUp}
+                className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 leading-[1.1]"
+              >
+                Creating impact where it matters most.
+              </motion.h2>
+            </div>
             <motion.p 
               variants={fadeUp}
-              className="text-muted-foreground max-w-2xl mx-auto"
+              className="text-muted-foreground text-lg max-w-md font-light"
             >
-              Education support, environmental conservation, and community advocacy programmes across Marsabit County,
-              Kenya—designed with communities and delivered for lasting impact.
+              We deliver targeted programmes designed alongside local communities to ensure lasting, sustainable change.
             </motion.p>
           </motion.div>
 
@@ -586,17 +607,17 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
             {programmes.map((programme, index) => (
               <motion.div key={programme.title} variants={fadeUp}>
-                <Card className="h-full bg-background hover:shadow-xl transition-all duration-300 group">
-                  <CardContent className="p-8">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      <programme.icon className="h-7 w-7 text-primary group-hover:text-primary-foreground transition-colors" strokeWidth={1.5} />
+                <Card className="h-full bg-card border-border/50 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 overflow-hidden group rounded-3xl">
+                  <CardContent className="p-8 md:p-10 relative z-10">
+                    <div className="w-16 h-16 rounded-2xl bg-background shadow-sm border border-border/50 flex items-center justify-center mb-8 group-hover:bg-primary group-hover:border-primary transition-colors duration-300">
+                      <programme.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground transition-colors duration-300" strokeWidth={1.5} />
                     </div>
-                    <h3 className="font-serif text-xl font-semibold mb-3">{programme.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{programme.description}</p>
+                    <h3 className="font-serif text-2xl font-bold mb-4">{programme.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed font-light">{programme.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -606,61 +627,59 @@ export default function Home() {
       </section>
 
       {/* Get Involved Section */}
-      <section className="py-20 md:py-32 bg-background" id="involved">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 md:py-32 bg-primary text-primary-foreground relative overflow-hidden" id="involved">
+        <div className="absolute inset-0">
+          <img
+            src={images.treePlanting}
+            alt="Community tree planting event"
+            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/50" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+            className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center"
           >
-            <motion.div variants={fadeUp} className="order-2 lg:order-1">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src={images.treePlanting}
-                  alt="Community tree planting event"
-                  className="w-full h-auto"
-                />
-              </div>
+            <motion.div variants={fadeUp}>
+              <span className="text-secondary font-bold tracking-widest uppercase text-sm mb-6 block">
+                Join The Movement
+              </span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-[1.1]">
+                Become a seed of change today.
+              </h2>
+              <p className="text-white/80 text-xl mb-12 leading-relaxed font-light max-w-xl">
+                Whether you donate, volunteer, or advocate, your support directly fuels our mission to uplift the communities of Marsabit County.
+              </p>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button 
+                    size="lg" 
+                    className="bg-secondary hover:bg-secondary/90 text-secondary-foreground text-lg px-10 h-14 rounded-full shadow-xl transition-transform hover:scale-105"
+                  >
+                    Donate Now
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </DialogTrigger>
+                <DonateModal />
+              </Dialog>
             </motion.div>
             
-            <motion.div variants={fadeUp} className="order-1 lg:order-2">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-6">
-                Make an Impact
-              </span>
-              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-                Get Involved
-              </h2>
-              <p className="text-muted-foreground mb-8 leading-relaxed">
-                Support community-led development in Marsabit County. You can donate, volunteer, partner with us,
-                advocate for girls’ education and child protection, or share your experience in Community Voices.
-              </p>
-              
-              <div className="space-y-4">
-                {involvementOptions.map((option, index) => (
-                  <Card 
+            <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {involvementOptions.filter(o => !o.title.includes('Sponsor')).map((option, index) => (
+                  <div 
                     key={option.title} 
-                    className="bg-card hover:shadow-md transition-shadow cursor-pointer hover:border-primary/50"
+                    className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 hover:bg-white/20 cursor-pointer transition-all hover:scale-105"
                     onClick={() => handleInvolvementClick(option)}
                   >
-                    <CardContent className="p-5 flex items-center justify-between">
-                      <div>
-                        <h4 className="font-semibold text-foreground">{option.title}</h4>
-                        <p className="text-sm text-muted-foreground">{option.description}</p>
-                      </div>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="shrink-0 text-primary hover:text-primary hover:bg-primary/10"
-                      >
-                        {option.action}
-                        <ChevronRight className="ml-1 h-4 w-4" />
-                      </Button>
-                    </CardContent>
-                  </Card>
+                    <h4 className="font-serif text-xl font-bold text-white mb-2">{option.title}</h4>
+                    <p className="text-sm text-white/70 font-light leading-relaxed">{option.description}</p>
+                  </div>
                 ))}
-              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -708,30 +727,32 @@ export default function Home() {
       </Dialog>
 
       {/* Team Section */}
-      <section className="py-20 md:py-32 bg-card grain" id="team">
+      <section className="py-24 md:py-32 bg-card grain" id="team">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
           >
-            <motion.span 
-              variants={fadeUp}
-              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
-            >
-              Our People
-            </motion.span>
-            <motion.h2 
-              variants={fadeUp}
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
-            >
-              Meet Our Team
-            </motion.h2>
+            <div className="max-w-2xl">
+              <motion.span 
+                variants={fadeUp}
+                className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block"
+              >
+                Our People
+              </motion.span>
+              <motion.h2 
+                variants={fadeUp}
+                className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 leading-[1.1]"
+              >
+                Meet the Team
+              </motion.h2>
+            </div>
             <motion.p 
               variants={fadeUp}
-              className="text-muted-foreground max-w-2xl mx-auto"
+              className="text-muted-foreground text-lg max-w-md font-light"
             >
               Dedicated individuals working tirelessly to plant seeds of hope and change.
             </motion.p>
@@ -742,56 +763,58 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
             {teamMembers.map((member: any) => (
               <motion.div key={member.name} variants={fadeUp} className={member.featured ? "sm:col-span-2 lg:col-span-1" : ""}>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Card className="overflow-hidden bg-background hover:shadow-xl transition-all duration-300 group cursor-pointer border-none shadow-sm">
-                      <div className="aspect-square overflow-hidden relative">
+                    <Card className="overflow-hidden bg-background hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 group cursor-pointer border border-border/50 rounded-3xl h-full flex flex-col">
+                      <div className="aspect-square overflow-hidden relative m-2 rounded-2xl">
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                          <span className="text-white text-sm font-medium flex items-center gap-2">
-                            View Profile <ArrowRight className="h-4 w-4" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                          <span className="text-white text-sm font-medium flex items-center gap-2 mb-2">
+                            View Full Profile <ArrowRight className="h-4 w-4" />
                           </span>
                         </div>
                       </div>
-                      <div className="p-4 bg-background">
-                        <h3 className="font-serif text-lg font-semibold text-foreground group-hover:text-primary transition-colors">{member.name}</h3>
-                        <p className="text-muted-foreground text-xs">{member.role}</p>
+                      <div className="p-6 bg-background flex-1 flex flex-col justify-center text-center">
+                        <h3 className="font-serif text-xl font-bold text-foreground mb-1">{member.name}</h3>
+                        <p className="text-primary font-medium text-sm">{member.role}</p>
                       </div>
                     </Card>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-2xl overflow-hidden p-0 border-none bg-background">
-                    <div className="grid md:grid-cols-2 gap-0">
-                      <div className="aspect-square md:aspect-auto h-full overflow-hidden">
+                  <DialogContent className="sm:max-w-3xl overflow-hidden p-0 border-none bg-background rounded-[2rem]">
+                    <div className="grid md:grid-cols-5 gap-0">
+                      <div className="md:col-span-2 aspect-square md:aspect-[3/4] h-full overflow-hidden">
                         <img
                           src={member.image}
                           alt={member.name}
                           className="w-full h-full object-cover object-top"
                         />
                       </div>
-                      <div className="p-8 flex flex-col justify-center">
-                        <DialogHeader>
-                          <DialogTitle className="font-serif text-3xl font-bold mb-1">{member.name}</DialogTitle>
-                          <p className="text-primary font-medium text-lg mb-6">{member.role}</p>
+                      <div className="md:col-span-3 p-10 md:p-12 flex flex-col justify-center bg-card">
+                        <DialogHeader className="text-left mb-8">
+                          <DialogTitle className="font-serif text-3xl md:text-4xl font-bold mb-2">{member.name}</DialogTitle>
+                          <p className="text-primary font-bold tracking-widest uppercase text-xs">{member.role}</p>
                         </DialogHeader>
-                        <div className="space-y-4">
+                        <div className="space-y-6">
                           {member.bio && (
-                            <p className="text-muted-foreground text-sm leading-relaxed italic border-l-4 border-primary/20 pl-4">
-                              "{member.bio}"
+                            <p className="text-muted-foreground text-base leading-relaxed font-light">
+                              {member.bio}
                             </p>
                           )}
                           {member.email && (
-                            <div className="pt-4 border-t border-border">
-                              <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider font-semibold">Contact</p>
-                              <a href={`mailto:${member.email}`} className="text-primary hover:underline flex items-center gap-2 text-sm">
-                                <Mail className="h-4 w-4" />
+                            <div className="pt-6 mt-6 border-t border-border/50">
+                              <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wider font-semibold">Get in touch</p>
+                              <a href={`mailto:${member.email}`} className="text-foreground hover:text-primary transition-colors flex items-center gap-3 text-sm font-medium group">
+                                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                                  <Mail className="h-4 w-4" />
+                                </div>
                                 {member.email}
                               </a>
                             </div>
@@ -808,30 +831,32 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 md:py-32 bg-background" id="projects">
+      <section className="py-24 md:py-32 bg-background border-t border-border/50" id="projects">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
           >
-            <motion.span 
-              variants={fadeUp}
-              className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-6"
-            >
-              Our Work
-            </motion.span>
-            <motion.h2 
-              variants={fadeUp}
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
-            >
-              Projects in Marsabit County
-            </motion.h2>
+            <div className="max-w-2xl">
+              <motion.span 
+                variants={fadeUp}
+                className="text-secondary font-bold tracking-widest uppercase text-sm mb-4 block"
+              >
+                Our Work
+              </motion.span>
+              <motion.h2 
+                variants={fadeUp}
+                className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 leading-[1.1]"
+              >
+                Projects in Marsabit County
+              </motion.h2>
+            </div>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
             {/* Upcoming Projects */}
             <motion.div
               initial="hidden"
@@ -839,29 +864,32 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={stagger}
             >
-              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
-                <Clock className="h-6 w-6 text-secondary" />
-                <h3 className="font-serif text-2xl font-bold">Upcoming Projects</h3>
+              <motion.div variants={fadeUp} className="flex items-center gap-4 mb-10">
+                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center">
+                  <Clock className="h-6 w-6 text-secondary" />
+                </div>
+                <h3 className="font-serif text-3xl font-bold">Upcoming</h3>
               </motion.div>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {upcomingProjects.map((project) => (
                   <motion.div key={project.title} variants={fadeUp}>
-                    <Card className="bg-card hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <h4 className="font-semibold text-lg mb-2">{project.title}</h4>
-                        <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
-                        <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
+                    <div className="group relative pl-8 pb-8 border-l border-border/50 last:border-0 last:pb-0">
+                      <div className="absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-secondary ring-4 ring-background"></div>
+                      <div className="bg-card rounded-2xl p-6 md:p-8 border border-border/50 hover:shadow-xl hover:border-secondary/30 transition-all duration-300">
+                        <div className="flex flex-wrap gap-3 text-xs text-muted-foreground font-medium uppercase tracking-wider mb-4">
+                          <span className="flex items-center gap-1.5 bg-secondary/10 text-secondary px-3 py-1 rounded-full">
                             <Calendar className="h-3.5 w-3.5" />
                             {project.date}
                           </span>
-                          <span className="flex items-center gap-1">
+                          <span className="flex items-center gap-1.5 bg-background px-3 py-1 rounded-full border border-border">
                             <MapPin className="h-3.5 w-3.5" />
                             {project.location}
                           </span>
                         </div>
-                      </CardContent>
-                    </Card>
+                        <h4 className="font-serif text-xl font-bold mb-3 group-hover:text-secondary transition-colors">{project.title}</h4>
+                        <p className="text-muted-foreground leading-relaxed font-light">{project.description}</p>
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -874,22 +902,26 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={stagger}
             >
-              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
-                <CheckCircle2 className="h-6 w-6 text-primary" />
-                <h3 className="font-serif text-2xl font-bold">Completed Projects</h3>
+              <motion.div variants={fadeUp} className="flex items-center gap-4 mb-10">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <CheckCircle2 className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-serif text-3xl font-bold">Completed</h3>
               </motion.div>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {completedProjects.map((project) => (
                   <motion.div key={project.title} variants={fadeUp}>
-                    <Card className="bg-card hover:shadow-lg transition-shadow border-l-4 border-l-primary">
-                      <CardContent className="p-6">
-                        <h4 className="font-semibold text-lg mb-2">{project.title}</h4>
-                        <p className="text-muted-foreground text-sm mb-3">{project.description}</p>
-                        <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                     <div className="group relative pl-8 pb-8 border-l border-border/50 last:border-0 last:pb-0">
+                      <div className="absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-primary ring-4 ring-background"></div>
+                      <div className="bg-card rounded-2xl p-6 md:p-8 border border-border/50 hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+                        <h4 className="font-serif text-xl font-bold mb-3 group-hover:text-primary transition-colors">{project.title}</h4>
+                        <p className="text-muted-foreground leading-relaxed font-light mb-5">{project.description}</p>
+                        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold tracking-wide">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
                           {project.impact}
                         </span>
-                      </CardContent>
-                    </Card>
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -899,32 +931,32 @@ export default function Home() {
       </section>
 
       {/* Archive Section */}
-      <section className="py-20 md:py-32 bg-card grain" id="archive">
+      <section className="py-24 md:py-32 bg-card grain border-t border-border/50" id="archive">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
             <motion.span 
               variants={fadeUp}
-              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+              className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block"
             >
               Resources
             </motion.span>
             <motion.h2 
               variants={fadeUp}
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+              className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 leading-[1.1]"
             >
-              Archive
+              Explore our Archive
             </motion.h2>
             <motion.p 
               variants={fadeUp}
-              className="text-muted-foreground max-w-2xl mx-auto"
+              className="text-muted-foreground text-lg max-w-2xl mx-auto font-light"
             >
-              Explore our videos, research, and stories from the field.
+              Dive deeper into our impact through videos, research reports, and stories from the field.
             </motion.p>
           </motion.div>
 
@@ -934,36 +966,38 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="mb-16"
+            className="mb-24"
           >
-            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
-              <Play className="h-6 w-6 text-primary" />
-              <h3 className="font-serif text-2xl font-bold">Videos</h3>
+            <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-10">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Play className="h-5 w-5 text-primary ml-1" />
+              </div>
+              <h3 className="font-serif text-3xl font-bold">Featured Videos</h3>
             </motion.div>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-8">
               {archiveItems.videos.map((video) => (
                 <motion.div key={video.title} variants={fadeUp}>
                   <Card 
-                    className="overflow-hidden bg-background hover:shadow-xl transition-all cursor-pointer group"
+                    className="overflow-hidden bg-background border border-border/50 rounded-3xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer group h-full flex flex-col"
                     onClick={() => handleArchiveClick(video, 'video')}
                   >
-                    <div className="relative aspect-video overflow-hidden">
+                    <div className="relative aspect-video overflow-hidden m-2 rounded-2xl">
                       <img
                         src={video.thumbnail}
                         alt={video.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors duration-500">
+                        <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center scale-90 group-hover:scale-100 shadow-xl transition-transform duration-500">
                           <Play className="h-6 w-6 text-primary fill-primary ml-1" />
                         </div>
                       </div>
-                      <span className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">
+                      <span className="absolute bottom-4 right-4 px-3 py-1.5 bg-black/70 backdrop-blur-md text-white text-xs font-medium tracking-wider rounded-lg">
                         {video.duration}
                       </span>
                     </div>
-                    <CardContent className="p-4">
-                      <h4 className="font-semibold">{video.title}</h4>
+                    <CardContent className="p-6 flex-1 flex items-center">
+                      <h4 className="font-serif text-lg font-bold group-hover:text-primary transition-colors">{video.title}</h4>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -972,7 +1006,7 @@ export default function Home() {
           </motion.div>
 
           {/* Research & Blog */}
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
             {/* Research */}
             <motion.div
               initial="hidden"
@@ -980,28 +1014,32 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={stagger}
             >
-              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
-                <FileText className="h-6 w-6 text-secondary" />
-                <h3 className="font-serif text-2xl font-bold">Research & Reports</h3>
+              <motion.div variants={fadeUp} className="flex items-center gap-4 mb-10">
+                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center">
+                  <FileText className="h-6 w-6 text-secondary" />
+                </div>
+                <h3 className="font-serif text-3xl font-bold">Research & Reports</h3>
               </motion.div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {archiveItems.research.map((item) => (
                   <motion.div key={item.title} variants={fadeUp}>
                     <Card 
-                      className="bg-background hover:shadow-md transition-shadow cursor-pointer"
+                      className="bg-background border border-border/50 rounded-2xl hover:shadow-xl hover:border-secondary/30 transition-all duration-300 cursor-pointer group"
                       onClick={() => handleArchiveClick(item, 'research')}
                     >
-                      <CardContent className="p-4 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded bg-secondary/10 flex items-center justify-center">
-                            <FileText className="h-5 w-5 text-secondary" />
+                      <CardContent className="p-6 flex items-center justify-between">
+                        <div className="flex items-center gap-5">
+                          <div className="w-12 h-12 rounded-xl bg-secondary/5 flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
+                            <FileText className="h-6 w-6 text-secondary group-hover:text-white" />
                           </div>
                           <div>
-                            <h4 className="font-medium text-sm">{item.title}</h4>
-                            <p className="text-xs text-muted-foreground">{item.type} • {item.date}</p>
+                            <h4 className="font-bold text-base mb-1 group-hover:text-secondary transition-colors">{item.title}</h4>
+                            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{item.type} • {item.date}</p>
                           </div>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        <div className="w-8 h-8 rounded-full bg-secondary/5 flex items-center justify-center opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                          <ChevronRight className="h-4 w-4 text-secondary" />
+                        </div>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -1016,21 +1054,30 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={stagger}
             >
-              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-8">
-                <Newspaper className="h-6 w-6 text-primary" />
-                <h3 className="font-serif text-2xl font-bold">Blog</h3>
+              <motion.div variants={fadeUp} className="flex items-center gap-4 mb-10">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Newspaper className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-serif text-3xl font-bold">Blog & Updates</h3>
               </motion.div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {archiveItems.blog.map((post) => (
                   <motion.div key={post.title} variants={fadeUp}>
                     <Card 
-                      className="bg-background hover:shadow-md transition-shadow cursor-pointer"
+                      className="bg-background border border-border/50 rounded-2xl hover:shadow-xl hover:border-primary/30 transition-all duration-300 cursor-pointer group relative overflow-hidden"
                       onClick={() => handleArchiveClick(post, 'blog')}
                     >
-                      <CardContent className="p-4">
-                        <p className="text-xs text-muted-foreground mb-1">{post.date}</p>
-                        <h4 className="font-medium mb-1">{post.title}</h4>
-                        <p className="text-sm text-muted-foreground">{post.excerpt}</p>
+                      <div className="absolute top-0 left-0 w-1 h-full bg-primary scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-500"></div>
+                      <CardContent className="p-6 md:p-8">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium uppercase tracking-wider mb-4">
+                          <Calendar className="h-3 w-3" />
+                          {post.date}
+                        </div>
+                        <h4 className="font-serif text-xl font-bold mb-3 group-hover:text-primary transition-colors">{post.title}</h4>
+                        <p className="text-muted-foreground font-light leading-relaxed mb-6">{post.excerpt}</p>
+                        <span className="text-primary text-sm font-bold tracking-wide flex items-center gap-2 group-hover:gap-3 transition-all">
+                          Read Story <ArrowRight className="h-4 w-4" />
+                        </span>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -1042,7 +1089,7 @@ export default function Home() {
       </section>
 
       {/* Testimonial Section */}
-      <section className="py-20 md:py-32 bg-primary text-primary-foreground">
+      <section className="py-24 md:py-40 bg-foreground text-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial="hidden"
@@ -1050,143 +1097,148 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
           >
-            <motion.div variants={fadeUp} className="mb-8">
-              <Sprout className="h-12 w-12 mx-auto opacity-50" strokeWidth={1} />
+            <motion.div variants={fadeUp} className="mb-12">
+              <Sprout className="h-16 w-16 mx-auto text-primary" strokeWidth={1} />
             </motion.div>
             <motion.blockquote 
               variants={fadeUp}
-              className="font-serif text-2xl md:text-3xl lg:text-4xl font-medium leading-relaxed mb-8 italic"
+              className="font-serif text-3xl md:text-4xl lg:text-5xl font-medium leading-relaxed mb-10 text-white/90"
             >
               "When I was given away by my parents, Be a Seedling became my home. 
               I ran to the chief's office where I was connected to Be a Seedling. 
               They connected me to an education scholarship. Now I have completed my High School."
             </motion.blockquote>
-            <motion.p variants={fadeUp} className="text-lg opacity-80">
-              — A Seedling Graduate
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex flex-col items-center justify-center">
+              <p className="text-xl font-bold tracking-widest uppercase text-primary mb-1">
+                A Seedling Graduate
+              </p>
+              <p className="text-white/50 text-sm font-medium uppercase tracking-wider">Marsabit County</p>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 md:py-32 bg-card grain" id="contact">
+      <section className="py-24 md:py-32 bg-background border-t border-border/50" id="contact">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center"
+            className="max-w-3xl mx-auto text-center"
           >
             <motion.span 
               variants={fadeUp}
-              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+              className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block"
             >
-              Contact Us
+              Get in Touch
             </motion.span>
             <motion.h2 
               variants={fadeUp}
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+              className="font-serif text-4xl md:text-6xl font-bold text-foreground mb-6 leading-[1.1]"
             >
-              Get in Touch
+              Let's create lasting change, together.
             </motion.h2>
             <motion.p 
               variants={fadeUp}
-              className="text-muted-foreground max-w-xl mx-auto mb-12"
+              className="text-muted-foreground text-lg mb-12 font-light leading-relaxed"
             >
               Have questions or want to learn more about how you can help? 
-              Reach out to us today.
+              Reach out to us today. We're always looking for new partners and supporters.
             </motion.p>
             
-            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
               <a 
                 href={`mailto:${contactInfo.email}`}
-                className="flex items-center gap-3 text-lg text-foreground hover:text-primary transition-colors"
+                className="group flex items-center justify-between gap-6 bg-card border border-border/50 p-4 pl-6 rounded-full hover:shadow-xl hover:border-primary/30 transition-all duration-300 w-full sm:w-auto"
                 data-testid="link-email"
               >
-                <Mail className="h-6 w-6" />
-                {contactInfo.email}
+                <div className="flex items-center gap-3">
+                  <Mail className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <span className="text-lg font-medium">{contactInfo.email}</span>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <ArrowRight className="h-4 w-4" />
+                </div>
               </a>
             </motion.div>
 
             {/* Social Media Links */}
-            <motion.div variants={fadeUp} className="mb-12">
-              <p className="text-sm text-muted-foreground mb-4">Follow us on social media</p>
-              <div className="flex justify-center gap-4">
+            <motion.div variants={fadeUp} className="mb-16">
+              <p className="text-sm font-bold tracking-widest uppercase text-muted-foreground mb-8">Follow our journey</p>
+              <div className="flex flex-wrap justify-center gap-4">
                 {socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-muted-foreground ${social.color} transition-colors`}
+                    className={`w-14 h-14 rounded-2xl bg-card border border-border/50 flex items-center justify-center text-muted-foreground ${social.color} hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}
                     data-testid={`link-social-${social.name.toLowerCase()}`}
                   >
-                    <social.icon className="h-5 w-5" />
+                    <social.icon className="h-6 w-6" />
                   </a>
                 ))}
               </div>
             </motion.div>
             
-            <motion.div variants={fadeUp} className="mt-12 flex flex-wrap justify-center gap-4">
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 pt-16 border-t border-border/50">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-donate-footer">
-                    Donate Now
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-base px-8 h-14 rounded-full shadow-xl" data-testid="button-donate-footer">
+                    Make a Donation
                   </Button>
                 </DialogTrigger>
                 <DonateModal />
               </Dialog>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button size="lg" variant="outline" data-testid="button-volunteer">
-                    Volunteer Application
+                  <Button size="lg" variant="outline" className="border-2 border-border hover:border-foreground hover:bg-transparent text-base px-8 h-14 rounded-full" data-testid="button-volunteer">
+                    Become a Volunteer
                   </Button>
                 </DialogTrigger>
                 <VolunteerModal />
               </Dialog>
-              <Button size="lg" variant="outline" data-testid="button-brochure">
-                Download Brochure
-              </Button>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-foreground text-background/80">
+      <footer className="py-12 bg-card border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <img src={images.logo} alt="Be a Seedling" className="h-8 w-8 object-contain" />
-              <span className="font-serif text-lg font-semibold text-background">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3">
+              <img src={images.logo} alt="Be a Seedling" className="h-10 w-10 object-contain" />
+              <span className="font-serif text-xl font-bold text-foreground">
                 Be a Seedling
               </span>
             </div>
-            <p className="text-sm text-center md:text-left">
-              ©2025 by Be a Seedling. All rights reserved.
+            <p className="text-sm text-muted-foreground font-medium text-center md:text-left">
+              © {new Date().getFullYear()} Be a Seedling. All rights reserved.
             </p>
-            <div className="flex items-center gap-4">
-              <div className="flex gap-3">
+            <div className="flex items-center gap-6">
+              <div className="flex gap-4">
                 {socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-background/60 hover:text-background transition-colors"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                     data-testid={`link-footer-${social.name.toLowerCase()}`}
                   >
-                    <social.icon className="h-4 w-4" />
+                    <social.icon className="h-5 w-5" />
                   </a>
                 ))}
               </div>
-              <div className="h-4 w-px bg-background/20" />
+              <div className="h-4 w-px bg-border" />
               <a 
                 href="/login" 
-                className="text-xs text-background/40 hover:text-background transition-colors"
+                className="text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
               >
-                Admin
+                Admin Login
               </a>
             </div>
           </div>
