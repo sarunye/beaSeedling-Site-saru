@@ -8,11 +8,23 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Login from "@/pages/login";
 import AdminDashboard from "@/pages/admin";
+import Impact from "@/pages/impact";
+import Governance from "@/pages/governance";
+import Safeguarding from "@/pages/safeguarding";
+import Partner from "@/pages/partner";
+import Stories from "@/pages/stories";
+import TheoryOfChange from "@/pages/theory-of-change";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/impact" component={Impact} />
+      <Route path="/governance" component={Governance} />
+      <Route path="/safeguarding" component={Safeguarding} />
+      <Route path="/partner" component={Partner} />
+      <Route path="/stories" component={Stories} />
+      <Route path="/theory-of-change" component={TheoryOfChange} />
       <Route path="/login" component={Login} />
       <Route path="/admin" component={AdminDashboard} />
       <Route component={NotFound} />

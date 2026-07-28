@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 import { useContent } from "@/context/ContentContext";
 import { 
   Sprout, 
@@ -30,7 +31,9 @@ import {
   Calendar,
   MapPin,
   ArrowRight,
-  CalendarDays
+  CalendarDays,
+  Star,
+  Lightbulb
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -107,13 +110,16 @@ export default function Home() {
   };
 
   const navLinks = [
-    { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
-    { name: "Team", href: "#team" },
     { name: "Programmes", href: "#programmes" },
     { name: "Projects", href: "#projects" },
     { name: "Archive", href: "#archive" },
     { name: "Contact", href: "#contact" },
+  ];
+
+  const pageLinks = [
+    { name: "Impact", href: "/impact" },
+    { name: "Partner", href: "/partner" },
   ];
 
   const archiveItems = {
@@ -133,33 +139,39 @@ export default function Home() {
   const programmes = [
     {
       icon: GraduationCap,
-      title: "Supporting Students",
-      description: "We provide financial and material support to students struggling to afford school, including fees, supplies, and necessary materials."
-    },
-    {
-      icon: BookOpen,
-      title: "Academic Excellence",
-      description: "We organize meetings and events to encourage students to excel, emphasizing education's importance for future success."
+      title: "Education & Learning",
+      description: "We support vulnerable learners to stay in school through scholarships, mentorship, and essential learning materials. We advocate for every child's right to education in Marsabit County.",
+      color: "bg-primary/10 text-primary"
     },
     {
       icon: Shield,
-      title: "Protecting Girls",
-      description: "We work to protect girls from gender-based violence, FGM, early marriage, and provide menstrual hygiene education."
-    },
-    {
-      icon: Globe,
-      title: "Education Advocacy",
-      description: "We advocate for every child's right to education, training leaders and adolescents on their rights and protections."
+      title: "Child Protection & Girls Empowerment",
+      description: "We work to protect children from gender-based violence, FGM, and early marriage, and empower girls through education advocacy and menstrual hygiene support.",
+      color: "bg-rose-100 text-rose-600"
     },
     {
       icon: TreeDeciduous,
-      title: "Environmental Conservation",
-      description: "We advocate for environmental conservation through training, events, and forest rehabilitation projects."
+      title: "Environmental Restoration & Climate Resilience",
+      description: "We lead community tree planting, land restoration, and environmental conservation that protects forests, water sources, and builds long-term ecosystem resilience.",
+      color: "bg-emerald-100 text-emerald-600"
+    },
+    {
+      icon: Lightbulb,
+      title: "Indigenous Knowledge & Cultural Preservation",
+      description: "Through the Rendille Indigenous Knowledge Initiative and related programmes, we document oral histories, ecological knowledge, and cultural practices of pastoralist communities.",
+      color: "bg-amber-100 text-amber-600"
     },
     {
       icon: HandHeart,
-      title: "Youth Training",
-      description: "We offer livelihood skills training for youth who have discontinued schooling, focusing on sustainable income generation."
+      title: "Youth Livelihoods",
+      description: "We provide vocational and livelihood skills training for youth who have discontinued formal schooling, enabling sustainable income generation and community contribution.",
+      color: "bg-secondary/10 text-secondary"
+    },
+    {
+      icon: BookOpen,
+      title: "Advocacy & Awareness",
+      description: "We train community leaders, parents, and young people on rights, protections, and environmental responsibilities — enabling communities to advocate for themselves.",
+      color: "bg-purple-100 text-purple-600"
     }
   ];
 
@@ -238,7 +250,7 @@ export default function Home() {
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -246,6 +258,11 @@ export default function Home() {
                   className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
                   data-testid={`link-nav-${link.name.toLowerCase()}`}
                 >
+                  {link.name}
+                </a>
+              ))}
+              {pageLinks.map((link) => (
+                <a key={link.name} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
                   {link.name}
                 </a>
               ))}
@@ -261,7 +278,7 @@ export default function Home() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2"
+              className="lg:hidden p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="button-mobile-menu"
             >
@@ -275,23 +292,30 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden bg-background border-b border-border"
+            className="lg:hidden bg-background border-b border-border"
           >
-            <div className="px-4 py-4 space-y-3">
+            <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="block py-2 text-foreground hover:text-primary transition-colors"
+                  className="block py-2.5 px-3 rounded-xl text-foreground hover:text-primary hover:bg-primary/5 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                   data-testid={`link-mobile-${link.name.toLowerCase()}`}
                 >
                   {link.name}
                 </a>
               ))}
+              <div className="border-t border-border/50 pt-2 mt-2">
+                {pageLinks.map((link) => (
+                  <a key={link.name} href={link.href} className="block py-2.5 px-3 rounded-xl text-foreground hover:text-primary hover:bg-primary/5 transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    {link.name}
+                  </a>
+                ))}
+              </div>
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="w-full bg-primary" data-testid="button-donate-mobile">
+                <Button className="w-full bg-primary mt-3 rounded-xl" data-testid="button-donate-mobile">
                   Donate
                 </Button>
               </DialogTrigger>
@@ -331,13 +355,13 @@ export default function Home() {
               className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] mb-6"
             >
               Planting Hope,<br />
-              <span className="text-primary italic font-normal">Growing Dreams.</span>
+              <span className="text-primary italic font-normal">Growing Resilience.</span>
             </motion.h1>
             <motion.p
               variants={fadeUp}
-              className="text-lg md:text-2xl text-white/90 mb-10 leading-relaxed max-w-2xl font-light"
+              className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl font-light"
             >
-              We are a community-based organization empowering vulnerable children and preserving our environment for a sustainable future.
+              Building resilient pastoralist communities through education, child protection, environmental restoration, indigenous knowledge preservation, and sustainable livelihoods.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
               <Dialog open={getInvolvedOpen} onOpenChange={setGetInvolvedOpen}>
@@ -347,7 +371,7 @@ export default function Home() {
                     className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 h-14 rounded-full shadow-lg shadow-primary/20 transition-all hover:scale-105"
                     data-testid="button-get-involved"
                   >
-                    Make an Impact
+                    Get Involved
                     <ChevronRight className="ml-2 h-5 w-5" />
                   </Button>
                 </DialogTrigger>
@@ -419,15 +443,16 @@ export default function Home() {
                   </div>
                 </DialogContent>
               </Dialog>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 text-lg px-8 h-14 rounded-full backdrop-blur-sm"
-                data-testid="button-learn-more"
-                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Learn More
-              </Button>
+              <Link href="/impact">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-white/30 text-white hover:bg-white/10 text-lg px-8 h-14 rounded-full backdrop-blur-sm"
+                  data-testid="button-learn-more"
+                >
+                  View Our Impact
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
@@ -488,19 +513,27 @@ export default function Home() {
                 </span>
               </div>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-8 leading-[1.1]">
-                Empowering the future of Marsabit.
+                Building resilient pastoralist communities.
               </h2>
               <div className="space-y-6 text-muted-foreground text-lg leading-relaxed font-light">
                 <p>
-                  Be a Seedling is a registered Community-Based Organization (CBO) based in Marsabit County,
-                  Northern Kenya. We partner with schools, local leaders, and pastoralist communities to help
-                  vulnerable learners stay in school through scholarships, mentorship, and essential learning materials.
+                  Be a Seedling is a registered Community-Based Organization (CBO) based in Marsabit County, Northern Kenya. We are a community-led development organization building resilient pastoralist communities through education, child protection, environmental restoration, indigenous knowledge preservation, and sustainable livelihoods.
                 </p>
                 <p>
-                  Alongside education support, we lead community tree planting, land restoration, and environmental
-                  conservation initiatives that protect forests and water sources. We also advocate for child protection
-                  and community wellbeing.
+                  We believe thriving ecosystems and thriving children are interconnected. By supporting education, protecting vulnerable children, restoring degraded landscapes, and preserving indigenous knowledge, we help communities create lasting resilience.
                 </p>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-8">
+                <Link href="/impact">
+                  <Button variant="outline" className="rounded-full border-primary/30 hover:border-primary hover:bg-primary/5">
+                    View Our Impact <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="/theory-of-change">
+                  <Button variant="ghost" className="rounded-full text-muted-foreground hover:text-foreground">
+                    Our Theory of Change
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </motion.div>
@@ -613,11 +646,11 @@ export default function Home() {
               <motion.div key={programme.title} variants={fadeUp}>
                 <Card className="h-full bg-card border-border/50 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 overflow-hidden group rounded-3xl">
                   <CardContent className="p-8 md:p-10 relative z-10">
-                    <div className="w-16 h-16 rounded-2xl bg-background shadow-sm border border-border/50 flex items-center justify-center mb-8 group-hover:bg-primary group-hover:border-primary transition-colors duration-300">
-                      <programme.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground transition-colors duration-300" strokeWidth={1.5} />
+                    <div className={`w-16 h-16 rounded-2xl ${programme.color} flex items-center justify-center mb-8 transition-all duration-300`}>
+                      <programme.icon className="h-8 w-8" strokeWidth={1.5} />
                     </div>
-                    <h3 className="font-serif text-2xl font-bold mb-4">{programme.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed font-light">{programme.description}</p>
+                    <h3 className="font-serif text-xl font-bold mb-4">{programme.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed font-light text-sm">{programme.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -838,7 +871,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12"
           >
             <div className="max-w-2xl">
               <motion.span 
@@ -853,6 +886,54 @@ export default function Home() {
               >
                 Projects in Marsabit County
               </motion.h2>
+            </div>
+          </motion.div>
+
+          {/* Rendille Featured Initiative */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+            className="mb-16"
+          >
+            <div className="relative rounded-3xl overflow-hidden bg-foreground text-background p-8 md:p-12">
+              <div className="absolute inset-0 opacity-10">
+                <img src={images.community} alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="relative z-10">
+                <div className="flex flex-wrap items-center gap-3 mb-5">
+                  <span className="inline-flex items-center gap-1.5 bg-secondary text-secondary-foreground text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full">
+                    <Star className="h-3.5 w-3.5" />
+                    Featured Initiative
+                  </span>
+                  <span className="text-xs font-medium text-white/60 flex items-center gap-1.5">
+                    <MapPin className="h-3.5 w-3.5" />
+                    Ngurunit, Marsabit County
+                  </span>
+                  <span className="text-xs font-medium text-white/60 flex items-center gap-1.5">
+                    <Calendar className="h-3.5 w-3.5" />
+                    Sept 2026 – May 2027
+                  </span>
+                </div>
+                <h3 className="font-serif text-2xl md:text-4xl font-bold text-white mb-4">
+                  Rendille Indigenous Knowledge Initiative
+                </h3>
+                <p className="text-white/70 text-lg font-light leading-relaxed max-w-3xl mb-6">
+                  A community-led preservation initiative in Ngurunit to document oral histories, ecological knowledge, and cultural practices of the Rendille community through digital archiving and intergenerational teaching.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {["Indigenous Ecological Knowledge", "Climate Adaptation", "Cultural Preservation", "Community Knowledge Systems"].map(tag => (
+                    <span key={tag} className="text-xs bg-white/10 border border-white/20 text-white/80 px-3 py-1.5 rounded-full font-medium">{tag}</span>
+                  ))}
+                </div>
+                <Link href="/partner">
+                  <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 rounded-full">
+                    Explore Partnership Opportunities
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </motion.div>
 
@@ -1206,41 +1287,81 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-card border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-3">
-              <img src={images.logo} alt="Be a Seedling" className="h-10 w-10 object-contain" />
-              <span className="font-serif text-xl font-bold text-foreground">
-                Be a Seedling
-              </span>
+      <footer className="bg-card border-t border-border">
+        {/* Footer Links */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-border/50">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <img src={images.logo} alt="Be a Seedling" className="h-10 w-10 object-contain" />
+                <span className="font-serif text-lg font-bold text-foreground">Be a Seedling</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Registered Community-Based Organization (CBO) under the Ministry of Labour and Social Protection, Marsabit County, Kenya.
+              </p>
+              <p className="text-xs text-muted-foreground mt-3">{contactInfo.email}</p>
             </div>
-            <p className="text-sm text-muted-foreground font-medium text-center md:text-left">
+
+            <div>
+              <h4 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">Our Work</h4>
+              <div className="space-y-2">
+                <a href="#programmes" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Programmes</a>
+                <a href="#projects" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Projects</a>
+                <a href="/impact" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Impact &amp; Results</a>
+                <a href="/theory-of-change" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Theory of Change</a>
+                <a href="/stories" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Stories of Change</a>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">Get Involved</h4>
+              <div className="space-y-2">
+                <a href="/partner" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Partner With Us</a>
+                <a href="#contact" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Volunteer</a>
+                <a href="#contact" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Contact Us</a>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">Accountability</h4>
+              <div className="space-y-2">
+                <a href="/governance" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Governance &amp; Transparency</a>
+                <a href="/safeguarding" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Child Safeguarding</a>
+              </div>
+              <div className="mt-6">
+                <h4 className="text-xs font-bold text-muted-foreground mb-3 uppercase tracking-wider">Follow us</h4>
+                <div className="flex gap-3">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-muted-foreground ${social.color} transition-colors`}
+                      data-testid={`link-footer-${social.name.toLowerCase()}`}
+                      title={social.name}
+                    >
+                      <social.icon className="h-5 w-5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Bottom */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-muted-foreground text-center sm:text-left">
               © {new Date().getFullYear()} Be a Seedling. All rights reserved.
             </p>
-            <div className="flex items-center gap-6">
-              <div className="flex gap-4">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                    data-testid={`link-footer-${social.name.toLowerCase()}`}
-                  >
-                    <social.icon className="h-5 w-5" />
-                  </a>
-                ))}
-              </div>
-              <div className="h-4 w-px bg-border" />
-              <a 
-                href="/login" 
-                className="text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
-              >
-                Admin Login
-              </a>
-            </div>
+            <a 
+              href="/login" 
+              className="text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
+            >
+              Admin Login
+            </a>
           </div>
         </div>
       </footer>

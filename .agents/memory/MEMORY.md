@@ -1,0 +1,1 @@
+- [Be a Seedling site architecture](be-a-seedling-architecture.md) — 6 new pages added; all use plain `<a>` not `<Link><a>` in navbars to avoid nested-anchor hydration errors.
