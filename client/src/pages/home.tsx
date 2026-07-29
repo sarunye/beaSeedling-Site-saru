@@ -659,6 +659,111 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Impact Showcase */}
+      <section className="py-24 md:py-32 bg-card border-y border-border/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="flex flex-col lg:flex-row justify-between items-start gap-6 mb-16"
+          >
+            <div>
+              <motion.span variants={fadeUp} className="text-secondary font-bold tracking-widest uppercase text-sm mb-4 block">
+                Evidence of Change
+              </motion.span>
+              <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-bold text-foreground leading-[1.1]">
+                Our impact in numbers.
+              </motion.h2>
+            </div>
+            <motion.div variants={fadeUp} className="lg:pt-14">
+              <a href="/impact">
+                <Button variant="outline" className="rounded-full border-primary/30 hover:border-primary hover:bg-primary/5">
+                  Full Impact Report <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* Big stat strip */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border/40 rounded-3xl overflow-hidden mb-12"
+          >
+            {[
+              { number: "150+", label: "Students Supported", sub: "School fees, uniforms & materials" },
+              { number: "500+", label: "Girls Reached", sub: "Education advocacy & protection" },
+              { number: "10,000+", label: "Trees Planted", sub: "Indigenous species, Marsabit County" },
+              { number: "20+", label: "Villages Engaged", sub: "Across pastoralist communities" },
+            ].map((stat) => (
+              <motion.div key={stat.label} variants={fadeUp} className="bg-card p-8 md:p-10 flex flex-col gap-1">
+                <p className="font-serif text-4xl md:text-5xl font-bold text-primary leading-none">{stat.number}</p>
+                <p className="font-bold text-sm mt-2">{stat.label}</p>
+                <p className="text-xs text-muted-foreground font-light leading-snug">{stat.sub}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Programme impact rows */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="grid md:grid-cols-3 gap-6"
+          >
+            {[
+              {
+                icon: GraduationCap,
+                area: "Education & Learning",
+                headline: "Keeping learners in school",
+                body: "Vulnerable children in Marsabit receive bursaries, learning materials, and mentorship — breaking the cycle of dropout in under-resourced pastoralist households.",
+                color: "bg-primary/10 text-primary",
+              },
+              {
+                icon: TreePine,
+                area: "Environmental Restoration",
+                headline: "5 hectares of forest restored",
+                body: "Community-led tree nurseries and planting campaigns are reversing land degradation, restoring water catchments, and rebuilding biodiversity in Laisamis and surrounding areas.",
+                color: "bg-secondary/10 text-secondary",
+              },
+              {
+                icon: Heart,
+                area: "Child Protection",
+                headline: "Protecting girls' futures",
+                body: "Awareness campaigns targeting early marriage and FGM, combined with safe-space education programmes, are reaching girls and families across the region.",
+                color: "bg-primary/10 text-primary",
+              },
+            ].map((item) => (
+              <motion.div key={item.area} variants={fadeUp}>
+                <div className="h-full p-8 rounded-3xl border border-border/50 bg-background hover:shadow-xl hover:border-primary/20 transition-all duration-300 group">
+                  <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <item.icon className="h-6 w-6" strokeWidth={1.5} />
+                  </div>
+                  <p className="text-xs font-bold tracking-widest uppercase text-muted-foreground mb-2">{item.area}</p>
+                  <h3 className="font-serif text-xl font-bold mb-3">{item.headline}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed font-light">{item.body}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="text-xs text-muted-foreground text-center mt-8 max-w-xl mx-auto"
+          >
+            * Figures reflect cumulative programme activity. Some metrics are self-reported or estimated.
+          </motion.p>
+        </div>
+      </section>
+
       {/* Get Involved Section */}
       <section className="py-24 md:py-32 bg-primary text-primary-foreground relative overflow-hidden" id="involved">
         <div className="absolute inset-0">

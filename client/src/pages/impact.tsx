@@ -1,257 +1,276 @@
-import { motion } from "framer-motion";
-import { Link } from "wouter";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import {
-  GraduationCap, TreePine, Users, MapPin, Heart, BookOpen, 
-  ArrowLeft, TrendingUp, Clock, CheckCircle, Target, ChevronRight
+  ArrowLeft,
+  GraduationCap,
+  TreePine,
+  ShieldCheck,
+  BookOpen,
+  Briefcase,
+  ChevronRight,
+  TrendingUp,
+  Users
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { images, contactInfo } from "@/data/content";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } }
 };
-const stagger = { visible: { transition: { staggerChildren: 0.12 } } };
 
-const impactStats = [
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+};
+
+function Counter({ value, suffix = "", prefix = "" }: { value: number, suffix?: string, prefix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let startTime: number;
+    const duration = 2; // seconds
+    let animationFrameId: number;
+
+    const updateCount = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCount(Math.floor(easeProgress * value));
+      
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(updateCount);
+      }
+    };
+    
+    animationFrameId = requestAnimationFrame(updateCount);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isInView, value]);
+
+  return <span ref={ref}>{prefix}{count.toLocaleString()}{suffix}</span>;
+}
+
+const pillars = [
   {
+    title: "Education & Access",
     icon: GraduationCap,
-    number: "150+",
-    label: "Students Supported",
-    description: "Vulnerable learners provided with school fees, uniforms, and materials",
-    color: "bg-primary/10 text-primary",
-    available: true,
+    status: "Data Available",
+    metric: "150+ Students Supported",
+    description: "Vulnerable learners provided with school fees, uniforms, and materials, ensuring consistent access to secondary education.",
   },
   {
-    icon: Heart,
-    number: "500+",
-    label: "Girls Reached",
-    description: "Girls empowered through education advocacy and protection programmes",
-    color: "bg-secondary/10 text-secondary",
-    available: true,
+    title: "Girls & Protection",
+    icon: ShieldCheck,
+    status: "Data Available",
+    metric: "500+ Girls Reached",
+    description: "Girls empowered through education advocacy and anti-FGM protection campaigns, promoting rights and safety.",
   },
   {
+    title: "Environmental Restoration",
     icon: TreePine,
-    number: "10,000+",
-    label: "Trees Planted",
-    description: "Indigenous trees planted across degraded landscapes in Marsabit County",
-    color: "bg-primary/10 text-primary",
-    available: true,
+    status: "Data Available",
+    metric: "10,000+ Trees Planted",
+    description: "Indigenous trees planted across degraded landscapes in Marsabit County to combat desertification.",
   },
   {
-    icon: Users,
-    number: "20+",
-    label: "Villages Reached",
-    description: "Pastoralist villages engaged through awareness and programme activities",
-    color: "bg-secondary/10 text-secondary",
-    available: true,
-  },
-  {
-    icon: MapPin,
-    number: "5+",
-    label: "Communities Served",
-    description: "Distinct pastoralist communities receiving direct programme support",
-    color: "bg-primary/10 text-primary",
-    available: true,
-  },
-  {
+    title: "Indigenous Knowledge",
     icon: BookOpen,
-    number: "Information to be uploaded",
-    label: "Volunteers Engaged",
-    description: "Community and external volunteers contributing time and skills",
-    color: "bg-muted text-muted-foreground",
-    available: false,
+    status: "Information to be uploaded",
+    metric: "Data Pending",
+    description: "Documenting oral histories, ecological knowledge, and cultural practices of pastoralist communities.",
   },
+  {
+    title: "Youth Livelihoods",
+    icon: Briefcase,
+    status: "Information to be uploaded",
+    metric: "Data Pending",
+    description: "Vocational skills training and mentorship to improve household resilience and youth employment.",
+  }
 ];
 
-const environmentalAchievements = [
-  {
-    title: "Forest Restoration Initiative",
-    description: "Restored 5 hectares of degraded forest land in Laisamis, working alongside community members to replant indigenous tree species.",
-    metric: "5 ha restored",
-    status: "Completed"
-  },
-  {
-    title: "Community Tree Nurseries",
-    description: "Established community-managed tree nurseries producing indigenous seedlings for ongoing reforestation efforts.",
-    metric: "Information to be uploaded",
-    status: "Ongoing"
-  },
-  {
-    title: "Environmental Awareness Programme",
-    description: "Community training on sustainable land management, water conservation, and the importance of indigenous tree species.",
-    metric: "5+ communities trained",
-    status: "Ongoing"
-  },
+const completedProjects = [
+  { title: "School Fees Program 2025", location: "150 students in Ngurunit", impact: "150+ Students" },
+  { title: "Forest Restoration Initiative", location: "5 ha in Laisamis", impact: "2,000 Trees" },
+  { title: "Anti-FGM Campaign", location: "20 villages engaged", impact: "500+ Families" },
+  { title: "Clean Water Project", location: "3 schools equipped", impact: "1,200 Students" },
 ];
 
-const longTermMetrics = [
-  {
-    icon: TrendingUp,
-    title: "School Retention Rates",
-    description: "Monitoring the percentage of sponsored students who remain enrolled and progress through secondary education.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Educational Progression",
-    description: "Tracking learners from scholarship support through secondary school completion and into further education or employment.",
-  },
-  {
-    icon: TreePine,
-    title: "Tree Survival Rates",
-    description: "Measuring the proportion of planted trees surviving to maturity as an indicator of ecosystem restoration success.",
-  },
-  {
-    icon: Users,
-    title: "Community Participation",
-    description: "Assessing the depth and breadth of community involvement in programme activities and decision-making.",
-  },
-  {
-    icon: Heart,
-    title: "Livelihood Outcomes",
-    description: "Evaluating improvements in youth livelihoods and household resilience following vocational skills training.",
-  },
-  {
-    icon: CheckCircle,
-    title: "Girl Protection Outcomes",
-    description: "Monitoring reductions in early marriage, FGM, and dropout rates among girls supported by the programme.",
-  },
+const longTermIndicators = [
+  { icon: GraduationCap, label: "School retention rates" },
+  { icon: TreePine, label: "Tree survival rates" },
+  { icon: ShieldCheck, label: "Girl protection outcomes" },
+  { icon: Users, label: "Community participation depth" },
+  { icon: TrendingUp, label: "Youth livelihood outcomes" },
 ];
 
 export default function Impact() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2">
-            <img src={images.logo} alt="Be a Seedling" className="h-10 w-10 object-contain" />
-            <span className="font-serif text-xl font-semibold text-foreground">Be a Seedling</span>
+    <div className="min-h-screen bg-background selection:bg-primary/20 selection:text-primary">
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          <a href="/" className="flex items-center gap-3 group">
+            <img src={images.logo} alt="Be a Seedling" className="h-12 w-12 object-contain group-hover:scale-105 transition-transform" />
+            <span className="font-serif text-2xl font-bold text-primary tracking-tight">Be a Seedling</span>
           </a>
-          <a href="/" className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+          <a href="/" className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4" />
             Back to Home
           </a>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 bg-card border-b border-border/50">
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 md:pt-40 md:pb-32 bg-background relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            className="max-w-3xl"
-          >
-            <motion.div variants={fadeUp} className="flex items-center gap-2 mb-6">
-              <span className="h-px w-8 bg-primary" />
-              <span className="text-primary font-bold tracking-widest uppercase text-sm">Evidence of Change</span>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            {/* Prose */}
+            <motion.div className="lg:col-span-6" variants={stagger} initial="hidden" animate="visible">
+              <motion.span variants={fadeUp} className="text-amber-600 font-bold tracking-widest uppercase text-sm mb-4 block">
+                Our Impact
+              </motion.span>
+              <motion.h1 variants={fadeUp} className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6">
+                Evidence of <br/>Change.
+              </motion.h1>
+              <motion.div variants={fadeUp} className="border-l-4 border-amber-500 pl-6 py-2 my-8">
+                <p className="font-serif text-2xl italic text-foreground/90 leading-snug">
+                  "We are committed to measuring, reporting, and learning from our work with absolute transparency."
+                </p>
+              </motion.div>
+              <motion.p variants={fadeUp} className="text-lg text-muted-foreground font-light leading-relaxed max-w-lg">
+                This page documents our community impact — with honesty about what we know and what we are still working to measure. We believe in sharing our journey as we build capacity to monitor long-term outcomes in Marsabit County.
+              </motion.p>
             </motion.div>
-            <motion.h1 variants={fadeUp} className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6">
-              Impact &amp; Results
-            </motion.h1>
-            <motion.p variants={fadeUp} className="text-xl text-muted-foreground font-light leading-relaxed max-w-2xl">
-              We are committed to measuring, reporting, and learning from our work. This page documents our community impact — with honesty about what we know and what we are still working to measure.
-            </motion.p>
+            
+            {/* Report Card */}
+            <motion.div 
+              className="lg:col-span-6" 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }} 
+              animate={{ opacity: 1, scale: 1, y: 0 }} 
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="relative bg-primary text-primary-foreground p-8 md:p-12 rounded-[2rem] shadow-2xl overflow-hidden flex flex-col justify-between min-h-[550px]">
+                {/* Dotted pattern decoration */}
+                <div 
+                  className="absolute top-0 right-0 w-72 h-72 opacity-30 pointer-events-none"
+                  style={{
+                    backgroundImage: "radial-gradient(circle, white 2px, transparent 2.5px)",
+                    backgroundSize: "16px 16px",
+                    maskImage: "radial-gradient(circle, black 20%, transparent 70%)",
+                    WebkitMaskImage: "radial-gradient(circle, black 20%, transparent 70%)"
+                  }}
+                />
+                
+                <div className="relative z-10">
+                  <h3 className="font-serif text-3xl md:text-4xl font-bold mb-4 uppercase tracking-wide">Annual Report Card</h3>
+                  <p className="text-primary-foreground/90 text-lg leading-relaxed mb-6 font-light max-w-sm">
+                    A snapshot of our cumulative reach across Marsabit County. We focus our resources where they create the most <span className="text-amber-400 font-medium">enduring value</span>.
+                  </p>
+                </div>
+
+                <div className="relative z-10 mt-12 pt-8 border-t border-primary-foreground/20">
+                  <div className="grid grid-cols-2 gap-8 mb-10">
+                    <div>
+                      <div className="font-serif text-5xl md:text-6xl font-bold mb-2 text-white"><Counter value={5} suffix=" ha" /></div>
+                      <div className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-amber-400">Forest Restored</div>
+                    </div>
+                    <div>
+                      <div className="font-serif text-5xl md:text-6xl font-bold mb-2 text-white"><Counter value={500} suffix="+" /></div>
+                      <div className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-amber-400">Families Educated</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    <span className="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 text-primary-foreground backdrop-blur-sm">Education</span>
+                    <span className="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 text-primary-foreground backdrop-blur-sm">Environment</span>
+                    <span className="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 text-primary-foreground backdrop-blur-sm">Protection</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Full-width Stat Ribbon */}
+      <section className="py-16 bg-muted/30 border-y border-border/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, margin: "-50px" }}
+            variants={stagger}
+            className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-0 md:divide-x divide-border/50"
+          >
+            <motion.div variants={fadeUp} className="text-center px-4">
+              <div className="font-serif text-4xl md:text-5xl font-bold text-primary mb-2"><Counter value={150} suffix="+" /></div>
+              <div className="text-xs font-bold tracking-widest uppercase text-muted-foreground">Students Supported</div>
+            </motion.div>
+            <motion.div variants={fadeUp} className="text-center px-4">
+              <div className="font-serif text-4xl md:text-5xl font-bold text-primary mb-2"><Counter value={500} suffix="+" /></div>
+              <div className="text-xs font-bold tracking-widest uppercase text-muted-foreground">Girls Reached</div>
+            </motion.div>
+            <motion.div variants={fadeUp} className="text-center px-4">
+              <div className="font-serif text-4xl md:text-5xl font-bold text-primary mb-2"><Counter value={10000} suffix="+" /></div>
+              <div className="text-xs font-bold tracking-widest uppercase text-muted-foreground">Trees Planted</div>
+            </motion.div>
+            <motion.div variants={fadeUp} className="text-center px-4">
+              <div className="font-serif text-4xl md:text-5xl font-bold text-primary mb-2"><Counter value={20} suffix="+" /></div>
+              <div className="text-xs font-bold tracking-widest uppercase text-muted-foreground">Villages Engaged</div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Impact Statistics */}
+      {/* Programme Results by Pillar */}
       <section className="py-24 md:py-32 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="mb-16"
+            className="mb-16 max-w-3xl"
           >
-            <motion.span variants={fadeUp} className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">
-              Our Numbers
-            </motion.span>
+            <motion.span variants={fadeUp} className="text-amber-600 font-bold tracking-widest uppercase text-sm mb-4 block">Programme Results</motion.span>
             <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-bold text-foreground leading-[1.1]">
-              Community impact at a glance
+              Impact by Pillar
             </motion.h2>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {impactStats.map((stat) => (
-              <motion.div key={stat.label} variants={fadeUp}>
-                <Card className={`h-full border border-border/50 rounded-3xl transition-all duration-300 ${stat.available ? 'hover:shadow-xl hover:shadow-primary/5' : 'opacity-70'}`}>
-                  <CardContent className="p-8">
-                    <div className={`w-14 h-14 rounded-2xl ${stat.color} flex items-center justify-center mb-6`}>
-                      <stat.icon className="h-7 w-7" strokeWidth={1.5} />
-                    </div>
-                    <p className={`font-serif text-3xl font-bold mb-1 ${stat.available ? 'text-foreground' : 'text-muted-foreground text-lg'}`}>
-                      {stat.number}
-                    </p>
-                    <p className="font-bold text-base mb-3">{stat.label}</p>
-                    <p className="text-muted-foreground text-sm leading-relaxed font-light">{stat.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.p
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="text-xs text-muted-foreground text-center mt-8 max-w-xl mx-auto"
-          >
-            * Figures reflect cumulative programme activity. Some metrics are self-reported or estimated. Be a Seedling is committed to strengthening data collection processes over time.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* Environmental Restoration */}
-      <section className="py-24 md:py-32 bg-card border-y border-border/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="mb-16"
-          >
-            <motion.span variants={fadeUp} className="text-secondary font-bold tracking-widest uppercase text-sm mb-4 block">
-              Environmental Restoration
-            </motion.span>
-            <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-bold text-foreground leading-[1.1]">
-              Restoring Marsabit's landscapes
-            </motion.h2>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="grid md:grid-cols-3 gap-6"
-          >
-            {environmentalAchievements.map((item) => (
-              <motion.div key={item.title} variants={fadeUp}>
-                <Card className="h-full border border-border/50 rounded-3xl hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-8">
-                    <div className="flex items-start justify-between mb-4">
-                      <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full ${item.status === 'Completed' ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
-                        {item.status}
+            {pillars.map((pillar, i) => (
+              <motion.div key={i} variants={fadeUp} className="h-full">
+                <Card className={`h-full border border-border/50 rounded-2xl overflow-hidden transition-all duration-300 ${pillar.status === 'Information to be uploaded' ? 'bg-muted/20 opacity-80' : 'bg-card hover:shadow-xl hover:border-primary/20'}`}>
+                  <CardContent className="p-8 flex flex-col h-full">
+                    <div className="mb-6 flex justify-between items-start">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${pillar.status === 'Information to be uploaded' ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'}`}>
+                        <pillar.icon className="w-6 h-6" />
+                      </div>
+                      <span className={`text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full text-right ${pillar.status === 'Information to be uploaded' ? 'bg-muted-foreground/10 text-muted-foreground' : 'bg-amber-400/20 text-amber-700'}`}>
+                        {pillar.status}
                       </span>
                     </div>
-                    <h3 className="font-serif text-xl font-bold mb-3">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed font-light mb-4">{item.description}</p>
-                    <div className="pt-4 border-t border-border/50">
-                      <span className="text-sm font-bold text-primary">{item.metric}</span>
+                    
+                    <h3 className="font-serif text-2xl font-bold mb-3">{pillar.title}</h3>
+                    <p className="text-muted-foreground font-light leading-relaxed flex-grow mb-8">
+                      {pillar.description}
+                    </p>
+                    
+                    <div className="pt-6 border-t border-border/50 mt-auto">
+                      <p className={`font-bold ${pillar.status === 'Information to be uploaded' ? 'text-muted-foreground text-sm' : 'text-primary text-xl'}`}>
+                        {pillar.metric}
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
@@ -261,78 +280,143 @@ export default function Impact() {
         </div>
       </section>
 
-      {/* Measuring Long-Term Change */}
-      <section className="py-24 md:py-32 bg-background">
+      {/* Completed Projects Showcase */}
+      <section className="py-24 md:py-32 bg-card border-y border-border/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
             className="mb-16"
           >
-            <motion.span variants={fadeUp} className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">
-              Long-Term Commitment
-            </motion.span>
-            <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-bold text-foreground leading-[1.1] mb-6">
-              Measuring Long-Term Change
+            <motion.span variants={fadeUp} className="text-amber-600 font-bold tracking-widest uppercase text-sm mb-4 block">Track Record</motion.span>
+            <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-bold text-foreground leading-[1.1]">
+              Completed Projects
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-muted-foreground text-lg font-light max-w-3xl leading-relaxed">
-              Be a Seedling is committed to going beyond counting activities. We are building our capacity to monitor long-term outcomes — the sustainable changes that matter most to the communities we serve. Below are the indicators we track and aspire to measure more rigorously over time.
-            </motion.p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {longTermMetrics.map((metric) => (
-              <motion.div key={metric.title} variants={fadeUp}>
-                <div className="h-full p-8 rounded-3xl bg-card border border-border/50 hover:shadow-xl hover:border-primary/20 transition-all duration-300 group">
-                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                    <metric.icon className="h-7 w-7 text-primary group-hover:text-white transition-colors" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="font-serif text-xl font-bold mb-3">{metric.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed font-light">{metric.description}</p>
-                </div>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+            <motion.div 
+              initial="hidden" 
+              whileInView="visible" 
+              viewport={{ once: true, margin: "-100px" }}
+              variants={stagger}
+              className="order-2 lg:order-1 flex flex-col justify-center"
+            >
+              <div className="divide-y divide-border border-y border-border">
+                {completedProjects.map((proj, i) => (
+                  <motion.div variants={fadeUp} key={i} className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
+                    <div>
+                      <h4 className="font-serif text-xl font-bold text-foreground group-hover:text-primary transition-colors">{proj.title}</h4>
+                      <p className="text-muted-foreground text-sm mt-1">{proj.location}</p>
+                    </div>
+                    <div className="sm:text-right shrink-0">
+                      <span className="inline-block px-4 py-2 bg-amber-400/10 text-amber-700 rounded-full text-sm font-bold tracking-wide">
+                        {proj.impact}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              <motion.div variants={fadeUp} className="border-l-4 border-amber-500 pl-6 py-2 mt-12">
+                <p className="font-serif text-xl italic text-foreground/90">
+                  "Every completed project is a promise kept to the communities we serve."
+                </p>
               </motion.div>
-            ))}
-          </motion.div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="order-1 lg:order-2 relative rounded-[2rem] overflow-hidden min-h-[400px] shadow-xl"
+            >
+              <img src={images.treePlanting} alt="Community action in Marsabit" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Accountability Commitment */}
-      <section className="py-24 md:py-32 bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* How We Measure Change */}
+      <section className="py-24 md:py-32 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              initial="hidden" 
+              whileInView="visible" 
+              viewport={{ once: true, margin: "-100px" }}
+              variants={stagger}
+            >
+              <motion.span variants={fadeUp} className="text-amber-600 font-bold tracking-widest uppercase text-sm mb-4 block">Long-Term Outcomes</motion.span>
+              <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-bold text-foreground leading-[1.1] mb-6">
+                How We Measure Change
+              </motion.h2>
+              <motion.div variants={fadeUp} className="border-l-4 border-amber-500 pl-6 py-2 mb-8">
+                <p className="font-serif text-xl italic text-foreground/90">
+                  "We are building our capacity to monitor long-term outcomes — the sustainable changes that matter most."
+                </p>
+              </motion.div>
+              <motion.p variants={fadeUp} className="text-lg text-muted-foreground font-light leading-relaxed">
+                True impact takes time. Beyond counting initial activities, we are establishing frameworks to track these key indicators over years to understand our effect on systemic poverty and ecosystem health.
+              </motion.p>
+            </motion.div>
+            
+            <motion.div 
+              initial="hidden" 
+              whileInView="visible" 
+              viewport={{ once: true, margin: "-100px" }}
+              variants={stagger}
+              className="flex flex-col gap-4"
+            >
+              {longTermIndicators.map((indicator, i) => (
+                <motion.div variants={fadeUp} key={i} className="flex items-center gap-5 p-5 rounded-2xl bg-card border border-border/50 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <indicator.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <span className="font-serif text-xl font-bold text-foreground">{indicator.label}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Accountability CTA */}
+      <section className="py-24 md:py-32 bg-primary text-primary-foreground relative overflow-hidden">
+        {/* Dotted pattern */}
+        <div 
+          className="absolute bottom-0 left-0 w-full h-full opacity-10 pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle, white 2px, transparent 2.5px)",
+            backgroundSize: "24px 24px",
+            maskImage: "linear-gradient(to top, black, transparent)",
+            WebkitMaskImage: "linear-gradient(to top, black, transparent)"
+          }}
+        />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
           >
-            <motion.div variants={fadeUp} className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-8">
-              <Target className="h-8 w-8 text-white" strokeWidth={1.5} />
-            </motion.div>
-            <motion.h2 variants={fadeUp} className="font-serif text-3xl md:text-4xl font-bold text-white mb-6">
+            <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
               Accountability &amp; Learning
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-white/80 text-lg font-light leading-relaxed mb-8">
-              We are committed to community participation, transparent feedback mechanisms, and continuous learning. Our monitoring and evaluation systems are evolving — we regularly review our programmes and adapt based on community feedback and evidence.
+            <motion.p variants={fadeUp} className="text-primary-foreground/90 text-xl font-light leading-relaxed mb-12 max-w-2xl mx-auto">
+              We regularly review our programmes and adapt based on community feedback. Review our governance structures and financial transparency.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/governance">
-                <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 rounded-full px-8 h-12">
-                  View Governance &amp; Transparency
-                  <ChevronRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <a href={`mailto:${contactInfo.email}`}>
-                <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-full px-8 h-12">
-                  Contact Us
-                </Button>
+              <a href="/governance" className="inline-flex items-center justify-center h-14 px-8 rounded-full bg-white text-primary font-bold hover:bg-white/90 transition-colors shadow-lg shadow-black/10">
+                Governance &amp; Transparency
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </a>
+              <a href={`mailto:${contactInfo.email}`} className="inline-flex items-center justify-center h-14 px-8 rounded-full border-2 border-white/30 text-white font-bold hover:bg-white/10 transition-colors">
+                Contact Us
               </a>
             </motion.div>
           </motion.div>
@@ -342,10 +426,10 @@ export default function Impact() {
       {/* Footer */}
       <footer className="py-10 bg-card border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground font-light">
             Registered Community-Based Organization (CBO) under the Ministry of Labour and Social Protection, Marsabit County, Kenya.
           </p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground font-light">
             © {new Date().getFullYear()} Be a Seedling. All rights reserved.
           </p>
         </div>
