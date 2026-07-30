@@ -503,6 +503,14 @@ export default function Home() {
                   className="w-full h-full object-cover"
                 />
               </div>
+              {/* Team in the field — offset card */}
+              <div className="absolute -bottom-6 -right-6 w-44 h-44 rounded-2xl overflow-hidden shadow-xl border-4 border-background">
+                <img
+                  src={images.teamCommunity}
+                  alt="Be a Seedling team with community members in Marsabit"
+                  className="w-full h-full object-cover blur-[1px] scale-105"
+                />
+              </div>
             </motion.div>
 
             <motion.div variants={fadeUp} className="order-1 lg:order-2">
@@ -1003,8 +1011,8 @@ export default function Home() {
             className="mb-16"
           >
             <div className="relative rounded-3xl overflow-hidden bg-foreground text-background p-8 md:p-12">
-              <div className="absolute inset-0 opacity-10">
-                <img src={images.community} alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 opacity-20">
+                <img src={images.beadwork} alt="" className="w-full h-full object-cover blur-sm" />
               </div>
               <div className="relative z-10">
                 <div className="flex flex-wrap items-center gap-3 mb-5">
@@ -1305,7 +1313,15 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 md:py-32 bg-background border-t border-border/50" id="contact">
+      <section className="relative py-24 md:py-32 bg-background border-t border-border/50 overflow-hidden" id="contact">
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src={images.communityGift}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover blur-xl opacity-[0.07]"
+          />
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"

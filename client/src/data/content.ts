@@ -11,6 +11,9 @@ import davidImage from "@assets/Image-empty-state_1768832269234.jpg";
 import logoImage from "@assets/generated_images/seedling_nonprofit_logo_design.png";
 import martinImage from "@assets/martin_korleyte.jpeg";
 import davidNewImage from "@assets/david_leparporori.jpeg";
+import communityGiftImage from "@assets/WhatsApp_Image_2026-07-13_at_13.48.58_1785394092115.jpeg";
+import teamCommunityImage from "@assets/WhatsApp_Image_2026-07-13_at_13.48.58_(1)_1785394092116.jpeg";
+import beadworkImage from "@assets/WhatsApp_Image_2026-07-13_at_13.49.07_1785394092116.jpeg";
 
 // ==============================================================================
 // SITE CONFIGURATION & CONTENT
@@ -56,6 +59,10 @@ export const images = {
   eleonora: eleonoraImage,
   david: davidImage,
   logo: logoImage,
+  // New field photos (July 2026)
+  communityGift: communityGiftImage,   // Community donation distribution
+  teamCommunity: teamCommunityImage,   // Team with pastoralist family
+  beadwork: beadworkImage,             // Rendille beadwork / crafts market
 };
 
 // 4. TEAM MEMBERS
