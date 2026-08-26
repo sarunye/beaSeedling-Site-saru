@@ -12,6 +12,12 @@ import {
 } from "lucide-react";
 import { paymentInfo } from "@/data/content";
 
+const KES_PER_USD = 130;
+
+const formatKes = (value: string) => Number(value).toLocaleString();
+const formatUsd = (value: string) =>
+  Math.round(Number(value) / KES_PER_USD).toLocaleString();
+
 export function DonateModal() {
   const [step, setStep] = useState<'details' | 'success'>('details');
   const [amount, setAmount] = useState('');
@@ -26,6 +32,9 @@ export function DonateModal() {
   ];
 
   const selectedPreset = presetAmounts.find(p => p.value === amount);
+  const amountLabel = amount
+    ? `KES ${formatKes(amount)} (≈ USD ${formatUsd(amount)})`
+    : 'Your donation';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +50,7 @@ export function DonateModal() {
           </div>
           <h2 className="font-serif text-3xl font-bold mb-3 text-foreground">Thank You!</h2>
           <p className="text-lg font-medium text-primary mb-4">
-            {amount ? `Your donation of KES ${Number(amount).toLocaleString()}` : 'Your donation'} is appreciated.
+            {amount ? `Your donation of ${amountLabel}` : 'Your donation'} is appreciated.
           </p>
           <div className="w-full bg-card rounded-2xl border border-border/50 p-5 text-left mb-6">
             <p className="text-sm font-bold mb-3">Next step — make your bank transfer:</p>
@@ -98,6 +107,9 @@ export function DonateModal() {
         {/* Impact examples */}
         <div className="space-y-3">
           <Label className="text-base font-semibold">Choose an amount</Label>
+          <p className="text-xs text-muted-foreground">
+            USD equivalents are whole-number estimates using KES 130 = USD 1. Please make your bank transfer in KES.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {presetAmounts.map((preset) => (
               <button
@@ -106,7 +118,9 @@ export function DonateModal() {
                 className={`p-4 text-left rounded-2xl border transition-all ${amount === preset.value ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-input hover:border-primary/40 hover:bg-accent'}`}
                 onClick={() => setAmount(preset.value)}
               >
-                <p className="font-bold text-sm text-foreground">{preset.label}</p>
+                <p className="font-bold text-sm text-foreground">
+                  {preset.label} <span className="font-semibold text-primary">≈ USD {formatUsd(preset.value)}</span>
+                </p>
                 <p className="text-xs text-muted-foreground mt-1 leading-snug">{preset.impact}</p>
               </button>
             ))}
@@ -123,6 +137,11 @@ export function DonateModal() {
               min="100"
             />
           </div>
+          {amount && !selectedPreset && (
+            <p className="text-xs text-muted-foreground">
+              Approximate equivalent: <strong>USD {formatUsd(amount)}</strong>
+            </p>
+          )}
 
           {selectedPreset && (
             <div className="flex items-start gap-2 text-xs text-muted-foreground bg-primary/5 border border-primary/10 rounded-xl p-3">
@@ -184,7 +203,7 @@ export function DonateModal() {
           disabled={!amount || !donorName}
         >
           <Heart className="w-5 h-5 fill-current mr-2" />
-          Confirm Donation{amount ? ` of KES ${Number(amount).toLocaleString()}` : ''}
+          Confirm Donation{amount ? ` of ${amountLabel}` : ''}
         </Button>
       </form>
     </DialogContent>
