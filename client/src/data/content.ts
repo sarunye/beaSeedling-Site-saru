@@ -23,7 +23,7 @@ import beadworkImage from "@assets/WhatsApp_Image_2026-07-13_at_13.49.07_1785394
 // 1. CONTACT INFORMATION
 export const contactInfo = {
   email: "beaseedling.mbt@gmail.com",
-  phone: "0712 345 678", // Add phone number if available
+  phone: null, // Add a verified phone number when available
   address: "Marsabit County, Kenya",
   socials: {
     facebook: "https://facebook.com/beaseedling",
@@ -37,14 +37,15 @@ export const contactInfo = {
 // 2. PAYMENT & DONATION ACCOUNTS
 export const paymentInfo = {
   mpesa: {
-    paybill: "123456", // Replace with actual Paybill
-    account: "Donation"
+    available: false,
+    note: "Mobile money details are to be verified before publishing."
   },
   bank: {
     bankName: "Equity Bank Kenya",
     branch: "Marsabit",
     accountName: "beaseedling",
     accountNumber: "1010183178568", 
+    confirmationEmail: "beaseedling.mbt@gmail.com",
   }
 };
 

@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { images, contactInfo } from "@/data/content";
 
 const fadeUp = {
@@ -94,6 +96,12 @@ const collaborationOpportunities = [
 export default function Partner() {
   const [selectedPartner, setSelectedPartner] = useState(0);
   const [selectedOpportunities, setSelectedOpportunities] = useState<string[]>([]);
+  const [inquiry, setInquiry] = useState({
+    organization: "",
+    name: "",
+    email: "",
+    message: "",
+  });
 
   const toggleOpportunity = (opportunity: string) => {
     setSelectedOpportunities((current) =>
@@ -106,6 +114,19 @@ export default function Partner() {
   const inquirySubject = selectedOpportunities.length
     ? `Partnership Inquiry — ${selectedOpportunities.join(", ")}`
     : "Partnership Inquiry — Be a Seedling";
+
+  const handleInquirySubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const body = [
+      `Organisation: ${inquiry.organization}`,
+      `Contact person: ${inquiry.name}`,
+      `Email: ${inquiry.email}`,
+      `Collaboration areas: ${selectedOpportunities.join(", ") || "General partnership enquiry"}`,
+      "",
+      inquiry.message,
+    ].join("\n");
+    window.location.href = `mailto:${contactInfo.email}?subject=${encodeURIComponent(inquirySubject)}&body=${encodeURIComponent(body)}`;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -138,7 +159,7 @@ export default function Partner() {
               We believe the challenges facing pastoralist communities in Marsabit County require diverse skills, resources, and partnerships. We are actively seeking partners who share our commitment to community-led, sustainable development.
             </motion.p>
             <motion.div variants={fadeUp} className="mt-8">
-              <a href={`mailto:${contactInfo.email}?subject=Partnership Inquiry`}>
+              <a href="#partner-inquiry">
                 <Button size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8 h-14 text-base shadow-xl">
                   Contact Us to Explore Partnership Opportunities
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -404,6 +425,46 @@ export default function Partner() {
         </div>
       </section>
 
+      {/* Partnership inquiry */}
+      <section id="partner-inquiry" className="py-24 md:py-32 bg-background border-t border-border/50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+            <motion.div variants={fadeUp} className="mb-10">
+              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Start a conversation</span>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">Tell us how you would like to work together</h2>
+              <p className="text-muted-foreground text-lg font-light leading-relaxed max-w-2xl">
+                Share a few details and your email app will open with a prepared enquiry. No information is stored on this website.
+              </p>
+            </motion.div>
+            <motion.form variants={fadeUp} onSubmit={handleInquirySubmit} className="grid sm:grid-cols-2 gap-5 rounded-3xl bg-card border border-border/50 p-6 md:p-8">
+              <div className="space-y-2">
+                <label htmlFor="partner-organization" className="text-sm font-semibold">Organisation or institution</label>
+                <Input id="partner-organization" value={inquiry.organization} onChange={(event) => setInquiry({ ...inquiry, organization: event.target.value })} placeholder="Your organisation" required className="h-12 rounded-xl" />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="partner-name" className="text-sm font-semibold">Your name</label>
+                <Input id="partner-name" value={inquiry.name} onChange={(event) => setInquiry({ ...inquiry, name: event.target.value })} placeholder="Contact person" required className="h-12 rounded-xl" />
+              </div>
+              <div className="space-y-2 sm:col-span-2">
+                <label htmlFor="partner-email" className="text-sm font-semibold">Email address</label>
+                <Input id="partner-email" type="email" value={inquiry.email} onChange={(event) => setInquiry({ ...inquiry, email: event.target.value })} placeholder="you@example.org" required className="h-12 rounded-xl" />
+              </div>
+              <div className="space-y-2 sm:col-span-2">
+                <label htmlFor="partner-message" className="text-sm font-semibold">How could we collaborate?</label>
+                <Textarea id="partner-message" value={inquiry.message} onChange={(event) => setInquiry({ ...inquiry, message: event.target.value })} placeholder="Tell us about your idea, resources, or area of interest" required className="min-h-32 rounded-xl" />
+              </div>
+              <div className="sm:col-span-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <p className="text-xs text-muted-foreground">Selected areas: {selectedOpportunities.length ? selectedOpportunities.join(" • ") : "General partnership enquiry"}</p>
+                <Button type="submit" className="rounded-full px-7 h-12 bg-primary hover:bg-primary/90">
+                  Prepare Email Enquiry
+                  <Mail className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </motion.form>
+          </motion.div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-24 md:py-32 bg-primary text-primary-foreground">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -415,7 +476,7 @@ export default function Partner() {
               We welcome enquiries from all types of organizations and individuals. Whether you have a specific partnership in mind or simply want to explore possibilities, we'd love to hear from you.
             </motion.p>
             <motion.div variants={fadeUp}>
-              <a href={`mailto:${contactInfo.email}?subject=Partnership Inquiry — Be a Seedling`}>
+              <a href="#partner-inquiry">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-full px-10 h-14 text-base font-bold shadow-xl">
                   <Mail className="mr-2 h-5 w-5" />
                   Contact Us to Explore Partnership Opportunities

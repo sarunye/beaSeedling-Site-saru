@@ -8,7 +8,10 @@ import {
   Heart, 
   Banknote, 
   Info,
-  AlertCircle
+  AlertCircle,
+  Check,
+  Copy,
+  Mail
 } from "lucide-react";
 import { paymentInfo } from "@/data/content";
 
@@ -23,6 +26,8 @@ export function DonateModal() {
   const [amount, setAmount] = useState('');
   const [donorName, setDonorName] = useState('');
   const [donorEmail, setDonorEmail] = useState('');
+  const [accountCopied, setAccountCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const presetAmounts = [
     { value: '1500', label: 'KES 1,500', impact: 'May help support menstrual hygiene materials for learners' },
@@ -35,10 +40,22 @@ export function DonateModal() {
   const amountLabel = amount
     ? `KES ${formatKes(amount)} (≈ USD ${formatUsd(amount)})`
     : 'Your donation';
+  const confirmationEmailHref = `mailto:${paymentInfo.bank.confirmationEmail}?subject=${encodeURIComponent("Donation Transfer Confirmation")}&body=${encodeURIComponent(`Hello Be a Seedling,\n\nI have made a donation by bank transfer.\n\nName: ${donorName}\nAmount: ${amountLabel}\n\nPlease find my transfer confirmation attached.\n\nThank you.`)}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStep('success');
+  };
+
+  const handleCopyAccount = async () => {
+    try {
+      await navigator.clipboard.writeText(paymentInfo.bank.accountNumber);
+      setAccountCopied(true);
+      setCopyError(false);
+      window.setTimeout(() => setAccountCopied(false), 2200);
+    } catch {
+      setCopyError(true);
+    }
   };
 
   if (step === 'success') {
@@ -78,9 +95,15 @@ export function DonateModal() {
             </div>
           </div>
           <p className="text-xs text-muted-foreground mb-6">
-            Please email <strong>beaseedling.mbt@gmail.com</strong> with your transfer confirmation so we can acknowledge your gift.
+            Please email <strong>{paymentInfo.bank.confirmationEmail}</strong> with your transfer confirmation so we can acknowledge your gift.
           </p>
           <div className="w-full space-y-3">
+            <a href={confirmationEmailHref} className="block">
+              <Button type="button" variant="outline" className="w-full rounded-full">
+                <Mail className="mr-2 h-4 w-4" />
+                Email Transfer Confirmation
+              </Button>
+            </a>
             <Button onClick={() => { setStep('details'); setAmount(''); setDonorName(''); setDonorEmail(''); }} variant="outline" className="w-full rounded-full">
               Make Another Donation
             </Button>
@@ -184,16 +207,35 @@ export function DonateModal() {
             <span className="text-slate-900">{paymentInfo.bank.branch}</span>
             <span className="font-medium">Account:</span>
             <span className="text-slate-900">{paymentInfo.bank.accountName}</span>
-            <span className="font-medium">Acc No:</span>
-            <span className="text-slate-900 font-mono bg-white px-2 py-0.5 rounded border border-slate-200">{paymentInfo.bank.accountNumber}</span>
+             <span className="font-medium">Acc No:</span>
+             <span className="flex flex-wrap items-center gap-2">
+               <span className="text-slate-900 font-mono bg-white px-2 py-0.5 rounded border border-slate-200">{paymentInfo.bank.accountNumber}</span>
+               <button
+                 type="button"
+                 onClick={() => void handleCopyAccount()}
+                 className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded"
+                 aria-label="Copy bank account number"
+               >
+                 {accountCopied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                 {accountCopied ? "Copied" : "Copy"}
+               </button>
+             </span>
           </div>
+            {copyError && (
+              <p className="mt-3 text-xs text-destructive">
+                We could not copy the account number. Please select and copy it manually.
+              </p>
+            )}
+            <p className="mt-4 text-xs text-slate-600">
+              Use your name as the transfer reference. Bank transfers should be made in KES.
+            </p>
         </div>
 
         {/* Note about future payment options */}
         <div className="flex items-start gap-2 text-xs text-muted-foreground">
           <AlertCircle className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground" />
           <span>
-            We currently accept donations via bank transfer only. <strong>Additional digital payment options will be introduced in future.</strong> After transferring, please email us your confirmation at beaseedling.mbt@gmail.com.
+            We currently accept donations via bank transfer only. <strong>Additional digital payment options will be introduced in future.</strong> After transferring, please email us your confirmation at {paymentInfo.bank.confirmationEmail}.
           </span>
         </div>
 
@@ -203,7 +245,7 @@ export function DonateModal() {
           disabled={!amount || !donorName}
         >
           <Heart className="w-5 h-5 fill-current mr-2" />
-          Confirm Donation{amount ? ` of ${amountLabel}` : ''}
+          Continue with bank transfer{amount ? ` of ${amountLabel}` : ''}
         </Button>
       </form>
     </DialogContent>

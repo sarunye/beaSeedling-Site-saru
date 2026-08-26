@@ -286,6 +286,13 @@ export default function Governance() {
               <div className="mt-6 p-6 rounded-2xl bg-background border border-border/50">
                 <p className="text-sm font-semibold text-foreground mb-1">Annual Financial Reports</p>
                 <p className="text-sm text-muted-foreground italic">Information to be uploaded. Financial summaries will be published here as they become available.</p>
+                <a
+                  href={`mailto:${contactInfo.email}?subject=${encodeURIComponent("Request for Financial Summary")}`}
+                  className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded"
+                >
+                  Request available information
+                  <ChevronRight className="h-4 w-4" />
+                </a>
               </div>
             </motion.div>
           </motion.div>

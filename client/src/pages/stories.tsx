@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "wouter";
 import {
   ArrowLeft, BookOpen, GraduationCap, TreePine, Heart,
-  Users, Lightbulb, ArrowRight, ChevronRight, Star
+  Users, Lightbulb, ArrowRight, ChevronRight, Star, Share2, Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -107,8 +106,40 @@ const stories: Story[] = [
 
 export default function Stories() {
   const [activeCategory, setActiveCategory] = useState<Category>("all");
+  const [sharedStoryId, setSharedStoryId] = useState<string | null>(null);
 
   const filtered = stories.filter(s => activeCategory === "all" || s.category === activeCategory);
+
+  useEffect(() => {
+    const storyId = window.location.hash.replace("#story-", "");
+    const linkedStory = stories.find((story) => story.id === storyId);
+    if (linkedStory) {
+      setActiveCategory(linkedStory.category);
+      window.setTimeout(() => {
+        document.getElementById(`story-${linkedStory.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
+    }
+  }, []);
+
+  const handleShare = async (story: Story) => {
+    const shareUrl = `${window.location.origin}/stories#story-${story.id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: story.title, text: story.outcome, url: shareUrl });
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+      }
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setSharedStoryId(story.id);
+      window.setTimeout(() => setSharedStoryId(null), 2200);
+    } catch {
+      window.prompt("Copy this story link:", shareUrl);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -151,6 +182,8 @@ export default function Stories() {
             {categories.map((cat) => (
               <button
                 key={cat.id}
+                type="button"
+                aria-pressed={activeCategory === cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   activeCategory === cat.id
@@ -179,7 +212,7 @@ export default function Stories() {
               className="grid md:grid-cols-2 gap-8"
             >
               {filtered.map((story) => (
-                <Card key={story.id} className={`border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 ${story.isPlaceholder ? 'opacity-60 border-dashed' : 'border-border/50'}`}>
+                <Card id={`story-${story.id}`} key={story.id} className={`scroll-mt-40 border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 ${story.isPlaceholder ? 'opacity-60 border-dashed' : 'border-border/50'}`}>
                   <CardContent className="p-0">
                     {/* Category tag */}
                     <div className="p-6 pb-0">
@@ -193,7 +226,18 @@ export default function Stories() {
                     </div>
 
                     <div className="p-6">
-                      <h3 className="font-serif text-2xl font-bold text-foreground mb-5">{story.title}</h3>
+                       <div className="flex items-start justify-between gap-4 mb-5">
+                         <h3 className="font-serif text-2xl font-bold text-foreground">{story.title}</h3>
+                         <button
+                           type="button"
+                           onClick={() => void handleShare(story)}
+                           className="inline-flex items-center gap-1.5 shrink-0 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                           aria-label={`Share ${story.title}`}
+                         >
+                           {sharedStoryId === story.id ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
+                           {sharedStoryId === story.id ? "Link copied" : "Share"}
+                         </button>
+                       </div>
 
                       {/* Story structure */}
                       <div className="space-y-4">
