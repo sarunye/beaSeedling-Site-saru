@@ -77,7 +77,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   const [videos, setVideos] = useState<VideoItem[]>(initialVideos);
   const [blogs, setBlogs] = useState<BlogPost[]>(initialBlogs);
   const [stories, setStories] = useState<Story[]>(initialStories as Story[]);
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(initialTeamMembers.map(t => ({ ...t, id: Math.random().toString(36).substr(2, 9) })));
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(initialTeamMembers.map(t => ({ ...t, featured: t.featured ?? false, id: Math.random().toString(36).substr(2, 9) })));
   const [upcomingProjects, setUpcomingProjects] = useState<Project[]>(initialUpcomingProjects.map(p => ({ ...p, id: Math.random().toString(36).substr(2, 9) })));
   const [completedProjects, setCompletedProjects] = useState<Project[]>(initialCompletedProjects.map(p => ({ ...p, id: Math.random().toString(36).substr(2, 9) })));
 

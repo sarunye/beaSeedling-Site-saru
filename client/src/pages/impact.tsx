@@ -16,7 +16,7 @@ import { images, contactInfo } from "@/data/content";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as const } }
 };
 
 const stagger = {
@@ -108,6 +108,8 @@ const longTermIndicators = [
 ];
 
 export default function Impact() {
+  const [selectedPillar, setSelectedPillar] = useState(0);
+
   return (
     <div className="min-h-screen bg-background selection:bg-primary/20 selection:text-primary">
       {/* Navbar */}
@@ -251,7 +253,19 @@ export default function Impact() {
           >
             {pillars.map((pillar, i) => (
               <motion.div key={i} variants={fadeUp} className="h-full">
-                <Card className={`h-full border border-border/50 rounded-2xl overflow-hidden transition-all duration-300 ${pillar.status === 'Information to be uploaded' ? 'bg-muted/20 opacity-80' : 'bg-card hover:shadow-xl hover:border-primary/20'}`}>
+                <Card
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={selectedPillar === i}
+                  onClick={() => setSelectedPillar(i)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setSelectedPillar(i);
+                    }
+                  }}
+                  className={`h-full cursor-pointer border rounded-2xl overflow-hidden transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${selectedPillar === i ? 'border-primary ring-1 ring-primary/30 shadow-xl' : 'border-border/50'} ${pillar.status === 'Information to be uploaded' ? 'bg-muted/20 opacity-80' : 'bg-card hover:shadow-xl hover:border-primary/20'}`}
+                >
                   <CardContent className="p-8 flex flex-col h-full">
                     <div className="mb-6 flex justify-between items-start">
                       <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${pillar.status === 'Information to be uploaded' ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'}`}>
@@ -276,6 +290,36 @@ export default function Impact() {
                 </Card>
               </motion.div>
             ))}
+          </motion.div>
+
+          <motion.div
+            key={selectedPillar}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mt-8 rounded-3xl bg-primary p-8 md:p-10 text-primary-foreground"
+          >
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+              <div className="max-w-3xl">
+                <p className="text-amber-300 text-xs font-bold tracking-widest uppercase mb-3">
+                  Selected focus area
+                </p>
+                <h3 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+                  {pillars[selectedPillar].title}
+                </h3>
+                <p className="text-white/80 text-lg leading-relaxed font-light">
+                  {pillars[selectedPillar].description}
+                </p>
+              </div>
+              <div className="shrink-0 md:text-right">
+                <p className="text-amber-300 text-xs font-bold tracking-widest uppercase mb-2">
+                  Current result
+                </p>
+                <p className="font-serif text-2xl font-bold text-white">
+                  {pillars[selectedPillar].metric}
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>

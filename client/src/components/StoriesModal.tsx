@@ -69,7 +69,7 @@ export function StoriesModal() {
             </p>
             <div className="flex gap-3 w-full">
               <Button variant="outline" onClick={() => setSubmitted(false)} className="flex-1">Submit Another</Button>
-              <Button onClick={() => setActiveTab("read") || setSubmitted(false)} className="flex-1">Read Stories</Button>
+              <Button onClick={() => { setActiveTab("read"); setSubmitted(false); }} className="flex-1">Read Stories</Button>
             </div>
          </div>
       </DialogContent>

@@ -1,1 +1,2 @@
 - [Be a Seedling site architecture](be-a-seedling-architecture.md) — 6 new pages added; all use plain `<a>` not `<Link><a>` in navbars to avoid nested-anchor hydration errors.
+- [HMR context resets](hmr-context-resets.md) — after editing the shared content provider, restart the workflow if HMR reports a stale provider context.

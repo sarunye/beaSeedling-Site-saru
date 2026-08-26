@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "wouter";
+import { useState } from "react";
 import {
   ArrowLeft, Globe, GraduationCap, TreePine, Heart,
   BookOpen, Users, Lightbulb, MapPin, Mail, ChevronRight,
@@ -92,6 +92,21 @@ const collaborationOpportunities = [
 ];
 
 export default function Partner() {
+  const [selectedPartner, setSelectedPartner] = useState(0);
+  const [selectedOpportunities, setSelectedOpportunities] = useState<string[]>([]);
+
+  const toggleOpportunity = (opportunity: string) => {
+    setSelectedOpportunities((current) =>
+      current.includes(opportunity)
+        ? current.filter((item) => item !== opportunity)
+        : [...current, opportunity]
+    );
+  };
+
+  const inquirySubject = selectedOpportunities.length
+    ? `Partnership Inquiry — ${selectedOpportunities.join(", ")}`
+    : "Partnership Inquiry — Be a Seedling";
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -198,9 +213,21 @@ export default function Partner() {
             variants={stagger}
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {whyPartner.map((item) => (
+            {whyPartner.map((item, index) => (
               <motion.div key={item.title} variants={fadeUp}>
-                <Card className={`h-full border rounded-3xl hover:shadow-xl transition-all duration-300 ${item.featured ? 'border-primary/30 bg-primary/5' : 'border-border/50'}`}>
+                <Card
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={selectedPartner === index}
+                  onClick={() => setSelectedPartner(index)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setSelectedPartner(index);
+                    }
+                  }}
+                  className={`h-full cursor-pointer border rounded-3xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${selectedPartner === index ? 'border-primary ring-1 ring-primary/30 shadow-xl' : item.featured ? 'border-primary/30 bg-primary/5' : 'border-border/50'} hover:shadow-xl`}
+                >
                   <CardContent className="p-8">
                     {item.featured && (
                       <span className="inline-block bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
@@ -213,6 +240,24 @@ export default function Partner() {
                 </Card>
               </motion.div>
             ))}
+          </motion.div>
+
+          <motion.div
+            key={selectedPartner}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mt-8 rounded-3xl bg-primary text-primary-foreground p-8 md:p-10"
+          >
+            <p className="text-amber-300 text-xs font-bold tracking-widest uppercase mb-3">
+              Why this matters
+            </p>
+            <h3 className="font-serif text-3xl font-bold text-white mb-3">
+              {whyPartner[selectedPartner].title}
+            </h3>
+            <p className="text-white/80 text-lg font-light leading-relaxed max-w-3xl">
+              {whyPartner[selectedPartner].description}
+            </p>
           </motion.div>
         </div>
       </section>
@@ -323,15 +368,38 @@ export default function Partner() {
             <motion.div variants={stagger} className="grid sm:grid-cols-2 gap-3">
               {collaborationOpportunities.map((opp) => (
                 <motion.div key={opp} variants={fadeUp}>
-                  <div className="flex items-center gap-3 p-4 rounded-2xl bg-background border border-border/50">
+                  <button
+                    type="button"
+                    aria-pressed={selectedOpportunities.includes(opp)}
+                    onClick={() => toggleOpportunity(opp)}
+                    className={`w-full flex items-center gap-3 p-4 rounded-2xl text-left border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${selectedOpportunities.includes(opp) ? 'bg-primary/10 border-primary/40' : 'bg-background border-border/50 hover:border-primary/30'}`}
+                  >
                     <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                       <ChevronRight className="h-4 w-4 text-primary" />
                     </div>
                     <span className="text-sm font-medium">{opp}</span>
-                  </div>
+                  </button>
                 </motion.div>
               ))}
             </motion.div>
+            <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+              <p className="text-sm text-muted-foreground">
+                {selectedOpportunities.length
+                  ? `${selectedOpportunities.length} collaboration ${selectedOpportunities.length === 1 ? "area" : "areas"} selected`
+                  : "Select the areas you would like to explore"}
+              </p>
+              <a
+                href={`mailto:${contactInfo.email}?subject=${encodeURIComponent(inquirySubject)}`}
+                className={`inline-flex items-center justify-center h-12 px-6 rounded-full font-bold transition-colors ${selectedOpportunities.length ? 'bg-primary text-white hover:bg-primary/90' : 'bg-muted text-muted-foreground'}`}
+                aria-disabled={!selectedOpportunities.length}
+                onClick={(event) => {
+                  if (!selectedOpportunities.length) event.preventDefault();
+                }}
+              >
+                Send Partnership Inquiry
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
